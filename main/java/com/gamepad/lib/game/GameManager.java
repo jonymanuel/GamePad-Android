@@ -17,7 +17,7 @@ import java.util.Random;
  */
 public class GameManager extends View
 {
-    private Game currentGame;
+    private Game currentGame; //peter
 
     public GameManager(Context context)
     {
