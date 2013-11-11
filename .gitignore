@@ -1,6 +1,4 @@
-
-<!-- saved from url=(0064)https://raw.github.com/github/gitignore/master/Android.gitignore -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css"></style></head><body style=""><pre style="word-wrap: break-word; white-space: pre-wrap;"># built application files
+# built application files
 *.apk
 *.ap_
 
@@ -29,4 +27,3 @@ proguard/
 *.ipr
 *.iws
 .idea/
-</pre></body></html>
