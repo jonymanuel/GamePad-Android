@@ -22,6 +22,7 @@ public class Network implements PacketEvent
     private Vector _listeners;
     private NetworkListenerRunnable socketListener;
     private Thread socketListenerThread;
+    private ClientSearchRunnable clientSearchRunnable;
 
     public Network()
     {
@@ -91,7 +92,11 @@ public class Network implements PacketEvent
     {
         Context context = NetworkDebugActivity.getContext();
         Toast.makeText(context, "Starting to search clients", Toast.LENGTH_LONG).show();
-
+        if(clientSearchRunnable == null)
+        {
+            clientSearchRunnable = new ClientSearchRunnable();
+            clientSearchRunnable.run();
+        }
     }
 
     public void sendPacket(Packet packet, NetworkStation station)
