@@ -1,7 +1,5 @@
 package com.gamepad.lib.net;
 
-import android.support.v7.appcompat.R;
-
 import java.util.ArrayList;
 
 /**
