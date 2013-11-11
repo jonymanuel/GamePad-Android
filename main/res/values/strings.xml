@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">GamePad</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="hostgame">Host a game</string>
+    <string name="joingame">Join a game</string>
+    <string name="settings">Settings</string>
+    <string name="title_activity_network_debug">MainActivity</string>
+    <string name="networkDebug">Network Debug</string>
+    <string name="title_activity_activity_test_game">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+</resources>
