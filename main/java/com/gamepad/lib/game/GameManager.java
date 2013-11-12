@@ -86,8 +86,8 @@ public class GameManager extends View
             Paint p = new Paint();
             p.setARGB(0, 0, 0, 0);
             p.setAlpha(255);
-            p.setStrokeWidth(2);
-            c.drawText("There is no game loaded", 20, 20, p);
+            p.setTextSize(30);
+            c.drawText("There is no game loaded", 30.0f, 30.0f, p);
         }
 
     }
