@@ -102,7 +102,6 @@ public class AutoUpdater {
         catch(IOException e){
             Log.e("AutoUpdate", "Error with the download", e);
         }
-        Toast.makeText(MainActivity.getContext(), getGames().get(0).getName(), Toast.LENGTH_LONG).show();
     }
 
     public Boolean hasInternetConnection()

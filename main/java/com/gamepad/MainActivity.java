@@ -18,6 +18,7 @@ public class MainActivity extends Activity
 {
     static GPC gpc;
     static Context appContext;
+    static final AutoUpdater updater = new AutoUpdater();
 
     public static Context getContext()
     {
@@ -42,6 +43,21 @@ public class MainActivity extends Activity
             }
         });
 
+        Button btnSettings = (Button) findViewById(R.id.button_settings);
+        btnSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try
+                {
+                    Toast.makeText(getContext(),updater.getGames().get(0).getName() , Toast.LENGTH_SHORT).show();
+                }
+                catch(Exception ex)
+                {
+                    Toast.makeText(getContext(),"The async task is not ready" , Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         Button btnGameScreen = (Button)findViewById(R.id.button_host);
         btnGameScreen.setOnClickListener(new View.OnClickListener()
         {
@@ -56,14 +72,12 @@ public class MainActivity extends Activity
         AsyncTask task = new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] objects) {
-                AutoUpdater updater = new AutoUpdater();
+
                 updater.getData();
                 return null;
             }
         };
         task.execute();
-
-
     }
 
     private void openGameScreen()
