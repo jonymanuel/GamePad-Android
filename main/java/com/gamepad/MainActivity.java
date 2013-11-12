@@ -2,6 +2,7 @@ package com.gamepad;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.gamepad.lib.GPC;
+import com.gamepad.lib.update.AutoUpdater;
 
 public class MainActivity extends Activity
 {
@@ -51,6 +53,17 @@ public class MainActivity extends Activity
         });
 
         gpc = new GPC();
+        AsyncTask task = new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object[] objects) {
+                AutoUpdater updater = new AutoUpdater();
+                updater.getData();
+                return null;
+            }
+        };
+        task.execute();
+
+
     }
 
     private void openGameScreen()

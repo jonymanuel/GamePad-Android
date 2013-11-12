@@ -18,7 +18,7 @@ import java.net.URL;
 public class VersionChecker {
 
     /* release information(new version) */
-    public static final String INFO_FILE = "https://www.dropbox.com/s/cyf6s0garsmyfzc/AutoUpdateInfo.txt";
+    public static final String INFO_FILE = "https://dl.dropboxusercontent.com/u/19280458/updateInfo.json";
     private int currentVersionCode;         /* code version set in the AndroidManifest.xml file */
     private String currentVersionName;    /*version name in AndroidManifest.xml */
     private int latestVersionCode;      /*last Available version of the application.*/
@@ -43,12 +43,11 @@ public class VersionChecker {
         return stringBuilder.toString();
     }
 
-    public void getData(Context context) {  /* Obtain information about The current version.*/
+    public void getData()
+    {  /* Obtain information about The current version.*/
         try{
             // Local data
-            PackageInfo pckginfo = context.getPackageManager().getPackageInfo(context.getPackageName(),0);
-            currentVersionCode = pckginfo.versionCode;
-            currentVersionName = pckginfo.versionName;
+
 
             /* Remote Info */
             String data = downloadHttp(new URL(INFO_FILE));
@@ -59,9 +58,6 @@ public class VersionChecker {
             Log.d("AutoUpdate", "Data collected successfully");
         }catch(JSONException e){
             Log.e("AutoUpdate", "Error with JSON", e);
-        }
-        catch(NameNotFoundException e){
-            Log.e("AutoUpdate", "Error with the package:S", e);
         }
         catch(IOException e){
             Log.e("AutoUpdate", "Error with the download", e);
