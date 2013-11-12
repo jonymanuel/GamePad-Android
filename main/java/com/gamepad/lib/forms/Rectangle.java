@@ -18,7 +18,7 @@ public class Rectangle
         this.height = height;
     }
 
-    public Boolean Contains(Point point)
+    public Boolean contains(Point point)
     {
        //x range is correct
        if(point.getX() <= x && point.getX() <= x + width)

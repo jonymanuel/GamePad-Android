@@ -1,7 +1,6 @@
 package com.gamepad.lib.forms;
 
 import android.graphics.Canvas;
-import android.graphics.Point;
 
 import java.util.ArrayList;
 
@@ -37,7 +36,10 @@ public class Form {
     {
         for(Integer i = 0;i<controls.size();i++)
         {
-
+            if(controls.get(i).getRectangle().contains(position))
+            {
+                controls.get(i).onClick(position);
+            }
         }
     }
 

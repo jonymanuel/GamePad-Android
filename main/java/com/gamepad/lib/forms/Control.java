@@ -9,10 +9,12 @@ public abstract class Control
 {
     private Rectangle rectangle;
 
-    public Control()
+    public Control(Point location, Size size)
     {
-        rectangle = new Rectangle();
+        rectangle = new Rectangle(location.getX(), location.getY(), size.getWidth(), size.getHeight());
     }
+
+    public abstract void onClick(Point point);
 
     public abstract void draw(Canvas canvas);
 
