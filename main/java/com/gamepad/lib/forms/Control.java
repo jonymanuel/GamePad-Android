@@ -11,7 +11,7 @@ public abstract class Control
 
     public Control()
     {
-        
+        rectangle = new Rectangle();
     }
 
     public abstract void draw(Canvas canvas);

@@ -10,6 +10,14 @@ public class Rectangle
     private Integer width;
     private Integer height;
 
+    public Rectangle(Integer x, Integer y, Integer width, Integer height)
+    {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
+
     public Boolean Contains(Point point)
     {
        //x range is correct
