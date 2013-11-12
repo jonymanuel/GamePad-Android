@@ -21,31 +21,37 @@ public class GameManager extends View
     private Game currentGame;
     private ArrayList<Game> games;
 
+    //initializes a new game manager instance of this class
     public GameManager(Context context)
     {
         super(context);
     }
 
+    //initializes a new game manager instance of this class
     public GameManager(Context context, AttributeSet attrs)
     {
         super(context, attrs);
     }
 
+    //initializes a new game manager instance of this class
     public GameManager(Context context, AttributeSet attrs, int defStyle)
     {
         super(context, attrs, defStyle);
     }
 
+    //gets the currently available games in the game manager
     public ArrayList<Game> getGames()
     {
         return games;
     }
 
+    //gets the currently loaded game of the game manager
     public Game getCurrentGame()
     {
         return currentGame;
     }
 
+    //sets the currently loaded game of the game manager
     public void setCurrentGame(Game g)
     {
         if(currentGame != null)
@@ -55,17 +61,16 @@ public class GameManager extends View
         currentGame = g;
         currentGame.initialize();
     }
-    private float x,y;
-    private int r,g,b;
-    Random rnd = new Random();
 
     @Override
     public boolean onTouchEvent(MotionEvent me)
     {
-        x = me.getX();
-        y = me.getY();
+        //what to do with the touch event
+        /*
+        me.getX();
+        me.getY();
 
-        this.invalidate();
+        this.invalidate();*/
         return true;
     }
 
@@ -79,10 +84,10 @@ public class GameManager extends View
         else
         {
             Paint p = new Paint();
-            p.setARGB(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255));
+            p.setARGB(0, 0, 0, 0);
             p.setAlpha(255);
-            p.setStrokeWidth(50);
-            c.drawLine(10, 10, x, y, p);
+            p.setStrokeWidth(2);
+            c.drawText("There is no game loaded", 20, 20, p);
         }
 
     }
