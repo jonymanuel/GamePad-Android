@@ -7,32 +7,19 @@ import android.graphics.Canvas;
  */
 public abstract class Control
 {
-    private Integer x;
-    private Integer y;
-    private Integer width;
-    private Integer height;
+    private Rectangle rectangle;
+
+    public Control()
+    {
+        
+    }
 
     public abstract void draw(Canvas canvas);
 
     public abstract void update();
 
-    public Integer getX()
+    public Rectangle getRectangle()
     {
-        return x;
-    }
-
-    public Integer getY()
-    {
-        return y;
-    }
-
-    public Integer getHeight()
-    {
-        return height;
-    }
-
-    public Integer getWidth()
-    {
-        return width;
+        return rectangle;
     }
 }

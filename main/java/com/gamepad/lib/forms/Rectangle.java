@@ -18,7 +18,7 @@ public class Rectangle
             //y range is correct
            if(point.getY() <= y && point.getY() <= y + height)
            {
-            return true;
+                return true;
            }
        }
        return false;
