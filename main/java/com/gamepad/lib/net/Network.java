@@ -24,6 +24,7 @@ public class Network implements PacketEvent
     private Thread socketListenerThread;
     private ClientSearchRunnable clientSearchRunnable;
 
+    //creates a new instance of the network class
     public Network()
     {
         Log.d("Network", "Starting SocketListener");
@@ -33,11 +34,13 @@ public class Network implements PacketEvent
         socketListener.addPacketEventListener(this);
     }
 
+    //the method that gets fired if a new packet arrives
     public void newPacket(Packet packet)
     {
         firePacketEvent(packet);
     }
 
+    //add a new method to get fired if a new packet arrives
     public void addPacketEventListener(PacketEvent listener)
     {
         if (_listeners == null)
@@ -47,6 +50,7 @@ public class Network implements PacketEvent
         _listeners.addElement(listener);
     }
 
+    //fires the packet event and triggers all methods that are hooked into the event
     protected void firePacketEvent(Packet packet)
     {
         if (_listeners != null && _listeners.isEmpty())
@@ -60,6 +64,7 @@ public class Network implements PacketEvent
         }
     }
 
+    //gets the local ip of the mobile phone
     public String getLocalIp(){
         String ipAddress = null;
         Enumeration<NetworkInterface> net = null;
@@ -88,10 +93,9 @@ public class Network implements PacketEvent
         return ipAddress;
     }
 
+    //starts a new search for clients
     public void startSearchClients()
     {
-        Context context = NetworkDebugActivity.getContext();
-        Toast.makeText(context, "Starting to search clients", Toast.LENGTH_LONG).show();
         if(clientSearchRunnable == null)
         {
             clientSearchRunnable = new ClientSearchRunnable();
@@ -99,6 +103,7 @@ public class Network implements PacketEvent
         }
     }
 
+    //sends a given packet to a given networkstation
     public void sendPacket(Packet packet, NetworkStation station)
     {
         SendPacketRunnable runnable = new SendPacketRunnable();
