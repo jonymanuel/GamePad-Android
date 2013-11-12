@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -17,7 +18,8 @@ import java.util.Random;
  */
 public class GameManager extends View
 {
-    private Game currentGame; //peter
+    private Game currentGame;
+    private ArrayList<Game> games;
 
     public GameManager(Context context)
     {
@@ -32,6 +34,11 @@ public class GameManager extends View
     public GameManager(Context context, AttributeSet attrs, int defStyle)
     {
         super(context, attrs, defStyle);
+    }
+
+    public ArrayList<Game> getGames()
+    {
+        return games;
     }
 
     public Game getCurrentGame()
