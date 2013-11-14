@@ -9,7 +9,8 @@ public class Size {
 
     public Size(Integer width, Integer height)
     {
-
+        this.width =width;
+        this.height =height;
     }
 
     public Integer getWidth()

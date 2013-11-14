@@ -4,10 +4,13 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.gamepad.GameActivity;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -20,6 +23,8 @@ public class GameManager extends View
 {
     private Game currentGame;
     private ArrayList<Game> games;
+    private AsyncTask gameThread;
+    private Boolean stopTheGame;
 
     //initializes a new game manager instance of this class
     public GameManager(Context context)
@@ -60,6 +65,35 @@ public class GameManager extends View
         }
         currentGame = g;
         currentGame.initialize();
+        StartGame();
+    }
+
+    private void sleep(int ms)
+    {
+        try{Thread.sleep(ms);}catch(Exception ex){}
+    }
+
+    public void stopGame()
+    {
+        stopTheGame = true;
+    }
+
+    public void StartGame()
+    {
+        stopTheGame =false;
+        gameThread = new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object[] objects) {
+                while(!stopTheGame)
+                {
+                    GameActivity.getGameManager().update();
+                    GameActivity.getGameManager().postInvalidate();
+                    sleep(1000 / 25);
+                }
+                return null;
+            }
+        };
+        gameThread.execute();
     }
 
     @Override
@@ -72,6 +106,11 @@ public class GameManager extends View
 
         this.invalidate();*/
         return true;
+    }
+
+    public synchronized void update()
+    {
+        currentGame.update();
     }
 
     @Override
