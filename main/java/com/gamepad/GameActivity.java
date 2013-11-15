@@ -6,6 +6,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.gamepad.lib.GPC;
+import com.gamepad.lib.andengine.entity.scene.Scene;
+import com.gamepad.lib.andengine.entity.scene.background.Background;
+import com.gamepad.lib.andengine.ui.activity.SimpleBaseGameActivity;
 import com.gamepad.lib.game.Game;
 import com.gamepad.lib.game.GameManager;
 
@@ -13,7 +16,7 @@ import com.gamepad.lib.game.GameManager;
  * Author: root
  * Date: 14.10.13.
  */
-public class GameActivity extends Activity
+public class GameActivity extends SimpleBaseGameActivity
 {
     static GameManager manager;
 
@@ -34,4 +37,15 @@ public class GameActivity extends Activity
     }
 
 
+    @Override
+    protected void onCreateResources() {
+
+    }
+
+    @Override
+    protected Scene onCreateScene() {
+        Scene scene = new Scene();
+        scene.setBackground(new Background(0.09804f, 0.6274f, 0.8784f));
+        return scene;
+    }
 }
