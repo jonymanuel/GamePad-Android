@@ -1,9 +1,6 @@
 package com.gamepad.lib.update;
 
 import android.util.Log;
-import android.widget.Toast;
-
-import com.gamepad.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,7 +12,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Created by Fabian on 12.11.13.

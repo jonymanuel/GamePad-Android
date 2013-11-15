@@ -1,6 +1,5 @@
 package com.gamepad.lib;
 
-import com.gamepad.lib.game.GameManager;
 import com.gamepad.lib.net.Network;
 
 /**
