@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.gamepad.lib.GPC;
@@ -33,7 +34,7 @@ public class MainActivity extends Activity
 
         appContext = getApplicationContext();
 
-        Button btnNetworkDebug = (Button) findViewById(R.id.button_network_debug);
+       ImageView btnNetworkDebug = (ImageView) findViewById(R.id.hostGame);
         btnNetworkDebug.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -43,7 +44,7 @@ public class MainActivity extends Activity
             }
         });
 
-        Button btnSettings = (Button) findViewById(R.id.button_settings);
+        ImageView btnSettings = (ImageView) findViewById(R.id.settings);
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,7 +59,7 @@ public class MainActivity extends Activity
             }
         });
 
-        Button btnGameScreen = (Button)findViewById(R.id.button_host);
+        ImageView btnGameScreen = (ImageView)findViewById(R.id.joinGame);
         btnGameScreen.setOnClickListener(new View.OnClickListener()
         {
             @Override
