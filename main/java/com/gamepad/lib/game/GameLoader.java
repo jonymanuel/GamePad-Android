@@ -1,22 +1,31 @@
 package com.gamepad.lib.game;
 
 import android.os.Environment;
-
 import java.io.File;
 import java.lang.reflect.Method;
-import java.net.URLClassLoader;
+import dalvik.system.DexClassLoader;
 
 public class GameLoader {
 
+    @SuppressWarnings("unchecked")
+    @Override
     public void loadGame(String gameName)
     {
-        File file = new File(Environment.getExternalStorageDirectory() + "/GamePad/" + gameName);
-        URLClassLoader child = new URLClassLoader(file.toURL(), this.getClass().getClassLoader());
+        try
+        {
+            String libPath = Environment.getExternalStorageDirectory() + "/GamePad/" + gameName + ".jar";
+            File tmpDir = new File(Environment.getExternalStorageDirectory() + "/GamePad");
 
+            DexClassLoader classLoader = new DexClassLoader(libPath, tmpDir.getAbsolutePath(), null, this.getClass().getClassLoader());
+            Class<Object> classToLoad = (Class<Object>) classLoader.loadClass("Game");
 
-        /*Class classToLoad = Class.forName("Game", true, child);
-        Method method = classToLoad.getDeclaredMethod ("myMethod");
-        Object instance = classToLoad.newInstance ();
-        Object result = method.invoke (instance);*/
+            Object loadedGame = classToLoad.newInstance();
+            Method initializeGame = classToLoad.getMethod("initialize");
+
+            initializeGame.invoke(loadedGame);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
