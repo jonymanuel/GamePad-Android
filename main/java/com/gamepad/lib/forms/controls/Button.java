@@ -2,8 +2,6 @@ package com.gamepad.lib.forms.controls;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.RectF;
 
 import com.gamepad.lib.forms.Control;
 import com.gamepad.lib.forms.Point;

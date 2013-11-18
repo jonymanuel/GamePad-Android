@@ -1,11 +1,6 @@
 package com.gamepad.lib.net;
 
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.gamepad.MainActivity;
-import com.gamepad.NetworkDebugActivity;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;

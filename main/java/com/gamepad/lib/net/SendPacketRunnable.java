@@ -3,10 +3,8 @@ package com.gamepad.lib.net;
 import android.util.Log;
 
 import java.io.BufferedOutputStream;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.net.SocketAddress;
 
 /**
  * Author: root

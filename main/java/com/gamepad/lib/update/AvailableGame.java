@@ -1,8 +1,5 @@
 package com.gamepad.lib.update;
 
-/**
- * Created by Fabian on 12.11.13.
- */
 public class AvailableGame
 {
     private String name;

@@ -1,11 +1,10 @@
 package com.gamepad;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Activity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -73,7 +72,7 @@ public class MainActivity extends Activity
         AsyncTask task = new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] objects) {
-
+                updater.getInventory();
                 updater.getData();
                 return null;
             }

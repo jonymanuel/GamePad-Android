@@ -2,13 +2,11 @@ package com.gamepad.lib.net;
 
 import android.util.Log;
 
-import junit.framework.Assert;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.Socket;
 import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Enumeration;
 import java.util.Vector;
 
