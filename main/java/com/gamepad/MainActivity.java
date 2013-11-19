@@ -74,6 +74,7 @@ public class MainActivity extends Activity
             protected Object doInBackground(Object[] objects) {
                 updater.getInventory();
                 updater.getData();
+                updater.hasUpdates();
                 return null;
             }
         };
