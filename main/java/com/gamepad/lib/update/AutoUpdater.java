@@ -3,13 +3,11 @@ package com.gamepad.lib.update;
 import android.content.Context;
 import android.content.res.XmlResourceParser;
 import android.util.Log;
-<<<<<<< HEAD
 
 import com.gamepad.MainActivity;
 import com.gamepad.R;
 
-=======
->>>>>>> c6c51505f6f6b791c9d418007a73500f3beec1e4
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
