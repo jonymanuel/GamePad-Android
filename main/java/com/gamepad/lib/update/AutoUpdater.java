@@ -7,6 +7,10 @@ import android.util.Log;
 import com.gamepad.MainActivity;
 import com.gamepad.R;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> e19785d0472ece22641429423d1f716b744b73a8
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,13 +37,14 @@ public class AutoUpdater {
 
     private ArrayList<AvailableGame> games;
     private HashMap<String, Double> inventory;
+    private ArrayList<AvailableGame> updateList;
 
     //initialized a new instance of the autoupdater class
     public AutoUpdater()
     {
         games = new ArrayList<AvailableGame>();
         inventory = new HashMap<String, Double>();
-
+        updateList = new ArrayList<AvailableGame>();
     }
 
     //downloads via the http protocol the page source to a string
@@ -101,33 +106,13 @@ public class AutoUpdater {
             //walk through the elements and add new available games to the list in this class
             for(JSONObject jObject : jObjects)
             {
-
                 String name = jObject.getString("Name");
                 String versionName = jObject.getString("VersionName");
                 int version = jObject.getInt("Version");
                 String downloadUrl = jObject.getString("DownloadUrl");
                 AvailableGame theGame = new AvailableGame(name, versionName, version, downloadUrl);
 
-                Log.e("Game check", "Name: " + name);
-                Log.e("Game check", "Server version: " + version);
-
-                if(inventory.get(name) != null) {
-                    Log.e("Game check", "Local version: " + inventory.get(name));
-
-                    if(version > inventory.get(name)) {
-                        Log.e("Game check", "Update available");
-                        games.add(theGame);
-                    }
-                    else if (version <= inventory.get(name)) {
-                        Log.e("Game check", "Up to date");
-                    }
-
-                } else {
-                    Log.e("Game check", "Local version: none");
-                    Log.e("Game check", "Update available");
-                    games.add(theGame);
-                }
-
+                games.add(theGame);
             }
 
 
@@ -160,6 +145,40 @@ public class AutoUpdater {
         catch (XmlPullParserException e) { }
         catch (IOException e) { }
         catch (NullPointerException e) { }
+    }
+
+    public boolean hasUpdates()
+    {
+        for(int i = 0; i < games.size(); i++) {
+
+            AvailableGame game = games.get(i);
+            String gameName = game.getName();
+
+            Log.e("Game check", "Name: " + gameName);
+            Log.e("Game check", "Server version: " + game.getVersion());
+
+            if(inventory.get(gameName) != null) {
+                Log.e("Game check", "Local version: " + inventory.get(gameName));
+
+                if(game.getVersion() > inventory.get(gameName)) {
+                    Log.e("Game check", "Update available");
+                    updateList.add(game);
+                }
+                else if (game.getVersion() <= inventory.get(gameName)) {
+                    Log.e("Game check", "Up to date");
+                }
+
+            } else {
+                Log.e("Game check", "Local version: none");
+                Log.e("Game check", "Update available");
+                updateList.add(game);
+            }
+        }
+
+        if(updateList.size() > 0) {
+            return true;
+        }
+        return false;
     }
 
     //Checks if there is an internet connection
