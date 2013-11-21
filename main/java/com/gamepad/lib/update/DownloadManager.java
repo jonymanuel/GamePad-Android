@@ -18,26 +18,39 @@ import java.util.Queue;
 /**
  * Created by Fabian on 18.11.13.
  */
+
+/**
+ * Edited by Jony on 19.11.13.
+ */
+
+
 public class DownloadManager
 {
-    static Queue<String> downloadQueue;
-    static DownloadTask currentTask;
+    static Queue<AvailableGame> downloadQueue;
     static Integer currenProgress;
-    static String currentDownload;
+    static String currentDownload; // moet die ook?
     static Boolean isRunning;
 
-    public static void queueNewDownloadFile(String url)
+    /**
+     * Check if there's a link to downloand
+     * is there a link, add to downloadQueue collection
+     */
+    public static void queueNewDownloadFile(AvailableGame url)//available game replace
     {
         if (downloadQueue == null)
         {
-            downloadQueue = new LinkedList<String>();
+            downloadQueue = new LinkedList<AvailableGame>();
         }
 
         downloadQueue.add(url);
     }
 
+    /**
+     * Starting download
+     */
     public void startDownloading()
     {
+
         AsyncTask task = new AsyncTask()
         {
             @Override
@@ -49,12 +62,18 @@ public class DownloadManager
         }.execute();
     }
 
+    /**
+     * Save the Url to an array and split it by "/" to get the file name
+     */
     private static String getFileNameFromUrl(String url)
     {
         String[] tempSplitArray = url.split("/");
         return tempSplitArray[tempSplitArray.length];
     }
 
+    /**
+     *
+     */
     private static String downloadFile(String downloadUrl)
     {
         String toDownload = downloadUrl;
@@ -141,22 +160,21 @@ public class DownloadManager
         return null;
     }
 
+    /**
+     *
+     */
     private static void downloadNextFile()
     {
+
         if (downloadQueue == null)
         {
-            downloadQueue = new LinkedList<String>();
+            downloadQueue = new LinkedList<AvailableGame>();
         }
         if (downloadQueue.size() >= 1)
         {
-            if (currentTask == null)
-            {
-                currentTask = new DownloadTask(MainActivity.getContext());
-            }
-            downloadFile(downloadQueue.remove());
+            downloadFile(downloadQueue.remove().getDownloadUrl());
             downloadNextFile();
         }
-    }
-
+   }
 
 }
