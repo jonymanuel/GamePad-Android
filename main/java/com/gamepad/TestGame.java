@@ -15,19 +15,15 @@ import com.gamepad.lib.game.Game;
 public class TestGame implements Game
 {
     Button btnTest;
-    Paint paint;
 
     @Override
     public void initialize() {
         btnTest = new Button(new Point(50, 50), new Size(200, 50));
-        Paint paint = new Paint();
-        paint.setColor(Color.BLUE);
     }
 
     @Override
     public void draw(Canvas c) {
         btnTest.draw(c);
-        c.drawCircle(100, 100, 100, paint);
     }
 
     @Override
@@ -37,6 +33,5 @@ public class TestGame implements Game
 
     @Override
     public void unload() {
-
     }
 }
