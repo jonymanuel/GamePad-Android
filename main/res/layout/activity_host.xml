@@ -9,6 +9,8 @@
     <HorizontalScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fadingEdge="horizontal"
+        android:scrollbars="none"
         >
 
         <LinearLayout
@@ -17,57 +19,34 @@
             android:orientation="horizontal" >
 
             <ImageView
-                android:layout_width="150dp"
+                android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:id="@+id/pokerGame"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/poker"
+                android:src="@drawable/thflat"
                 android:layout_marginRight="5dp"
                 />
 
             <ImageView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:id="@+id/yahtzee"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/yahtzee"
-                android:layout_marginRight="5dp"
-                />
-
-            <ImageView
-                android:layout_width="150dp"
+                android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:id="@+id/pokerGame"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/poker"
+                android:src="@drawable/chflat"
                 android:layout_marginRight="5dp"
                 />
 
             <ImageView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:id="@+id/yahtzee"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/yahtzee"
-                android:layout_marginRight="5dp"
-
-                />
-            <ImageView
-                android:layout_width="150dp"
+                android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:id="@+id/pokerGame"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/poker"
+                android:src="@drawable/thflat"
                 android:layout_marginRight="5dp"
                 />
-            <ImageView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:id="@+id/yahtzee"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/yahtzee"
-                android:layout_marginRight="5dp"
-                />
+
+
+
 
         </LinearLayout>
     </HorizontalScrollView>
