@@ -1,8 +1,10 @@
 package com.gamepad.lib.update;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.XmlResourceParser;
 import android.util.Log;
+import android.util.Xml;
 
 import com.gamepad.MainActivity;
 import com.gamepad.R;
@@ -11,19 +13,39 @@ import com.gamepad.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlSerializer;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
+import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
 import java.util.HashMap;
 
-public class AutoUpdater {
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
+
+public class AutoUpdater extends Activity {
 
     //the url to the info file (saved as a json file)
     public static final String INFO_FILE = "https://dl.dropboxusercontent.com/u/19280458/updateInfo.json";
@@ -32,14 +54,14 @@ public class AutoUpdater {
     public static final String INTERNET_CHECK_URL = "http://google.de";
 
     private ArrayList<AvailableGame> games;
-    private HashMap<String, Double> inventory;
+    private HashMap<String, Integer> inventory;
     private ArrayList<AvailableGame> updateList;
 
     //initialized a new instance of the autoupdater class
     public AutoUpdater()
     {
         games = new ArrayList<AvailableGame>();
-        inventory = new HashMap<String, Double>();
+        inventory = new HashMap<String, Integer>();
         updateList = new ArrayList<AvailableGame>();
     }
 
@@ -111,7 +133,6 @@ public class AutoUpdater {
                 games.add(theGame);
             }
 
-
         }catch(JSONException e){
             Log.e("AutoUpdate", "Error with JSON", e);
         }
@@ -122,7 +143,7 @@ public class AutoUpdater {
 
     public void getInventory()
     {
-        Context context = MainActivity.getContext();
+        /*Context context = MainActivity.getContext();
         XmlResourceParser xrp = context.getResources().getXml(R.xml.inventory);
 
         try {
@@ -131,16 +152,29 @@ public class AutoUpdater {
                 if (eventType == XmlPullParser.START_TAG && xrp.getName().equals("game")) {
                     String name = xrp.getAttributeValue(0);
                     String version = xrp.getAttributeValue(1);
-
                     //Log.e("Game info", attrValue + ", version " + intValue);
-                    inventory.put(name, Double.parseDouble(version));
+                    inventory.put(name, Integer.parseInt(version));
+
+
                 }
                 eventType = xrp.next();
             }
         }
         catch (XmlPullParserException e) { }
         catch (IOException e) { }
-        catch (NullPointerException e) { }
+        catch (NullPointerException e) { }*/
+
+        try {
+            String fileContent = ;
+            JSONObject jobj = new JSONObject(fileContent);
+            JSONObject inventoryList = jobj.getJSONObject("Inventory");
+            JSONArray gameList = inventoryList.getJSONArray("Games");
+            for( int i = 0; i < gameList.length(); i++ ) {
+                JSONObject entry = gameList.getJSONObject(i);
+
+                Log.e("Object", entry.toString());
+            }
+        } catch (Exception e) { Log.e("Error", e.toString());}
     }
 
     public boolean hasUpdates()
@@ -176,6 +210,25 @@ public class AutoUpdater {
         }
         return false;
     }
+
+    public void doUpdate()
+    {
+        for(int i = 0; i < updateList.size(); i++)
+        {
+            AvailableGame game = updateList.get(i);
+
+            // Download file
+            // - Success update inventory
+            // downloader.addToQuene(game);
+        }
+        // downloader.start();
+    }
+
+    public void updateInventory(AvailableGame game)
+    {
+
+    }
+
 
     //Checks if there is an internet connection
     public Boolean hasInternetConnection()
