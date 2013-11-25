@@ -12,30 +12,30 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Vector;
 
 /**
  * Created by Fabian on 18.11.13.
  */
 
-/**
- * Edited by Jony on 19.11.13.
- */
 
 
 public class DownloadManager
 {
     static Queue<AvailableGame> downloadQueue;
     static Integer currenProgress;
-    static String currentDownload; // moet die ook?
+    static String currentDownload;
     static Boolean isRunning;
+    private Vector _listeners;
 
     /**
-     * Check if there's a link to downloand
+     * Check if there's an Available Game.
      * is there a link, add to downloadQueue collection
      */
-    public static void queueNewDownloadFile(AvailableGame url)//available game replace
+    public static void queueNewDownloadFile(AvailableGame url)
     {
         if (downloadQueue == null)
         {
@@ -46,7 +46,7 @@ public class DownloadManager
     }
 
     /**
-     * Starting download
+     * Start download
      */
     public void startDownloading()
     {
@@ -63,7 +63,7 @@ public class DownloadManager
     }
 
     /**
-     * Save the Url to an array and split it by "/" to get the file name
+     * Save the Url in to an array and split it by "/" to get the file name
      */
     private static String getFileNameFromUrl(String url)
     {
@@ -72,7 +72,7 @@ public class DownloadManager
     }
 
     /**
-     *
+     * file to download
      */
     private static String downloadFile(String downloadUrl)
     {
@@ -152,6 +152,7 @@ public class DownloadManager
                     connection.disconnect();
                 }
             }
+
         }
         finally
         {
@@ -160,8 +161,9 @@ public class DownloadManager
         return null;
     }
 
+
     /**
-     *
+     *get the next file to download
      */
     private static void downloadNextFile()
     {
@@ -172,9 +174,43 @@ public class DownloadManager
         }
         if (downloadQueue.size() >= 1)
         {
-            downloadFile(downloadQueue.remove().getDownloadUrl());
+            AvailableGame availableGame = downloadQueue.remove();
+            downloadFile(availableGame.getDownloadUrl());
+            fireDownloadEvent(availableGame);
             downloadNextFile();
+
         }
    }
 
+    /**
+     * Add Downaload Event Listener
+     * @param listener
+     */
+    public void addDownloadEventListener(DownloadEventListener listener)
+    {
+        if (_listeners == null)
+        {
+            _listeners = new Vector();
+        }
+        _listeners.addElement(listener);
+    }
+
+    /**
+     *Fire an download Event
+     * @param availableGame
+     */
+
+    private void fireDownloadEvent(AvailableGame availableGame)
+    {
+        if (_listeners != null && _listeners.isEmpty())
+        {
+            Enumeration e = _listeners.elements();
+            while (e.hasMoreElements())
+            {
+                DownloadEventListener del = (DownloadEventListener) e.nextElement();
+                del.newDownload(availableGame);
+            }
+        }
+    }
 }
+
