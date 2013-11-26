@@ -1,6 +1,8 @@
 package com.gamepad.lib.update;
 
-public class AvailableGame
+import java.io.Serializable;
+
+public class AvailableGame implements Serializable
 {
     private String name;
     private String versionName;
