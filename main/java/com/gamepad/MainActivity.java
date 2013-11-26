@@ -7,17 +7,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.gamepad.lib.GPC;
 import com.gamepad.lib.update.AutoUpdater;
 
-import static com.badlogic.gdx.graphics.glutils.ShapeRenderer.*;
+import static com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class MainActivity extends Activity
 {
