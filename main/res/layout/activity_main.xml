@@ -13,14 +13,14 @@
         android:id="@+id/linearLayout1"
         android:gravity="top"
         android:layout_height="match_parent"
-        android:layout_gravity="top">
+        >
         <!-- LOGO -->
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:id="@+id/linearLayout2"
             android:layout_gravity="center"
-            android:gravity="center"
+            android:gravity="top"
             android:layout_height="150dp"
             >
 
@@ -33,37 +33,35 @@
 
         </LinearLayout>
         <!-- End LOGO -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/linearLayout4"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical">
 
-        <!-- SETTING AND HOST GAME -->
+
+        <!-- JOIN GAME -->
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:id="@+id/linearLayout3"
-            android:layout_height="wrap_content"
+            android:layout_height="143dp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="25dp"
             >
 
-
-
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/settings"
+                android:id="@+id/joinGame"
                 android:layout_gravity="left"
-                android:src="@drawable/btn_settings"
-                android:layout_marginBottom="20dp"
-                android:padding="5dp"
+                android:src="@drawable/btn_join"
                 />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/hostGame"
-                android:layout_gravity="left"
-                android:src="@drawable/btn_host"
-                android:layout_marginBottom="20dp"
-                android:padding="5dp"
-                />
+
+
         </LinearLayout>
         <!-- END SETTING AND HOST GAME -->
 
@@ -73,20 +71,22 @@
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:id="@+id/linearLayout3"
-            android:layout_height="wrap_content"
+            android:layout_height="143dp"
             android:layout_gravity="center_horizontal"
             >
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/joinGame"
+                android:id="@+id/hostGame"
                 android:layout_gravity="left"
-                android:src="@drawable/btn_join"
+                android:src="@drawable/btn_host"
                 />
+
 
             </LinearLayout>
         <!--END JOIN GAME -->
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
 
