@@ -36,4 +36,8 @@ public class AvailableGame implements Serializable
     {
         return downloadUrl;
     }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
 }

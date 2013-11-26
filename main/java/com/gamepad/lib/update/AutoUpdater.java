@@ -69,8 +69,7 @@ public class AutoUpdater {
         try {
             File folderToRead = MainActivity.getContext().getDir("GamePadData", Context.MODE_PRIVATE);
             File fileToRead = new File(folderToRead, "inventory.bin");
-            // Activity is an instance of Context -> MainActivity.this.getDir(...);
-            //File fileToRead = new File("inventory.bin");
+
             if(fileToRead.exists())
             {
                 FileInputStream fileInput = new FileInputStream(fileToRead);
@@ -174,10 +173,6 @@ public class AutoUpdater {
 
     public void getInventory()
     {
-        inventory = new ArrayList<AvailableGame>();
-        //inventory.add(new AvailableGame("peter","version", 2, "lololol"));
-        //serializeObject(inventory, MainActivity.getContext());
-        inventory = null;
         try{
             inventory = (ArrayList<AvailableGame>)deserializeObject();
         }
@@ -201,22 +196,23 @@ public class AutoUpdater {
 
     public boolean hasUpdates()
     {
-        /*for(int i = 0; i < games.size(); i++) {
+        for(int i = 0; i < games.size(); i++) {
 
             AvailableGame game = games.get(i);
             String gameName = game.getName();
+            int gameVersion = game.getVersion();
 
             Log.e("Game check", "Name: " + gameName);
             Log.e("Game check", "Server version: " + game.getVersion());
 
-            if(inventory.get(gameName) != null) {
-                Log.e("Game check", "Local version: " + inventory.get(gameName));
+            if(gameName != null) {
+                Log.e("Game check", "Local version: " + gameVersion);
 
-                if(game.getVersion() > inventory.get(gameName)) {
+                if(game.getVersion() > gameVersion) {
                     Log.e("Game check", "Update available");
                     updateList.add(game);
                 }
-                else if (game.getVersion() <= inventory.get(gameName)) {
+                else if (game.getVersion() <= gameVersion) {
                     Log.e("Game check", "Up to date");
                 }
 
@@ -230,7 +226,7 @@ public class AutoUpdater {
         if(updateList.size() > 0) {
             return true;
         }
-        return false;*/
+
         return false;
     }
 
@@ -249,7 +245,11 @@ public class AutoUpdater {
 
     public void updateInventory(AvailableGame game)
     {
-
+        // Test, but can't call
+        //game.setVersion(2);
+        inventory.add(game);
+        // Serialize here or in the end of doUpdate.
+        serializeObject(inventory, MainActivity.getContext());
     }
 
 
