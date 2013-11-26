@@ -22,11 +22,15 @@ import org.xmlpull.v1.XmlSerializer;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.StreamCorruptedException;
 import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -45,7 +49,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 
-public class AutoUpdater extends Activity {
+public class AutoUpdater {
 
     //the url to the info file (saved as a json file)
     public static final String INFO_FILE = "https://dl.dropboxusercontent.com/u/19280458/updateInfo.json";
@@ -61,8 +65,55 @@ public class AutoUpdater extends Activity {
     public AutoUpdater()
     {
         games = new ArrayList<AvailableGame>();
-        inventory = new HashMap<String, Integer>();
+        //inventory = new HashMap<String, Integer>();
+        inventory = (HashMap<String, Integer>)deserializeObject();
+        if(inventory == null) {
+            inventory = new HashMap<String, Integer>();
+        }
         updateList = new ArrayList<AvailableGame>();
+    }
+
+    public static Object deserializeObject() {
+
+        File folderToRead = MainActivity.getContext().getDir("GamePadData", Context.MODE_PRIVATE);
+        File fileToRead = new File(folderToRead, "inventory.bin");
+        if(fileToRead.exists()) {
+
+            try {
+                // Activity is an instance of Context -> MainActivity.this.getDir(...);
+                //File fileToRead = new File("inventory.bin");
+
+                FileInputStream fileInput = new FileInputStream(fileToRead);
+                ObjectInputStream objectInput = new ObjectInputStream(fileInput);
+
+                Object tObject = objectInput.readObject();
+
+                objectInput.close();
+
+                return tObject;
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (StreamCorruptedException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+
+            try{
+                if(fileToRead.createNewFile()) {
+                    Log.e("File", "Success");
+                } else {
+                    Log.e("File", "Failure");
+                }
+            } catch (IOException e) {
+                Log.e("Error", e.toString());
+            }
+        }
+        return null;
     }
 
     //downloads via the http protocol the page source to a string
@@ -164,17 +215,6 @@ public class AutoUpdater extends Activity {
         catch (IOException e) { }
         catch (NullPointerException e) { }*/
 
-        try {
-            String fileContent = ;
-            JSONObject jobj = new JSONObject(fileContent);
-            JSONObject inventoryList = jobj.getJSONObject("Inventory");
-            JSONArray gameList = inventoryList.getJSONArray("Games");
-            for( int i = 0; i < gameList.length(); i++ ) {
-                JSONObject entry = gameList.getJSONObject(i);
-
-                Log.e("Object", entry.toString());
-            }
-        } catch (Exception e) { Log.e("Error", e.toString());}
     }
 
     public boolean hasUpdates()
