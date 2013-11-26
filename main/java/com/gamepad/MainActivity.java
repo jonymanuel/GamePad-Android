@@ -9,20 +9,15 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.gamepad.lib.GPC;
 import com.gamepad.lib.update.AutoUpdater;
-
-import static com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class MainActivity extends Activity
 {
     static GPC gpc;
     static Context appContext;
     static final AutoUpdater updater = new AutoUpdater();
-    static ShapeRenderer shapeRenderer;
-
+    
     public static Context getContext()
     {
         return appContext;
@@ -65,7 +60,6 @@ public class MainActivity extends Activity
             }
         };
         task.execute();
-        draw();
     }
 
     private void openGameScreen()
@@ -99,13 +93,6 @@ public class MainActivity extends Activity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
-    }
-
-    public void draw() {
-        shapeRenderer.begin(ShapeType.Filled);
-        shapeRenderer.setColor(Color.RED);
-        shapeRenderer.rect(0, 0, 300, 20);
-        shapeRenderer.end();
     }
 
     public static GPC getBaseGPC()
