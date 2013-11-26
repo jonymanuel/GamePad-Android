@@ -30,8 +30,5 @@ public class AvailableGame
         return version;
     }
 
-    public String getDownloadUrl()
-    {
-        return downloadUrl;
-    }
+    public String getDownloadUrl(){ return downloadUrl;}
 }
