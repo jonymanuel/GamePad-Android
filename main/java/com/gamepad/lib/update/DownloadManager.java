@@ -22,7 +22,9 @@ import java.util.Vector;
  */
 
 
-
+/**
+ * edit by Jony
+ */
 public class DownloadManager
 {
     static Queue<AvailableGame> downloadQueue;
@@ -32,6 +34,7 @@ public class DownloadManager
     private Vector _listeners;
 
     /**
+     * @param url
      * Check if there's an Available Game.
      * is there a link, add to downloadQueue collection
      */
@@ -62,7 +65,9 @@ public class DownloadManager
         }.execute();
     }
 
-    /**
+    /**     *
+     * @param url
+     * @return
      * Save the Url in to an array and split it by "/" to get the file name
      */
     private static String getFileNameFromUrl(String url)
@@ -72,7 +77,9 @@ public class DownloadManager
     }
 
     /**
-     * file to download
+     * @param downloadUrl
+     * @return
+     * file to download(Url)
      */
     private static String downloadFile(String downloadUrl)
     {
@@ -163,7 +170,7 @@ public class DownloadManager
 
 
     /**
-     *get the next file to download
+     * get the next file to download
      */
     private static void downloadNextFile()
     {
@@ -183,8 +190,8 @@ public class DownloadManager
    }
 
     /**
-     * Add Downaload Event Listener
      * @param listener
+     * Add Downaload Event Listener
      */
     public void addDownloadEventListener(DownloadEventListener listener)
     {
@@ -196,8 +203,8 @@ public class DownloadManager
     }
 
     /**
-     *Fire an download Event
      * @param availableGame
+     * Fire an download Event
      */
 
     private void fireDownloadEvent(AvailableGame availableGame)
@@ -213,4 +220,3 @@ public class DownloadManager
         }
     }
 }
-
