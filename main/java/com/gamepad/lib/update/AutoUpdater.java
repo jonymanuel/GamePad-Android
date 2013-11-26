@@ -9,7 +9,6 @@ import android.util.Xml;
 import com.gamepad.MainActivity;
 import com.gamepad.R;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
