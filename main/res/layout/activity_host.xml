@@ -30,7 +30,7 @@
             <ImageView
                 android:layout_width="300dp"
                 android:layout_height="match_parent"
-                android:id="@+id/pokerGame"
+                android:id="@+id/chessGame"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/chflat"
                 android:layout_marginRight="5dp"
@@ -39,14 +39,11 @@
             <ImageView
                 android:layout_width="300dp"
                 android:layout_height="match_parent"
-                android:id="@+id/pokerGame"
+                android:id="@+id/monopolyGame"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/thflat"
+                android:src="@drawable/mpflat"
                 android:layout_marginRight="5dp"
                 />
-
-
-
 
         </LinearLayout>
     </HorizontalScrollView>
