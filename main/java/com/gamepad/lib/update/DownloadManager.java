@@ -12,32 +12,48 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Vector;
 
 /**
  * Created by Fabian on 18.11.13.
  */
+
+
+/**
+ * edit by Jony
+ */
 public class DownloadManager
 {
-    static Queue<String> downloadQueue;
-    static DownloadTask currentTask;
+    static Queue<AvailableGame> downloadQueue;
     static Integer currenProgress;
     static String currentDownload;
     static Boolean isRunning;
+    private Vector _listeners;
 
-    public static void queueNewDownloadFile(String url)
+    /**
+     * @param url
+     * Check if there's an Available Game.
+     * is there a link, add to downloadQueue collection
+     */
+    public static void queueNewDownloadFile(AvailableGame url)
     {
         if (downloadQueue == null)
         {
-            downloadQueue = new LinkedList<String>();
+            downloadQueue = new LinkedList<AvailableGame>();
         }
 
         downloadQueue.add(url);
     }
 
+    /**
+     * Start download
+     */
     public void startDownloading()
     {
+
         AsyncTask task = new AsyncTask()
         {
             @Override
@@ -49,12 +65,22 @@ public class DownloadManager
         }.execute();
     }
 
+    /**     *
+     * @param url
+     * @return
+     * Save the Url in to an array and split it by "/" to get the file name
+     */
     private static String getFileNameFromUrl(String url)
     {
         String[] tempSplitArray = url.split("/");
         return tempSplitArray[tempSplitArray.length];
     }
 
+    /**
+     * @param downloadUrl
+     * @return
+     * file to download(Url)
+     */
     private static String downloadFile(String downloadUrl)
     {
         String toDownload = downloadUrl;
@@ -133,6 +159,7 @@ public class DownloadManager
                     connection.disconnect();
                 }
             }
+
         }
         finally
         {
@@ -141,22 +168,55 @@ public class DownloadManager
         return null;
     }
 
+
+    /**
+     * get the next file to download
+     */
     private static void downloadNextFile()
     {
+
         if (downloadQueue == null)
         {
-            downloadQueue = new LinkedList<String>();
+            downloadQueue = new LinkedList<AvailableGame>();
         }
         if (downloadQueue.size() >= 1)
         {
-            if (currentTask == null)
-            {
-                currentTask = new DownloadTask(MainActivity.getContext());
-            }
-            downloadFile(downloadQueue.remove());
+            AvailableGame availableGame = downloadQueue.remove();
+            downloadFile(availableGame.getDownloadUrl());
+            fireDownloadEvent(availableGame);
             downloadNextFile();
+
         }
+   }
+
+    /**
+     * @param listener
+     * Add Downaload Event Listener
+     */
+    public void addDownloadEventListener(DownloadEventListener listener)
+    {
+        if (_listeners == null)
+        {
+            _listeners = new Vector();
+        }
+        _listeners.addElement(listener);
     }
 
+    /**
+     * @param availableGame
+     * Fire an download Event
+     */
 
+    private void fireDownloadEvent(AvailableGame availableGame)
+    {
+        if (_listeners != null && _listeners.isEmpty())
+        {
+            Enumeration e = _listeners.elements();
+            while (e.hasMoreElements())
+            {
+                DownloadEventListener del = (DownloadEventListener) e.nextElement();
+                del.newDownload(availableGame);
+            }
+        }
+    }
 }

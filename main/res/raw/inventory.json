@@ -1,0 +1,10 @@
+{
+    "Inventory": {
+        "Games": [
+            {
+                "name": "Poker",
+                "currentVersion": 0
+            }
+        ]
+    }
+}

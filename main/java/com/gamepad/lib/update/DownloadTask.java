@@ -22,10 +22,8 @@ public class DownloadTask extends AsyncTask
         this.context = context;
     }
 
-
-
     @Override
     protected Object doInBackground(Object[] param) {
-
+    return null;
     }
 }
