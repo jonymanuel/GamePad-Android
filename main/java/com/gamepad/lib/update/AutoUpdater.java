@@ -1,26 +1,26 @@
 package com.gamepad.lib.update;
 
 import android.content.Context;
-import android.content.res.XmlResourceParser;
 import android.util.Log;
 
 import com.gamepad.MainActivity;
-import com.gamepad.R;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.StreamCorruptedException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-
-import java.util.HashMap;
 
 public class AutoUpdater {
 
@@ -31,18 +31,68 @@ public class AutoUpdater {
     public static final String INTERNET_CHECK_URL = "http://google.de";
 
     private ArrayList<AvailableGame> games;
-    private HashMap<String, Double> inventory;
+    private ArrayList<AvailableGame> inventory;
     private ArrayList<AvailableGame> updateList;
 
     //initialized a new instance of the autoupdater class
     public AutoUpdater()
     {
         games = new ArrayList<AvailableGame>();
-        inventory = new HashMap<String, Double>();
         updateList = new ArrayList<AvailableGame>();
     }
 
-    //downloads via the http protocol the page source to a string
+    public static boolean serializeObject(Object pObject, Context pContext) {
+        try
+        {
+            File folderToWrite = pContext.getDir("GamePadData", Context.MODE_PRIVATE); // Activity is an instance of Context -> MainActivity.this.getDir(...);
+            File fileToWrite = new File(folderToWrite, "inventory.bin");
+
+            FileOutputStream fileOutput = new FileOutputStream(fileToWrite);
+            ObjectOutputStream objectOutput = new ObjectOutputStream(fileOutput);
+
+            objectOutput.writeObject(pObject);
+
+            objectOutput.close();
+
+            return true;
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static Object deserializeObject()
+    {
+        try {
+            File folderToRead = MainActivity.getContext().getDir("GamePadData", Context.MODE_PRIVATE);
+            File fileToRead = new File(folderToRead, "inventory.bin");
+
+            if(fileToRead.exists())
+            {
+                FileInputStream fileInput = new FileInputStream(fileToRead);
+                ObjectInputStream objectInput = new ObjectInputStream(fileInput);
+
+                Object tObject = objectInput.readObject();
+
+                objectInput.close();
+
+                return tObject;
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (StreamCorruptedException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // Downloads via the http protocol the page source to a string
     private static String downloadHttp(URL url) throws IOException {
         HttpURLConnection connection = (HttpURLConnection)url.openConnection();
         connection.setRequestMethod("GET");
@@ -109,7 +159,8 @@ public class AutoUpdater {
 
                 games.add(theGame);
             }
-
+            Context test = MainActivity.getContext();
+            serializeObject(inventory, MainActivity.getContext());
 
         }catch(JSONException e){
             Log.e("AutoUpdate", "Error with JSON", e);
@@ -121,25 +172,25 @@ public class AutoUpdater {
 
     public void getInventory()
     {
-        Context context = MainActivity.getContext();
-        XmlResourceParser xrp = context.getResources().getXml(R.xml.inventory);
+        try{
+            inventory = (ArrayList<AvailableGame>)deserializeObject();
+        }
+        catch(Exception ex){}
+        if(inventory == null) {
+            inventory = new ArrayList<AvailableGame>();
+        }
+    }
 
-        try {
-            int eventType = xrp.getEventType();
-            while (eventType != XmlPullParser.END_DOCUMENT) {
-                if (eventType == XmlPullParser.START_TAG && xrp.getName().equals("game")) {
-                    String name = xrp.getAttributeValue(0);
-                    String version = xrp.getAttributeValue(1);
-
-                    //Log.e("Game info", attrValue + ", version " + intValue);
-                    inventory.put(name, Double.parseDouble(version));
-                }
-                eventType = xrp.next();
+    public AvailableGame getGameFromName(String name)
+    {
+        for(AvailableGame game  : inventory)
+        {
+            if(game.getName().equals(name))
+            {
+                return game;
             }
         }
-        catch (XmlPullParserException e) { }
-        catch (IOException e) { }
-        catch (NullPointerException e) { }
+        return null;
     }
 
     public boolean hasUpdates()
@@ -148,18 +199,19 @@ public class AutoUpdater {
 
             AvailableGame game = games.get(i);
             String gameName = game.getName();
+            int gameVersion = game.getVersion();
 
             Log.e("Game check", "Name: " + gameName);
             Log.e("Game check", "Server version: " + game.getVersion());
 
-            if(inventory.get(gameName) != null) {
-                Log.e("Game check", "Local version: " + inventory.get(gameName));
+            if(gameName != null) {
+                Log.e("Game check", "Local version: " + gameVersion);
 
-                if(game.getVersion() > inventory.get(gameName)) {
+                if(game.getVersion() > gameVersion) {
                     Log.e("Game check", "Update available");
                     updateList.add(game);
                 }
-                else if (game.getVersion() <= inventory.get(gameName)) {
+                else if (game.getVersion() <= gameVersion) {
                     Log.e("Game check", "Up to date");
                 }
 
@@ -173,8 +225,32 @@ public class AutoUpdater {
         if(updateList.size() > 0) {
             return true;
         }
+
         return false;
     }
+
+    public void doUpdate()
+    {
+        for(int i = 0; i < updateList.size(); i++)
+        {
+            AvailableGame game = updateList.get(i);
+
+            // Download file
+            // - Success update inventory
+            // downloader.addToQuene(game);
+        }
+        // downloader.start();
+    }
+
+    public void updateInventory(AvailableGame game)
+    {
+        // Test, but can't call
+        //game.setVersion(2);
+        inventory.add(game);
+        // Serialize here or in the end of doUpdate.
+        serializeObject(inventory, MainActivity.getContext());
+    }
+
 
     //Checks if there is an internet connection
     public Boolean hasInternetConnection()
