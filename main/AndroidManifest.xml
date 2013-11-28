@@ -41,6 +41,24 @@
         <activity
             android:name="com.gamepad.GameActivity">
         </activity>
+        <activity
+        android:name="com.gamepad.GameLibrary">
+    </activity>
+        <activity
+            android:name="com.gamepad.HostActivity"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
     </application>
+
+    <!--SCREEN SIZE SUPPORTS-->
+    <supports-screens android:resizeable="true"
+    android:smallScreens="false"
+    android:normalScreens="true"
+    android:largeScreens="true"
+    android:xlargeScreens="true">
+
+   </supports-screens>
+
 
 </manifest>

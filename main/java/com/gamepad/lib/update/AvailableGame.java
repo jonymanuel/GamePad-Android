@@ -1,6 +1,8 @@
 package com.gamepad.lib.update;
 
-public class AvailableGame
+import java.io.Serializable;
+
+public class AvailableGame implements Serializable
 {
     private String name;
     private String versionName;
@@ -30,5 +32,16 @@ public class AvailableGame
         return version;
     }
 
+<<<<<<< HEAD
+    public String getDownloadUrl()
+    {
+        return downloadUrl;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+=======
     public String getDownloadUrl(){ return downloadUrl;}
+>>>>>>> update-1
 }

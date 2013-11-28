@@ -31,6 +31,5 @@ public class TestGame implements Game
 
     @Override
     public void unload() {
-
     }
 }
