@@ -7,9 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.gamepad.lib.GPC;
 import com.gamepad.lib.update.AutoUpdater;
@@ -19,7 +17,7 @@ public class MainActivity extends Activity
     static GPC gpc;
     static Context appContext;
     static final AutoUpdater updater = new AutoUpdater();
-
+    
     public static Context getContext()
     {
         return appContext;
