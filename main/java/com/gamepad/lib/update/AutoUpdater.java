@@ -4,11 +4,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.gamepad.MainActivity;
-<<<<<<< HEAD
-
-=======
-import com.gamepad.R;
->>>>>>> update-1
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
