@@ -172,7 +172,7 @@ public class DownloadManager
     /**
      * get the next file to download
      */
-    private static void downloadNextFile()
+    private void downloadNextFile()
     {
 
         if (downloadQueue == null)
