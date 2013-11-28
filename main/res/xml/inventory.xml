@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <inventory>
-    <game name="Poker" currentVersion="1.2" />
+    <game>
+        <name>Poker</name>
+        <currentVersion>1.2</currentVersion>
+    </game>
 </inventory>
