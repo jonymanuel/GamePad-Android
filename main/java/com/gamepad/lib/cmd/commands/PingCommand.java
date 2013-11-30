@@ -63,9 +63,9 @@ public class PingCommand implements ICommand
     }
 
     @Override
-    public void setArguments()
+    public void setArguments(String[] args)
     {
-
+        this.arguments = args;
     }
 
 
