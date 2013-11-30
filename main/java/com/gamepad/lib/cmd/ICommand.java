@@ -9,5 +9,5 @@ public interface ICommand
     public String[] getArguments();
     public String getCommandString();
     public Boolean runCommand();
-    public void setArguments();
+    public void setArguments(String[] args);
 }

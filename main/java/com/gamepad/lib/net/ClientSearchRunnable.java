@@ -17,12 +17,13 @@ public class ClientSearchRunnable implements Runnable
 
         //make a new packet with the ping packet content. message: ping
         //this is the message the clients get
-        // the method used is a brickstone fart
-        // sending brickstone --> receiving fart
-        Packet pingPacket = new Packet("brickstone");
+        // the method used is a ping pong
+        // sending ping --> receiving pong
+        Packet pingPacket = new Packet("ping");
 
-        //the ip addres to send to: 255.255.255.0 <-- this is the broadcast address
-        byte[] ip = new byte[] { (byte)255, (byte)255, (byte)255, (byte)255 };
+        //the ip address to send to: 255.255.255.0 <-- this is the broadcast address
+        Byte b = Byte.valueOf("255");
+        Byte[] ip = new Byte[] { b, b, b, b };
 
         //the network station to send to (working with the ip address above)
         NetworkStation station = new NetworkStation(ip);

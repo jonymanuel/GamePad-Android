@@ -29,6 +29,11 @@ public class IpAddress
         return ipAddress[0] + "." + ipAddress[1] + "." + ipAddress[2] + "." + ipAddress[3];
     }
 
+    public Byte[] getBytes()
+    {
+        return ipAddress;
+    }
+
     public static IpAddress parse(String ip) throws Exception
     {
         IpAddress result = null;
