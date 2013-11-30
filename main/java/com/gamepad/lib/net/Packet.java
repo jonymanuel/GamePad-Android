@@ -22,4 +22,9 @@ public class Packet
     {
         return from;
     }
+
+    public void setFrom(NetworkStation ipAddress)
+    {
+        this.from = ipAddress;
+    }
 }

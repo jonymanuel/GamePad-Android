@@ -60,7 +60,7 @@ public class Network implements PacketEvent
     }
 
     //gets the local ip of the mobile phone
-    public String getLocalIp(){
+    public IpAddress getLocalIp(){
         String ipAddress = null;
         Enumeration<NetworkInterface> net = null;
         try {
@@ -85,7 +85,14 @@ public class Network implements PacketEvent
 
             }
         }
-        return ipAddress;
+        try
+        {
+            return IpAddress.parse(ipAddress);
+        }
+        catch(Exception ex)
+        {
+            return null;
+        }
     }
 
     //starts a new search for clients
