@@ -3,14 +3,13 @@ package com.gamepad.lib.cmd.commands;
 import com.gamepad.MainActivity;
 import com.gamepad.lib.cmd.ICommand;
 import com.gamepad.lib.net.IpAddress;
-import com.gamepad.lib.net.Network;
 import com.gamepad.lib.net.NetworkStation;
 import com.gamepad.lib.net.Packet;
-import com.gamepad.lib.net.SendPacketRunnable;
 
 /**
  * Author: root
  * Date: 07.10.13.
+ * if the client receives ping, it will return pong
  */
 public class PingCommand implements ICommand
 {
