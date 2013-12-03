@@ -6,7 +6,7 @@ import com.gamepad.MainActivity;
  * Author: root
  * Date: 10.10.13.
  */
-public class ClientSearchRunnable implements Runnable
+public class HostSearchRunnable implements Runnable
 {
 
     @Override

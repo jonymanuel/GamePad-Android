@@ -17,7 +17,7 @@ public class Network implements PacketEvent
     private Vector _listeners;
     private NetworkListenerRunnable socketListener;
     private Thread socketListenerThread;
-    private ClientSearchRunnable clientSearchRunnable;
+    private HostSearchRunnable hostSearchRunnable;
 
     //creates a new instance of the network class
     public Network()
@@ -95,13 +95,13 @@ public class Network implements PacketEvent
         }
     }
 
-    //starts a new search for clients
-    public void startSearchClients()
+    //Send a broadcast to find the host in your network
+    public void startSearchHosts()
     {
-        if(clientSearchRunnable == null)
+        if(hostSearchRunnable == null)
         {
-            clientSearchRunnable = new ClientSearchRunnable();
-            clientSearchRunnable.run();
+            hostSearchRunnable = new HostSearchRunnable();
+            hostSearchRunnable.run();
         }
     }
 
