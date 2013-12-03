@@ -10,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.gamepad.lib.net.Network;
+
 public class GameLibrary extends ListActivity {
 
     static final String[] FRUITS = new String[] { "Apple", "Avocado", "Banana",
@@ -37,6 +39,9 @@ public class GameLibrary extends ListActivity {
             }
         });
 
+
+        Network network = MainActivity.getBaseGPC().getNetwork();
+        network.startSearchHosts();
     }
 
 }

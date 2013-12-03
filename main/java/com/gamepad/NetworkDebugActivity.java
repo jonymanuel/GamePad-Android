@@ -38,8 +38,8 @@ public class NetworkDebugActivity extends Activity
         adapter.notifyDataSetChanged();
 
 
-        network =MainActivity.getBaseGPC().getNetwork();
-        network.startSearchClients();
+        network = MainActivity.getBaseGPC().getNetwork();
+        network.startSearchHosts();
     }
 
 
