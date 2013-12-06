@@ -2,6 +2,7 @@ package com.gamepad;
 
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -9,6 +10,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+
+import com.gamepad.lib.net.Network;
 
 public class GameLibrary extends ListActivity {
 
@@ -36,6 +39,11 @@ public class GameLibrary extends ListActivity {
                         ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
             }
         });
+
+        Log.e("Game type", "Join");
+
+        Network network =MainActivity.getBaseGPC().getNetwork();
+        network.startSearchClients();
 
     }
 
