@@ -52,9 +52,6 @@ public class HostActivity extends Activity
 
         Log.e("Game type", "Host");
 
-        Network network =MainActivity.getBaseGPC().getNetwork();
-        network.startSearchClients();
-
     }
 
     private void dummyGame()
