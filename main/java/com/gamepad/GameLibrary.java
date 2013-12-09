@@ -2,6 +2,7 @@ package com.gamepad;
 
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -39,9 +40,17 @@ public class GameLibrary extends ListActivity {
             }
         });
 
+<<<<<<< HEAD
 
         Network network = MainActivity.getBaseGPC().getNetwork();
         network.startSearchHosts();
+=======
+        Log.e("Game type", "Join");
+
+        Network network =MainActivity.getBaseGPC().getNetwork();
+        network.startSearchClients();
+
+>>>>>>> 74170abe408f292e13f4de4c8c88bd534e98dc47
     }
 
 }
