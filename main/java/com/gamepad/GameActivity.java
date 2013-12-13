@@ -2,11 +2,8 @@ package com.gamepad;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.webkit.ConsoleMessage;
 
 import com.gamepad.lib.game.GameManager;
-
-import java.io.Console;
 
 /**
  * Author: root
@@ -23,7 +20,7 @@ public class GameActivity extends Activity
         setContentView(R.layout.activity_game);
 
         manager = (GameManager)findViewById(R.id.game_manager_view);
-        manager.setCurrentGame(new TestGame());
+        //manager.setCurrentGame(new TestGame());
     }
 
     public static GameManager getGameManager()
