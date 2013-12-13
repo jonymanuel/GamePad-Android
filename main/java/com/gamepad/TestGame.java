@@ -15,13 +15,12 @@ public class TestGame extends Game
         setScreen(testScreen);
     }
 
-    @Override
-<<<<<<< HEAD
     public void unload() {
 
-=======
+    }
+
+    @Override
     public void dispose() {
         testScreen.dispose();
->>>>>>> e74965abb3789fb379701562f5a46291d47e064b
     }
 }
