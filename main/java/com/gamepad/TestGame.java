@@ -7,12 +7,9 @@ import com.badlogic.gdx.Game;
  */
 public class TestGame extends Game
 {
-    TestScreen testScreen;
-
     @Override
     public void create() {
-        testScreen = new TestScreen();
-        setScreen(testScreen);
+
     }
 
     public void unload() {
@@ -21,6 +18,5 @@ public class TestGame extends Game
 
     @Override
     public void dispose() {
-        testScreen.dispose();
     }
 }
