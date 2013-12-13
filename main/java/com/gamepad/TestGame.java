@@ -1,36 +1,27 @@
 package com.gamepad;
 
-import android.graphics.Canvas;
-
-import com.gamepad.lib.forms.Point;
-import com.gamepad.lib.forms.Size;
-import com.gamepad.lib.forms.controls.Button;
-import com.gamepad.lib.game.Game;
+import com.badlogic.gdx.Game;
 
 /**
  * Created by Fabian on 14.11.13.
  */
-public class TestGame implements Game
+public class TestGame extends Game
 {
-    Button btnTest;
+    TestScreen testScreen;
 
     @Override
-    public void initialize() {
-        btnTest = new Button(new Point(50, 50), new Size(200, 50));
+    public void create() {
+        testScreen = new TestScreen();
+        setScreen(testScreen);
     }
 
     @Override
-    public void draw(Canvas c) {
-        btnTest.draw(c);
-    }
-
-    @Override
-    public void update() {
-        btnTest.update();
-    }
-
-    @Override
+<<<<<<< HEAD
     public void unload() {
 
+=======
+    public void dispose() {
+        testScreen.dispose();
+>>>>>>> e74965abb3789fb379701562f5a46291d47e064b
     }
 }
