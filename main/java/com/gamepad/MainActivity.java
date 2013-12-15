@@ -27,8 +27,6 @@ public class MainActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        Intent intent = new Intent(this, TestGame.class);
-        startActivity(intent);
 
 
         setContentView(R.layout.activity_main);

@@ -5,6 +5,8 @@ import android.util.Log;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Enumeration;
@@ -16,7 +18,7 @@ import java.util.Vector;
 public class NetworkListenerRunnable implements Runnable
 {
     private Vector _listeners;
-    private static ServerSocket server;
+    private static DatagramSocket server;
     private static Boolean socketCreated = false;
 
     public void addPacketEventListener(PacketEvent listener)
@@ -41,13 +43,9 @@ public class NetworkListenerRunnable implements Runnable
         }
     }
 
-    private String readMessage(Socket socket) throws IOException
+    private String readMessage(DatagramPacket packet) throws IOException
     {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        char[] buffer = new char[200];
-        int count = bufferedReader.read(buffer, 0, 200);
-        String message = new String(buffer, 0, count);
-        return message;
+        return new String(packet.getData(), 0, packet.getLength());
     }
 
     public void run()
@@ -58,14 +56,13 @@ public class NetworkListenerRunnable implements Runnable
         {
             try
             {
-                server = new ServerSocket(56020);
+                server = new DatagramSocket(56020);
                 socketCreated = true;
             }
             catch (Exception ex)
             {
                 fatalError = true;
                 Log.e("NetworkListenerRunnable", ex.getMessage());
-
                 return;
             }
         }
@@ -79,15 +76,17 @@ public class NetworkListenerRunnable implements Runnable
         {
             try
             {
-                Socket client = server.accept();
-                String message = readMessage(client);
+                byte[] receiveData = new byte[4096];
+                DatagramPacket result = new DatagramPacket(receiveData,receiveData.length);
+                server.receive(result);
+                String message = readMessage(result);
                 Packet packet = new Packet(message);
                 firePacketEvent(packet);
                 Log.e("NetworkListenerRunnable", "Got new message: " + message);
             }
             catch (Exception ex)
             {
-                //Log.d("NetworkListenerRunnable", "Error: could not retrieve message");
+                Log.e("NetworkListenerRunnable", "Error: could not retrieve message");
             }
         }
     }

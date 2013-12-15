@@ -6,16 +6,16 @@ package com.gamepad.lib.net;
 public class NetworkStation
 {
 
-    private Byte[] ipAddress;
+    private Integer[] ipAddress;
     private long id;
     private NetworkStationType type;
 
-    public NetworkStation(Byte[] ipAddress)
+    public NetworkStation(Integer[] ipAddress)
     {
         this.ipAddress = ipAddress;
     }
 
-    public Byte[] getIpAddress()
+    public Integer[] getIpAddress()
     {
         return ipAddress;
     }

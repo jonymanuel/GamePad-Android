@@ -1,5 +1,6 @@
 package com.gamepad.lib.net;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import java.net.Inet4Address;
@@ -17,7 +18,8 @@ public class Network implements PacketEvent
     private Vector _listeners;
     private NetworkListenerRunnable socketListener;
     private Thread socketListenerThread;
-    private HostSearchRunnable hostSearchRunnable;
+    private Thread networkSenderThread;
+    private NetworkSenderRunnable senderRunnable;
 
     //creates a new instance of the network class
     public Network()
@@ -27,6 +29,10 @@ public class Network implements PacketEvent
         socketListenerThread = new Thread(socketListener);
         socketListenerThread.start();
         socketListener.addPacketEventListener(this);
+
+        senderRunnable = new NetworkSenderRunnable();
+        networkSenderThread = new Thread(senderRunnable);
+        networkSenderThread.start();
     }
 
     //the method that gets fired if a new packet arrives
@@ -98,19 +104,14 @@ public class Network implements PacketEvent
     //Send a broadcast to find the host in your network
     public void startSearchHosts()
     {
-        if(hostSearchRunnable == null)
-        {
-            hostSearchRunnable = new HostSearchRunnable();
-            hostSearchRunnable.run();
-        }
+        Packet pingPacket = new Packet("ping");
+        pingPacket.setDestination("255.255.255.255");
+        sendPacket(pingPacket);
     }
 
     //sends a given packet to a given networkstation
-    public void sendPacket(Packet packet, NetworkStation station)
+    public void sendPacket(Packet packet)
     {
-        SendPacketRunnable runnable = new SendPacketRunnable();
-        runnable.setPacket(packet);
-        runnable.setStation(station);
-        new Thread(runnable).run();
+        senderRunnable.sendPacket(packet.getMessage(), packet.getDestination());
     }
 }
