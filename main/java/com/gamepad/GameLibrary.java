@@ -7,15 +7,25 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.util.DisplayMetrics;
 import android.view.Menu;
+=======
+import android.util.Log;
+>>>>>>> df008637515ca2bad1363fa0a018c31054758fc7
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.Toast;
 
+<<<<<<< HEAD
 public class GameLibrary extends Activity
 {
+=======
+import com.gamepad.lib.net.Network;
+
+public class GameLibrary extends ListActivity {
+>>>>>>> df008637515ca2bad1363fa0a018c31054758fc7
 
     List<String> groupList;
     List<String> childList;
@@ -93,6 +103,7 @@ public class GameLibrary extends Activity
             else
                 loadChild(lenovoModels);
 
+<<<<<<< HEAD
             lobbyCollection.put(laptop, childList);
         }
     }
@@ -130,6 +141,11 @@ public class GameLibrary extends Activity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.layout.activity_gamelibrary, menu);
         return true;
+=======
+        Network network = MainActivity.getBaseGPC().getNetwork();
+        network.startSearchHosts();
+        Log.e("Game type", "Join");
+>>>>>>> df008637515ca2bad1363fa0a018c31054758fc7
     }
 
 }

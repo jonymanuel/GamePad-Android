@@ -27,6 +27,8 @@ public class MainActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_main);
 
         appContext = getApplicationContext();
@@ -101,5 +103,4 @@ public class MainActivity extends Activity
     {
         return gpc;
     }
-
 }

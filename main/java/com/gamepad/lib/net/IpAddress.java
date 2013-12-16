@@ -7,10 +7,10 @@ import java.util.ArrayList;
  */
 public class IpAddress
 {
-    private Byte[] ipAddress;
+    private Integer[] ipAddress;
     //commit change
 
-    public IpAddress(Byte[] ipAddress)
+    public IpAddress(Integer[] ipAddress)
     {
         this.ipAddress = ipAddress;
     }
@@ -27,6 +27,11 @@ public class IpAddress
     public String toString()
     {
         return ipAddress[0] + "." + ipAddress[1] + "." + ipAddress[2] + "." + ipAddress[3];
+    }
+
+    public Integer[] getBytes()
+    {
+        return ipAddress;
     }
 
     public static IpAddress parse(String ip) throws Exception
@@ -52,16 +57,16 @@ public class IpAddress
         {
             return false;
         }
-        ArrayList<Byte> ipPartList = new ArrayList<Byte>();
+        ArrayList<Integer> ipPartList = new ArrayList<Integer>();
         for(String ipPart : ipParts)
         {
             if(ipPart.equals(""))
             {
                 return false;
             }
-            ipPartList.add(Byte.parseByte(ipPart));
+            ipPartList.add(Integer.parseInt(ipPart));
         }
-        objectToSaveIn = new IpAddress(ipPartList.toArray(new Byte[0]));
+        objectToSaveIn = new IpAddress(ipPartList.toArray(new Integer[0]));
         return true;
     }
 

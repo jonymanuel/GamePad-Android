@@ -22,8 +22,7 @@ public class GameActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        manager = (GameManager)findViewById(R.id.game_manager_view);
-        manager.setCurrentGame(new TestGame());
+
     }
 
     public static GameManager getGameManager()
