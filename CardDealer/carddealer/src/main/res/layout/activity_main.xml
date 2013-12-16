@@ -1,7 +1,64 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    tools:ignore="MergeRootFrame" />
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#608341"
+    android:measureWithLargestChild="false"
+    android:gravity="center_horizontal">
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:id="@+id/card1"
+        android:layout_gravity="center_vertical"
+        android:background="#FFF"
+        android:layout_marginRight="8dp" />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:id="@+id/card2"
+        android:layout_gravity="center_vertical"
+        android:background="#FFF"
+        android:layout_marginRight="8dp" />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:id="@+id/card3"
+        android:layout_gravity="center_vertical"
+        android:background="#FFF"
+        android:layout_marginRight="8dp" />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:id="@+id/card4"
+        android:layout_gravity="center_vertical"
+        android:background="#FFF"
+        android:layout_marginRight="8dp" />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:id="@+id/card5"
+        android:layout_gravity="center_vertical"
+        android:background="#FFF"
+        android:layout_marginRight="8dp" />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:id="@+id/card6"
+        android:layout_gravity="center_vertical"
+        android:background="#FFF"
+        android:layout_marginRight="8dp" />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:id="@+id/card7"
+        android:layout_gravity="center_vertical"
+        android:background="#FFF" />
+</LinearLayout>

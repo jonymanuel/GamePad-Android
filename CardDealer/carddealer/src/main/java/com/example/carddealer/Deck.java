@@ -1,6 +1,7 @@
 package com.example.carddealer;
 
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -10,8 +11,9 @@ public class Deck extends ActionBarActivity {
     ArrayList<Card> cards = new ArrayList<Card>();
     SecureRandom sr = new SecureRandom();
 
-    private final static String[] suitArray = {"Schoppen", "Harten", "Ruiten", "Klaver"};
-    private final static String[] rankArray = {"", "aas", "twee", "drie", "vier", "vijf", "zes", "zeven", "acht", "negen", "tien", "boer", "vrouw", "koning"};
+    //private final static String[] suitArray = {"Schoppen", "Harten", "Ruiten", "Klaver"};
+    private final static String[] suitArray = {"Klaver", "Harten", "Ruiten", "Klaver"};
+    private final static String[] rankArray = {"", "aas", "2", "3", "4", "5", "6", "7", "8", "9", "10", "boer", "vrouw", "koning"};
 
     public Deck() {
         build();
@@ -21,14 +23,17 @@ public class Deck extends ActionBarActivity {
     public Card getRandomCard() {
         int randomNumber = sr.nextInt( cards.size() );
 
+        //Card c = cards.remove(randomNumber);
+        //Log.e("Card picked:", getCardResource(c));
+        //return c;
         return cards.remove(randomNumber);
     }
 
-    /*
     public String getCardResource(Card card) {
-        return suitArray[card.getSuit()] + "_" + rankArray[card.getRank()];
+        return suitArray[card.getSuit()].toLowerCase() + "_" + rankArray[card.getRank()];
     }
 
+    /*
     public String getCardResource(int index) {
         return getCardResource(cards.get(index));
     }

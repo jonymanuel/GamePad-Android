@@ -19,6 +19,7 @@ public class HostActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host);
 
+/*
         ImageView btnTh = (ImageView) findViewById(R.id.pokerGame);
         btnTh.setOnClickListener(new View.OnClickListener()
         {
@@ -48,8 +49,7 @@ public class HostActivity extends Activity
                 dummyGame();
             }
         });
-
-
+*/
         Log.e("Game type", "Host");
 
         Network network =MainActivity.getBaseGPC().getNetwork();
