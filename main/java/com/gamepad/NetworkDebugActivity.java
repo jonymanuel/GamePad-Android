@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.gamepad.lib.GPC;
+import com.gamepad.lib.game.Lobby;
 import com.gamepad.lib.net.Network;
 
 import java.util.ArrayList;
@@ -32,14 +34,17 @@ public class NetworkDebugActivity extends Activity
         appContext = getApplicationContext();
         lvNetworkDebug = (ListView) findViewById(R.id.listView_clients);
         clients = new ArrayList<String>();
-        clients.add("testVal");
+        for(Lobby lobby : GPC.getjoin().getLobbies())
+        {
+            clients.add(lobby.getName());
+        }
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, clients);
         lvNetworkDebug.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
 
-        network = MainActivity.getBaseGPC().getNetwork();
-        network.startSearchHosts();
+        network =  GPC.getNetwork();
+        network.sendPingBroadcast();
     }
 
 

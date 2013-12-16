@@ -14,7 +14,6 @@ import com.gamepad.lib.update.AutoUpdater;
 
 public class MainActivity extends Activity
 {
-    static GPC gpc;
     static Context appContext;
     static final AutoUpdater updater = new AutoUpdater();
     
@@ -31,6 +30,8 @@ public class MainActivity extends Activity
 
         setContentView(R.layout.activity_main);
 
+        GPC.InitGamePad();
+
         appContext = getApplicationContext();
 
        ImageView btnHost = (ImageView) findViewById(R.id.hostGame);
@@ -39,7 +40,7 @@ public class MainActivity extends Activity
             @Override
             public void onClick(View v)
             {
-                openHostScreen();
+                openGameLibrary();
             }
         });
 
@@ -47,11 +48,10 @@ public class MainActivity extends Activity
         btnLib.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openGameLibrary();
+                openNetworkDebugActivity();
             }
         });
 
-        gpc = new GPC();
         AsyncTask task = new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] objects) {
@@ -97,10 +97,5 @@ public class MainActivity extends Activity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
-    }
-
-    public static GPC getBaseGPC()
-    {
-        return gpc;
     }
 }

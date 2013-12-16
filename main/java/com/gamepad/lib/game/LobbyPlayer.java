@@ -1,11 +1,14 @@
 package com.gamepad.lib.game;
 
+import com.gamepad.lib.net.Packet;
+import com.gamepad.lib.net.PacketEvent;
+
 import java.net.InetAddress;
 
 /**
  * Created by Fabian on 16.12.13.
  */
-public class LobbyPlayer
+public class LobbyPlayer implements PacketEvent
 {
     private InetAddress ip;
     private int port;
@@ -38,5 +41,10 @@ public class LobbyPlayer
 
     public InetAddress getIp() {
         return ip;
+    }
+
+    @Override
+    public void newPacket(Packet p) {
+
     }
 }

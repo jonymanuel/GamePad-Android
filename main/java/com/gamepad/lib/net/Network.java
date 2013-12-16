@@ -103,7 +103,7 @@ public class Network implements PacketEvent
     }
 
     //Send a broadcast to find the host in your network
-    public void startSearchHosts()
+    public void sendPingBroadcast()
     {
         Packet pingPacket = new Packet("ping");
         pingPacket.setDestination("255.255.255.255");
