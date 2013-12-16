@@ -86,7 +86,7 @@ public class NetworkListenerRunnable implements Runnable
             }
             catch (Exception ex)
             {
-                Log.e("NetworkListenerRunnable", "Error: could not retrieve message");
+                ex.printStackTrace();
             }
         }
     }

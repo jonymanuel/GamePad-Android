@@ -39,6 +39,7 @@ public class Network implements PacketEvent
     public void newPacket(Packet packet)
     {
         firePacketEvent(packet);
+
     }
 
     //add a new method to get fired if a new packet arrives
