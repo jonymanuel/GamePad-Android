@@ -13,7 +13,7 @@ public class Host implements PacketEvent
 
     public Host()
     {
-
+        GPC.getNetwork().addPacketEventListener(this);
     }
 
     public Lobby getLobby()
@@ -29,6 +29,10 @@ public class Host implements PacketEvent
 
     @Override
     public void newPacket(Packet p) {
+        if(lobby == null)
+        {
+            return;
+        }
         if(p.getMessage().startsWith("ping"))
         {
             Packet packet = new Packet("pong " + lobby.getName());

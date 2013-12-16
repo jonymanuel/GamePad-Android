@@ -17,6 +17,7 @@ public class Join implements PacketEvent
     public Join()
     {
         lobbies = new ArrayList<Lobby>();
+        GPC.getNetwork().addPacketEventListener(this);
     }
 
     public ArrayList<Lobby> getLobbies() {

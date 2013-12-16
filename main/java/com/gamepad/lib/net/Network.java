@@ -55,7 +55,7 @@ public class Network implements PacketEvent
     //fires the packet event and triggers all methods that are hooked into the event
     protected void firePacketEvent(Packet packet)
     {
-        if (_listeners != null && _listeners.isEmpty())
+        if (_listeners != null && !_listeners.isEmpty())
         {
             Enumeration e = _listeners.elements();
             while (e.hasMoreElements())

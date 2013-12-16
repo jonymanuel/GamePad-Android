@@ -34,7 +34,7 @@ public class NetworkDebugActivity extends Activity
         appContext = getApplicationContext();
         lvNetworkDebug = (ListView) findViewById(R.id.listView_clients);
         clients = new ArrayList<String>();
-        for(Lobby lobby : GPC.getjoin().getLobbies())
+        for(Lobby lobby : GPC.getJoin().getLobbies())
         {
             clients.add(lobby.getName());
         }

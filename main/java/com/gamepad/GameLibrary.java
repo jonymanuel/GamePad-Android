@@ -41,8 +41,7 @@ public class GameLibrary extends ListActivity {
             }
         });
 
-        Network network = GPC.getNetwork();
-        network.sendPingBroadcast();
+        GPC.getHost().createLobby();
         Log.e("Game type", "Join");
     }
 

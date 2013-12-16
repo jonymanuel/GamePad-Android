@@ -25,7 +25,7 @@ public class GPC
         return host;
     }
 
-    public static Join getjoin()
+    public static Join getJoin()
     {
         return join;
     }
