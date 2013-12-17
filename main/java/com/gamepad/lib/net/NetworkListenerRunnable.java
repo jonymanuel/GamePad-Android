@@ -32,13 +32,20 @@ public class NetworkListenerRunnable implements Runnable
 
     private void firePacketEvent(Packet packet)
     {
-        if (_listeners != null && _listeners.isEmpty())
+        if (_listeners != null && !_listeners.isEmpty())
         {
             Enumeration e = _listeners.elements();
             while (e.hasMoreElements())
             {
                 PacketEvent pe = (PacketEvent) e.nextElement();
-                pe.newPacket(packet);
+                try
+                {
+                    pe.newPacket(packet);
+                }
+                catch(Exception ex)
+                {
+                    ex.printStackTrace();
+                }
             }
         }
     }
@@ -81,7 +88,12 @@ public class NetworkListenerRunnable implements Runnable
                 server.receive(result);
                 String message = readMessage(result);
                 Packet packet = new Packet(message);
+                packet.setFrom(result.getAddress());
                 firePacketEvent(packet);
+                if(message.startsWith("pong"))
+                {
+                    Log.d("lala","as");
+                }
                 Log.e("NetworkListenerRunnable", "Got new message: " + message);
             }
             catch (Exception ex)

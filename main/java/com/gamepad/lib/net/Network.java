@@ -55,7 +55,7 @@ public class Network implements PacketEvent
     //fires the packet event and triggers all methods that are hooked into the event
     protected void firePacketEvent(Packet packet)
     {
-        if (_listeners != null && _listeners.isEmpty())
+        if (_listeners != null && !_listeners.isEmpty())
         {
             Enumeration e = _listeners.elements();
             while (e.hasMoreElements())
@@ -103,7 +103,7 @@ public class Network implements PacketEvent
     }
 
     //Send a broadcast to find the host in your network
-    public void startSearchHosts()
+    public void sendPingBroadcast()
     {
         Packet pingPacket = new Packet("ping");
         pingPacket.setDestination("255.255.255.255");

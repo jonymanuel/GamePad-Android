@@ -1,15 +1,13 @@
 package com.gamepad;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.gamepad.lib.game.GameManager;
-import com.gamepad.lib.net.Network;
+import com.gamepad.lib.GPC;
 
 public class HostActivity extends Activity
 {
@@ -63,6 +61,10 @@ public class HostActivity extends Activity
 
     private void createLobby()
     {
-
+        if(GPC.getHost().getLobby() == null)
+        {
+            GPC.getHost().createLobby();
+            Toast.makeText(getApplicationContext(),"Created lobby", Toast.LENGTH_SHORT).show();
+        }
     }
 }

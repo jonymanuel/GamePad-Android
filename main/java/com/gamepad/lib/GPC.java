@@ -1,5 +1,7 @@
 package com.gamepad.lib;
 
+import com.gamepad.lib.game.Host;
+import com.gamepad.lib.game.Join;
 import com.gamepad.lib.net.Network;
 
 /**
@@ -7,14 +9,28 @@ import com.gamepad.lib.net.Network;
  */
 public class GPC
 {
-    private Network network;
+    private static Network network;
+    private static Host host;
+    private static Join join;
 
-    public GPC()
+    public static void InitGamePad()
     {
         network = new Network();
+        host = new Host();
+        join = new Join();
     }
 
-    public Network getNetwork()
+    public static Host getHost()
+    {
+        return host;
+    }
+
+    public static Join getJoin()
+    {
+        return join;
+    }
+
+    public static Network getNetwork()
     {
         return network;
     }
