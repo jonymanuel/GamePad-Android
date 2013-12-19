@@ -40,7 +40,7 @@ public class MainActivity extends Activity
             @Override
             public void onClick(View v)
             {
-                openGameLibrary();
+                openHostScreen();
             }
         });
 
@@ -48,7 +48,7 @@ public class MainActivity extends Activity
         btnLib.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openNetworkDebugActivity();
+                openGameLibrary();
             }
         });
 
@@ -80,8 +80,8 @@ public class MainActivity extends Activity
 
     private void openGameLibrary()
     {
-        Intent intent = new Intent(this, GameLibrary.class);
-        startActivity(intent);
+        //Intent intent = new Intent(this, GameLibrary.class);
+        //startActivity(intent);
     }
 
     private void openNetworkDebugActivity()

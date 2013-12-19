@@ -42,11 +42,6 @@
             android:name="com.gamepad.GameActivity">
         </activity>
         <activity
-            android:name="com.gamepad.GameLibrary"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
-    </activity>
-        <activity
             android:name="com.gamepad.HostActivity"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
