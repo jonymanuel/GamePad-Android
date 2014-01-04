@@ -23,8 +23,13 @@ public class LobbyPlayer implements PacketEvent
         this.name = name;
     }
 
-    public void setIp(InetAddress ip) {
-        this.ip = ip;
+    public void setIp(String ip) {
+        InetAddress addr = null;
+        try { addr = InetAddress.getByName(ip); } catch(Exception ex){};
+        if(addr != null)
+        {
+            this.ip = addr;
+        }
     }
 
     public void setPort(int port) {

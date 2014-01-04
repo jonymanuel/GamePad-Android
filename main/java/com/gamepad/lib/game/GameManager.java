@@ -85,7 +85,7 @@ public class GameManager extends View
                 {
                     GameActivity.getGameManager().update();
                     GameActivity.getGameManager().postInvalidate();
-                    sleep(1000 / 25);
+                    sleep(1000 / 5);
                 }
                 return null;
             }

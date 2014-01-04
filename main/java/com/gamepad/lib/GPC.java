@@ -1,5 +1,6 @@
 package com.gamepad.lib;
 
+import com.gamepad.lib.game.GameManager;
 import com.gamepad.lib.game.Host;
 import com.gamepad.lib.game.Join;
 import com.gamepad.lib.net.Network;

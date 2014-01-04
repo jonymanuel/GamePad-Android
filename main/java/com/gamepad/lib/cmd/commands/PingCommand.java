@@ -1,10 +1,13 @@
 package com.gamepad.lib.cmd.commands;
 
 import com.gamepad.MainActivity;
+import com.gamepad.lib.GPC;
 import com.gamepad.lib.cmd.ICommand;
 import com.gamepad.lib.net.IpAddress;
 import com.gamepad.lib.net.NetworkStation;
 import com.gamepad.lib.net.Packet;
+
+import org.json.JSONObject;
 
 /**
  * Author: root
@@ -13,12 +16,6 @@ import com.gamepad.lib.net.Packet;
  */
 public class PingCommand implements ICommand
 {
-    private String[] arguments;
-    @Override
-    public String[] getArguments()
-    {
-        return arguments;
-    }
 
     @Override
     public String getCommandString()
@@ -27,16 +24,18 @@ public class PingCommand implements ICommand
     }
 
     @Override
-    public Boolean runCommand()
+    public Boolean runCommand(JSONObject input) throws Exception
     {
+        String from = input.getString("from");
+        String lobbyName = input.getString("lobbyname");
+
+        JSONObject res = new JSONObject();
+        res.put("cmd", "pong");
+        res.put("lobbyname", lobbyName);
+
+        Packet packet = new Packet(res.toString());
+        packet.setDestination(from);
+        GPC.getNetwork().sendPacket(packet);
         return true;
     }
-
-    @Override
-    public void setArguments(String[] args)
-    {
-        this.arguments = args;
-    }
-
-
 }

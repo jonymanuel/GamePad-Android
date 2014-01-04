@@ -43,7 +43,12 @@
         </activity>
         <activity
             android:name="com.gamepad.HostActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.gamepad.LobbyActivity"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
     </application>

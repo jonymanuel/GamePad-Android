@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.gamepad.lib.GPC;
+import com.gamepad.lib.poker.Poker;
 import com.gamepad.lib.update.AutoUpdater;
 
 public class MainActivity extends Activity
@@ -34,7 +35,17 @@ public class MainActivity extends Activity
 
         appContext = getApplicationContext();
 
-       ImageView btnHost = (ImageView) findViewById(R.id.hostGame);
+
+
+        ImageView btnLib = (ImageView)findViewById(R.id.joinGame);
+        btnLib.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openGameLibrary();
+            }
+        });
+
+        ImageView btnHost = (ImageView) findViewById(R.id.hostGame);
         btnHost.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -44,13 +55,6 @@ public class MainActivity extends Activity
             }
         });
 
-        ImageView btnLib = (ImageView)findViewById(R.id.joinGame);
-        btnLib.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openGameLibrary();
-            }
-        });
 
         AsyncTask task = new AsyncTask() {
             @Override
@@ -63,7 +67,14 @@ public class MainActivity extends Activity
                 return null;
             }
         };
+
+
         task.execute();
+
+        if(GameActivity.getGameManager() != null)
+        {
+            GameActivity.getGameManager().setCurrentGame(new Poker());
+        }
     }
 
     private void openGameScreen()
