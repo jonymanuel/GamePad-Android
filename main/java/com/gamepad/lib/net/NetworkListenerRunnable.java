@@ -90,10 +90,6 @@ public class NetworkListenerRunnable implements Runnable
                 Packet packet = new Packet(message);
                 packet.setFrom(result.getAddress());
                 firePacketEvent(packet);
-                if(message.startsWith("pong"))
-                {
-                    Log.d("lala","as");
-                }
                 Log.e("NetworkListenerRunnable", "Got new message: " + message);
             }
             catch (Exception ex)

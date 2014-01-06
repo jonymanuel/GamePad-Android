@@ -13,6 +13,7 @@ import java.util.Iterator;
 public class Join implements PacketEvent
 {
     private ArrayList<Lobby> lobbies;
+    private Lobby curLobby;
 
     public Join()
     {
@@ -30,6 +31,27 @@ public class Join implements PacketEvent
         {
             lobbies.add(lobby);
         }
+    }
+
+    public Lobby getLobbyByName(String name)
+    {
+        for(Lobby lob : lobbies)
+        {
+            if(lob.getName().equals(name))
+            {
+                return lob;
+            }
+        }
+    }
+
+    public Lobby getCurrentLobby()
+    {
+        return curLobby;
+    }
+
+    public void setCurrentLobby(Lobby lob)
+    {
+        this.curLobby = lob;
     }
 
     public Boolean lobbyExists(Lobby lobby)

@@ -1,8 +1,13 @@
 package com.gamepad.lib.game;
 
 import com.gamepad.lib.GPC;
+import com.gamepad.lib.cmd.CommandParser;
+import com.gamepad.lib.cmd.ICommand;
+import com.gamepad.lib.cmd.commands.PingCommand;
 import com.gamepad.lib.net.Packet;
 import com.gamepad.lib.net.PacketEvent;
+
+import org.json.JSONObject;
 
 /**
  * Created by Fabian on 16.12.13.
@@ -10,10 +15,12 @@ import com.gamepad.lib.net.PacketEvent;
 public class Host implements PacketEvent
 {
     private Lobby lobby;
+    private CommandParser cmdParser;
 
     public Host()
     {
         GPC.getNetwork().addPacketEventListener(this);
+        cmdParser = new CommandParser();
     }
 
     public Lobby getLobby()
@@ -21,10 +28,11 @@ public class Host implements PacketEvent
         return lobby;
     }
 
-    public void createLobby()
+    public void createLobby(String name)
     {
         lobby = new Lobby();
-        lobby.setName("Poker by Fabi");
+        lobby.setName(name);
+        cmdParser.RegisterCommand(new PingCommand());
     }
 
     @Override
@@ -33,11 +41,16 @@ public class Host implements PacketEvent
         {
             return;
         }
-        if(p.getMessage().startsWith("ping"))
+        try
         {
-            Packet packet = new Packet("pong " + lobby.getName());
-            packet.setDestination(p.getFrom());
-            GPC.getNetwork().sendPacket(packet);
+            JSONObject obj = cmdParser.parseCommand(p.getMessage());
+            obj.put("from", p.getFrom().toString());
+            obj.put("lobbyname", lobby.getName());
+            ICommand cmd = cmdParser.findCommandByCommandString(obj.getString("cmd"));
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
         }
     }
 }

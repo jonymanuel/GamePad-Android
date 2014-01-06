@@ -2,6 +2,9 @@ package com.gamepad.lib.cmd;
 
 import com.gamepad.lib.cmd.commands.PingCommand;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -15,31 +18,17 @@ public class CommandParser
     public CommandParser()
     {
         commands = new ArrayList<ICommand>();
-        commands.add(new PingCommand());
     }
 
-    public ICommand parseCommand(String input) throws Exception
+    public void RegisterCommand(ICommand cmd)
     {
-        String[] tempSplitArray = input.split(" ");
-        if(tempSplitArray.length <= 0)
-        {
-            throw new Exception("Invalid command: probably empty");
-        }
-        String commandString = tempSplitArray[0];
-        ArrayList<String> arguments = new ArrayList<String>();
-        for(int i = 1; i< tempSplitArray.length; i++)
-        {
-            arguments.add(tempSplitArray[i]);
-        }
-        ICommand command = findCommandByCommandString(commandString);
-        if(command != null)
-        {
-            return command;
-        }
-        else
-        {
-            throw new Exception("Invalid command: could not find it");
-        }
+        commands.add(cmd);
+    }
+
+    public JSONObject parseCommand(String input) throws Exception
+    {
+        JSONObject obj = new JSONObject(input);
+        return obj;
     }
 
     public ICommand findCommandByCommandString(String commandString)

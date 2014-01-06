@@ -6,49 +6,11 @@
     android:background="#000000"
     >
 
-    <HorizontalScrollView
-        android:layout_width="wrap_content"
+
+    <ListView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fadingEdge="horizontal"
-        android:scrollbars="none"
-        >
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="300dp"
-                android:layout_height="match_parent"
-                android:id="@+id/pokerGame"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/thflat"
-                android:layout_marginRight="5dp"
-                />
-
-            <ImageView
-                android:layout_width="300dp"
-                android:layout_height="match_parent"
-                android:id="@+id/chessGame"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/chflat"
-                android:layout_marginRight="5dp"
-                />
-
-            <ImageView
-                android:layout_width="300dp"
-                android:layout_height="match_parent"
-                android:id="@+id/monopolyGame"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/mpflat"
-                android:layout_marginRight="5dp"
-                />
-
-        </LinearLayout>
-    </HorizontalScrollView>
-
-
-
+        android:id="@+id/listView"
+        android:background="@drawable/background" />
 </LinearLayout>
 
