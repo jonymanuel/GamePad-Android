@@ -6,6 +6,8 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.gamepad.R;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -23,13 +25,13 @@ public class MainActivity extends Activity {
 
         cardCheck = new CardCheck();
         imageParser = new ImageParser(this);
-        imgCard1 = (ImageView) findViewById(R.id.card1);
-        imgCard2 = (ImageView) findViewById(R.id.card2);
-        imgCard3 = (ImageView) findViewById(R.id.card3);
-        imgCard4 = (ImageView) findViewById(R.id.card4);
-        imgCard5 = (ImageView) findViewById(R.id.card5);
-        imgCard6 = (ImageView) findViewById(R.id.card6);
-        imgCard7 = (ImageView) findViewById(R.id.card7);
+        //imgCard1 = (ImageView) findViewById(R.id.card1);
+        //imgCard2 = (ImageView) findViewById(R.id.card2);
+        //imgCard3 = (ImageView) findViewById(R.id.card3);
+        //imgCard4 = (ImageView) findViewById(R.id.card4);
+        //imgCard5 = (ImageView) findViewById(R.id.card5);
+        //imgCard6 = (ImageView) findViewById(R.id.card6);
+        //imgCard7 = (ImageView) findViewById(R.id.card7);
 
         renew();
     }
@@ -37,8 +39,8 @@ public class MainActivity extends Activity {
     public void renew() {
 
 
-        Deck deck = new Deck();
-        ArrayList<Card> cards = new ArrayList<Card>();
+            Deck deck = new Deck();
+            ArrayList<Card> cards = new ArrayList<Card>();
         /*for(int i = 0; i < 7; i++){
             cards.add(deck.getRandomCard());
         }*/

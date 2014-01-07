@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.gamepad.lib.game.NewRound;
+
 /**
  * Created by sande_000 on 14-11-13.
  */
@@ -30,7 +32,7 @@ import android.os.Handler;
                 public void run() {
                     // This method will be executed once the timer is over
                     // Start your app main activity
-                    Intent i = new Intent(SplashScreen.this, MainActivity.class);
+                    Intent i = new Intent(SplashScreen.this, NewRound.class);
                     startActivity(i);
 
                     // close this activity

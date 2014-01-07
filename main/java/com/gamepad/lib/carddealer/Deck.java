@@ -1,11 +1,9 @@
 package com.gamepad.lib.carddealer;
 
-import android.support.v7.app.ActionBarActivity;
-
 import java.security.SecureRandom;
 import java.util.ArrayList;
 
-public class Deck extends ActionBarActivity {
+    public class Deck {
 
     ArrayList<Card> cards = new ArrayList<Card>();
     SecureRandom sr = new SecureRandom();

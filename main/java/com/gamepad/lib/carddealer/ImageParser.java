@@ -6,8 +6,8 @@ import android.os.Build;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.larvalabs.svgandroid.SVG;
-import com.larvalabs.svgandroid.SVGParser;
+import larvalabs.svgandroid.SVG;
+import larvalabs.svgandroid.SVGParser;
 
 public class ImageParser {
 

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/flop1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src=""
+        />
+    <ImageView
+        android:id="@+id/flop2"
+        android:layout_width="8%"
+        android:layout_height="12%"
+        android:src=""
+        />
+    <ImageView
+        android:id="@+id/flop3"
+        android:layout_width="8%"
+        android:layout_height="12%"
+        android:src=""
+        />
+    <ImageView
+        android:id="@+id/turn"
+        android:layout_width="8%"
+        android:layout_height="12%"
+        android:src=""
+        />
+    <ImageView
+        android:id="@+id/river"
+        android:layout_width="8%"
+        android:layout_height="12%"
+        android:src=""
+        />
+
+    <ImageView
+        android:id="@+id/card1_1"
+        android:layout_width="6%"
+        android:layout_height="8%"
+        android:src=""
+        />
+    <ImageView
+        android:id="@+id/card1_2"
+        android:layout_width="6%"
+        android:layout_height="8%"
+        android:src=""
+        />
+
+    <ImageView
+        android:id="@+id/card2_1"
+        android:layout_width="6%"
+        android:layout_height="8%"
+        android:src=""
+        />
+    <ImageView
+        android:id="@+id/card2_2"
+        android:layout_width="6%"
+        android:layout_height="8%"
+        android:src=""
+        />
+
+    <ImageView
+        android:id="@+id/card3_1"
+        android:layout_width="6%"
+        android:layout_height="8%"
+        android:src=""
+        />
+    <ImageView
+        android:id="@+id/card3_2"
+        android:layout_width="6%"
+        android:layout_height="8%"
+        android:src=""
+        />
+
+    <ImageView
+        android:id="@+id/card4_1"
+        android:layout_width="6%"
+        android:layout_height="8%"
+        android:src=""
+        />
+    <ImageView
+        android:id="@+id/card4_2"
+        android:layout_width="6%"
+        android:layout_height="8%"
+        android:src=""
+        />
+
+    <ImageView
+        android:id="@+id/card5_1"
+        android:layout_width="6%"
+        android:layout_height="8%"
+        android:src=""
+        />
+    <ImageView
+        android:id="@+id/card5_2"
+        android:layout_width="6%"
+        android:layout_height="8%"
+        android:src=""
+        />
+
+    <ImageView
+        android:id="@+id/card6_1"
+        android:layout_width="6%"
+        android:layout_height="8%"
+        android:src=""
+        />
+    <ImageView
+        android:id="@+id/card6_2"
+        android:layout_width="6%"
+        android:layout_height="8%"
+        android:src=""
+        />
+
+    <ImageView
+        android:id="@+id/card7_1"
+        android:layout_width="6%"
+        android:layout_height="8%"
+        android:src=""
+        />
+    <ImageView
+        android:id="@+id/card7_2"
+        android:layout_width="6%"
+        android:layout_height="8%"
+        android:src=""
+        />
+
+    <ImageView
+        android:id="@+id/card8_1"
+        android:layout_width="6%"
+        android:layout_height="8%"
+        android:src=""
+        />
+    <ImageView
+        android:id="@+id/card8_2"
+        android:layout_width="6%"
+        android:layout_height="8%"
+        android:src=""
+        />
+
+</LinearLayout>
