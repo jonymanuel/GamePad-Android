@@ -12,5 +12,13 @@
     <string name="title_activity_activity_test_game">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <color name="white">#efefef</color>
+    <color name="red">#ce0f0e</color>
+    <color name="yellow">#e1e42b</color>
+    <color name="orange">#dfab47</color>
+    <color name="pink">#dc445f</color>
+    <color name="green">#ff74ff0a</color>
+    <color name="black">#171619</color>
+    <color name="blue">#3b85d1</color>
 
 </resources>
