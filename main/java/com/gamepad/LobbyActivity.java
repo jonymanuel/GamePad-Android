@@ -22,6 +22,8 @@ public class LobbyActivity extends Activity {
     private ListView lvNetworkDebug;
     private ArrayList<String> clients;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -33,9 +35,12 @@ public class LobbyActivity extends Activity {
         {
             clients.add(player.getIp().toString());
         }
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, clients);
-        lvNetworkDebug.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        if(clients.size() > 0)
+        {
+            ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, clients);
+            lvNetworkDebug.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
 
     }
 }

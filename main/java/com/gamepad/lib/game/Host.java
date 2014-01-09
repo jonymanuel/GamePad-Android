@@ -32,6 +32,11 @@ public class Host implements PacketEvent
     {
         lobby = new Lobby();
         lobby.setName(name);
+        registerCommands();
+    }
+
+    private void registerCommands()
+    {
         cmdParser.RegisterCommand(new PingCommand());
     }
 

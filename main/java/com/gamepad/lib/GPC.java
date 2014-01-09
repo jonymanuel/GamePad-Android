@@ -1,6 +1,10 @@
 package com.gamepad.lib;
 
-import com.gamepad.lib.game.GameManager;
+import android.content.Context;
+import android.os.PowerManager;
+import android.util.Log;
+
+import com.gamepad.MainActivity;
 import com.gamepad.lib.game.Host;
 import com.gamepad.lib.game.Join;
 import com.gamepad.lib.net.Network;
@@ -13,12 +17,17 @@ public class GPC
     private static Network network;
     private static Host host;
     private static Join join;
+    private static PowerManager.WakeLock gameWakeLock;
+    private static PowerManager powerManager;
 
     public static void InitGamePad()
     {
+        powerManager = (PowerManager)MainActivity.getContext().getSystemService(Context.POWER_SERVICE);
+        gameWakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "GamePadWakeLock");
         network = new Network();
         host = new Host();
         join = new Join();
+
     }
 
     public static Host getHost()
@@ -34,5 +43,18 @@ public class GPC
     public static Network getNetwork()
     {
         return network;
+    }
+
+    public static void InitGameWakeLock()
+    {
+        gameWakeLock.acquire();
+        Log.d("GPC", "Acquired gameWakeLock");
+    }
+
+    public static void ReleaseGameWakeLock()
+    {
+
+        gameWakeLock.release();
+        Log.d("GPC", "Released gameWakeLock");
     }
 }

@@ -30,10 +30,9 @@ public class MainActivity extends Activity
 
 
         setContentView(R.layout.activity_main);
-
-        GPC.InitGamePad();
-
         appContext = getApplicationContext();
+
+
 
 
 
@@ -75,6 +74,21 @@ public class MainActivity extends Activity
         {
             GameActivity.getGameManager().setCurrentGame(new Poker());
         }
+        GPC.InitGamePad();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        GPC.InitGameWakeLock();
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        GPC.ReleaseGameWakeLock();
     }
 
     private void openGameScreen()
