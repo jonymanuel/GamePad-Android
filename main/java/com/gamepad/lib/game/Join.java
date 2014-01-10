@@ -167,6 +167,7 @@ public class Join implements PacketEvent, Mode
                 return null;
             }
         };
+        aTask.execute();
     }
 
 
@@ -176,7 +177,10 @@ public class Join implements PacketEvent, Mode
     {
         this.stopLobbySearcher();
         cmdParser.clearCommands();
-        this._listeners.clear();
+        if(_listeners != null)
+        {
+            this._listeners.clear();
+        }
         GPC.getNetwork().removePacketEventListener(this);
     }
 
@@ -194,7 +198,6 @@ public class Join implements PacketEvent, Mode
     /* Searches for available hosts in the current network */
     private void searchForHosts()
     {
-        Log.d("Join", "Sending ping broadcast");
         GPC.getNetwork().sendPingBroadcast();
     }
 
@@ -203,8 +206,14 @@ public class Join implements PacketEvent, Mode
         try
         {
             JSONObject obj = cmdParser.parseCommand(p.getMessage());
-            obj.put("from", p.getFrom().toString());
-            ICommand cmd = cmdParser.findCommandByCommandString(obj.getString("cmd"));
+            obj.put("from", p.getFrom().toString().replace("/", ""));
+            String cmdString = obj.getString("cmd");
+            ICommand cmd = cmdParser.findCommandByCommandString(cmdString);
+            if(cmd == null)
+            {
+                Log.d("Join", "Received unknown packet: " + cmdString);
+                return;
+            }
             cmd.runCommand(obj);
         }
         catch(Exception ex)

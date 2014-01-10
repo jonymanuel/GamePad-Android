@@ -66,7 +66,7 @@ public class Lobby
             player.setName(playerName);
             result.add(player);
         }
-        return (LobbyPlayer[])result.toArray();
+        return result.toArray(new LobbyPlayer[0]);
     }
 
     public void setHostIp(String inetAddress)

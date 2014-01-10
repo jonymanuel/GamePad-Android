@@ -55,7 +55,7 @@ public class Host implements PacketEvent, Mode
         try
         {
             JSONObject obj = cmdParser.parseCommand(p.getMessage());
-            obj.put("from", p.getFrom().toString());
+            obj.put("from", p.getFrom().toString().replace("/", ""));
             obj.put("lobbyname", lobby.getName());
             ICommand cmd = cmdParser.findCommandByCommandString(obj.getString("cmd"));
             cmd.runCommand(obj);
@@ -75,5 +75,6 @@ public class Host implements PacketEvent, Mode
     public void clearMode() {
         cmdParser.clearCommands();
         destroyLobby();
+
     }
 }

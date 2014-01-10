@@ -2,6 +2,8 @@ package com.gamepad.lib.net;
 
 import android.util.Log;
 
+import org.json.JSONObject;
+
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -38,7 +40,6 @@ public class Network implements PacketEvent
     public void newPacket(Packet packet)
     {
         firePacketEvent(packet);
-
     }
 
     //add a new method to get fired if a new packet arrives
@@ -75,8 +76,8 @@ public class Network implements PacketEvent
     }
 
     //gets the local ip of the mobile phone
-    public IpAddress getLocalIp(){
-        String ipAddress = null;
+    public InetAddress getLocalIp(){
+        InetAddress ipAddress = null;
         Enumeration<NetworkInterface> net = null;
         try {
             net = NetworkInterface.getNetworkInterfaces();
@@ -93,7 +94,7 @@ public class Network implements PacketEvent
 
                     if (ip.isSiteLocalAddress()){
 
-                        ipAddress = ip.getHostAddress();
+                        ipAddress = ip;
                     }
 
                 }
@@ -102,7 +103,7 @@ public class Network implements PacketEvent
         }
         try
         {
-            return IpAddress.parse(ipAddress);
+            return ipAddress;
         }
         catch(Exception ex)
         {
@@ -113,7 +114,14 @@ public class Network implements PacketEvent
     //Send a broadcast to find the host in your network
     public void sendPingBroadcast()
     {
-        Packet pingPacket = new Packet("ping");
+        JSONObject obj = new JSONObject();
+        try
+        {
+            obj.put("cmd", "ping");
+        }
+        catch(Exception ex)
+        {}
+        Packet pingPacket = new Packet(obj.toString());
         pingPacket.setDestination("255.255.255.255");
         sendPacket(pingPacket);
     }

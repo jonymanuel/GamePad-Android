@@ -16,18 +16,19 @@ import java.util.ArrayList;
  */
 public class JoinActivity extends Activity
 {
-    private ListView lvLobbies;
-    private ArrayList<String> lobbies;
+    ArrayList<String> lobbies;
     ArrayAdapter lvLobbiesAdapter;
+    ListView lvLobbies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_join);
         GPC.setJoinMode();
 
-        lvLobbies = (ListView)findViewById(R.id.listView_lobbies);
+        lvLobbies = (ListView)findViewById(R.id.listViewLobbies);
+        lobbies  = new ArrayList<String>();
         lvLobbiesAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, lobbies);
         lvLobbies.setAdapter(lvLobbiesAdapter);
         updateLobbyList();
@@ -35,14 +36,19 @@ public class JoinActivity extends Activity
         GPC.getJoin().addLobbyUpdateEventListener(new LobbyUpdateEvent() {
             @Override
             public void onLobbyUpdate() {
-                updateLobbyList();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateLobbyList();
+                    }
+                });
             }
         });
     }
 
     private void updateLobbyList()
     {
-        lobbies.clear();
+        lvLobbiesAdapter.clear();
         for(Lobby lobby : GPC.getJoin().getLobbies())
         {
             String name = lobby.getName();
@@ -50,8 +56,10 @@ public class JoinActivity extends Activity
             String max = String.valueOf(lobby.getMaxPlayers());
             String cur = String.valueOf(lobby.getPlayers().size());
             String text = String.format("Name: %s Game: %s (%s/%s)", name, game, max, cur);
-            lobbies.add(text);
+
+            lvLobbiesAdapter.add(text);
         }
+
         lvLobbiesAdapter.notifyDataSetChanged();
     }
 

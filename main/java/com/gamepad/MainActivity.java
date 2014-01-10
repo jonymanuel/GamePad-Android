@@ -105,8 +105,8 @@ public class MainActivity extends Activity
 
     private void openGameLibrary()
     {
-        //Intent intent = new Intent(this, GameLibrary.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, JoinActivity.class);
+        startActivity(intent);
     }
 
     private void openNetworkDebugActivity()

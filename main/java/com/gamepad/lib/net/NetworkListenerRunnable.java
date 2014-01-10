@@ -2,6 +2,8 @@ package com.gamepad.lib.net;
 
 import android.util.Log;
 
+import com.gamepad.lib.GPC;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -85,7 +87,14 @@ public class NetworkListenerRunnable implements Runnable
             {
                 byte[] receiveData = new byte[4096];
                 DatagramPacket result = new DatagramPacket(receiveData,receiveData.length);
+
                 server.receive(result);
+                String localIp = GPC.getNetwork().getLocalIp().toString();
+                String resultIp = result.getAddress().toString();
+                if(localIp.equals(resultIp))
+                {
+                    continue;
+                }
                 String message = readMessage(result);
                 Packet packet = new Packet(message);
                 packet.setFrom(result.getAddress());
@@ -94,7 +103,7 @@ public class NetworkListenerRunnable implements Runnable
             }
             catch (Exception ex)
             {
-                ex.printStackTrace();
+
             }
         }
     }
