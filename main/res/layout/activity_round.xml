@@ -6,44 +6,39 @@
     android:id="@+id/layout">
 
     <ImageView
-        android:layout_height="120dp"
-        android:layout_width="80dp"
-        android:id="@+id/test"
-        android:background="@drawable/aa"
-        android:layout_marginTop="160dp"
-        android:layout_marginLeft="270dp"
+        android:layout_height="120px"
+        android:layout_width="80px"
+        android:id="@+id/flop1"
+        android:layout_marginTop="200px"
+        android:layout_marginLeft="270px"
+        />
+    <ImageView
+        android:layout_height="120px"
+        android:layout_width="80px"
+        android:id="@+id/flop2"
+        android:layout_marginTop="200px"
+        android:layout_marginLeft="370px"
+        />
+    <ImageView
+        android:layout_height="120px"
+        android:layout_width="80px"
+        android:id="@+id/flop3"
+        android:layout_marginTop="200px"
+        android:layout_marginLeft="470px"
         />
     <ImageView
         android:layout_height="120dp"
         android:layout_width="80dp"
-        android:id="@+id/test"
-        android:background="@drawable/aa"
-        android:layout_marginTop="160dp"
-        android:layout_marginLeft="370dp"
+        android:id="@+id/turn"
+        android:layout_marginTop="200px"
+        android:layout_marginLeft="570px"
         />
     <ImageView
         android:layout_height="120dp"
         android:layout_width="80dp"
-        android:id="@+id/test"
-        android:background="@drawable/aa"
-        android:layout_marginTop="160dp"
-        android:layout_marginLeft="470dp"
-        />
-    <ImageView
-        android:layout_height="120dp"
-        android:layout_width="80dp"
-        android:id="@+id/test"
-        android:background="@drawable/aa"
-        android:layout_marginTop="160dp"
-        android:layout_marginLeft="570dp"
-        />
-    <ImageView
-        android:layout_height="120dp"
-        android:layout_width="80dp"
-        android:id="@+id/test"
-        android:background="@drawable/aa"
-        android:layout_marginTop="160dp"
-        android:layout_marginLeft="670dp"
+        android:id="@+id/river"
+        android:layout_marginTop="200px"
+        android:layout_marginLeft="670px"
         />
 </RelativeLayout>
 
