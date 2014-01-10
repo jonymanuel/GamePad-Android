@@ -2,31 +2,30 @@ package com.gamepad.lib.game;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.gamepad.R;
-import com.gamepad.lib.carddealer.ImageParser;
 
 /**
  * Created by Jordi on 17/12/13.
  */
 public class NewRound extends Activity{
-
-    ImageView imgFlop1, imgFlop2, imgFlop3, imgTurn, imgRiver;
-    private ImageParser imageParser;
-
-    LinearLayout mLinearLayout;
+    RelativeLayout mRelativeLayout;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //int getWidthScreen = mRelativeLayout.getWidth();
+        //int getHeightScreen = mRelativeLayout.getHeight();
 
-        imgFlop1 = (ImageView) findViewById(R.id.flop1);
-        imgFlop2 = (ImageView) findViewById(R.id.flop2);
-        imgFlop3 = (ImageView) findViewById(R.id.flop3);
-        imgTurn = (ImageView) findViewById(R.id.turn);
-        imgRiver = (ImageView) findViewById(R.id.river);
 
+        /*ImageView iv = new ImageView(this);
+        iv.setImageResource(R.drawable.aa);
+        RelativeLayout rl = (RelativeLayout) findViewById(R.id.layout);
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        rl.addView(iv, lp);*/
 
         setContentView(R.layout.activity_round);
 
