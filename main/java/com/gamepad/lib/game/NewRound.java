@@ -2,6 +2,8 @@ package com.gamepad.lib.game;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.gamepad.R;
@@ -11,23 +13,22 @@ import com.gamepad.R;
  */
 public class NewRound extends Activity{
     RelativeLayout mRelativeLayout;
+    ImageView flop1, flop2, flop3, turn, river;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //int getWidthScreen = mRelativeLayout.getWidth();
-        //int getHeightScreen = mRelativeLayout.getHeight();
 
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int height = displaymetrics.heightPixels;
+        int width = displaymetrics.widthPixels;
 
-        /*ImageView iv = new ImageView(this);
-        iv.setImageResource(R.drawable.aa);
-        RelativeLayout rl = (RelativeLayout) findViewById(R.id.layout);
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-        lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        rl.addView(iv, lp);*/
-
+        flop1 = findViewById(flop1);
         setContentView(R.layout.activity_round);
+    }
+
+    public void dealFlop()
+    {
 
     }
 }

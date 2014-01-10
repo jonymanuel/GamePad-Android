@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="@drawable/table"
+    android:id="@+id/layout">
+
+    <ImageView
+        android:layout_height="84dp"
+        android:layout_width="56dp"
+        android:id="@+id/test"
+        android:background="@drawable/aa"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="95dp"
+        />
+    <ImageView
+        android:layout_height="84dp"
+        android:layout_width="56dp"
+        android:id="@+id/test"
+        android:background="@drawable/aa"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="161dp"
+        />
+    <ImageView
+        android:layout_height="84dp"
+        android:layout_width="56dp"
+        android:id="@+id/test"
+        android:background="@drawable/aa"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="227dp"
+        />
+    <ImageView
+        android:layout_height="84dp"
+        android:layout_width="56dp"
+        android:id="@+id/test"
+        android:background="@drawable/aa"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="293dp"
+        />
+    <ImageView
+        android:layout_height="84dp"
+        android:layout_width="56dp"
+        android:id="@+id/test"
+        android:background="@drawable/aa"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="359dp"
+        />
+</RelativeLayout>
+
