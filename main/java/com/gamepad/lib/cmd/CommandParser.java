@@ -1,8 +1,5 @@
 package com.gamepad.lib.cmd;
 
-import com.gamepad.lib.cmd.commands.PingCommand;
-
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -20,6 +17,12 @@ public class CommandParser
         commands = new ArrayList<ICommand>();
     }
 
+    /* Clears all hooked commands in the command list */
+    public void clearCommands()
+    {
+        commands.clear();
+    }
+
     public void RegisterCommand(ICommand cmd)
     {
         commands.add(cmd);
@@ -27,8 +30,7 @@ public class CommandParser
 
     public JSONObject parseCommand(String input) throws Exception
     {
-        JSONObject obj = new JSONObject(input);
-        return obj;
+        return new JSONObject(input);
     }
 
     public ICommand findCommandByCommandString(String commandString)

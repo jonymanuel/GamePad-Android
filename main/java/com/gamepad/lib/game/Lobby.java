@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * Created by Fabian on 16.12.13.
+ * Created by Fabian on 16.12.13 12:56 in project ${PROJECT_NAME}.
  */
 public class Lobby
 {
@@ -14,10 +14,20 @@ public class Lobby
     private InetAddress hostIp;
     private int hostPort;
     private String gameName;
+    private int maxPlayers;
 
     public Lobby()
     {
         players = new ArrayList<LobbyPlayer>();
+    }
+
+    public int getMaxPlayers()
+    {
+        return maxPlayers;
+    }
+
+    public void setMaxPlayers(int maxPlayers) {
+        this.maxPlayers = maxPlayers;
     }
 
     public String getGameName()
@@ -46,6 +56,36 @@ public class Lobby
         this.hostIp = hostIp;
     }
 
+    public static LobbyPlayer[] getPlayersFromString(String input)
+    {
+        ArrayList<LobbyPlayer> result = new ArrayList<LobbyPlayer>();
+        String[] playerNames = input.split(":");
+        for(String playerName : playerNames)
+        {
+            LobbyPlayer player = new LobbyPlayer();
+            player.setName(playerName);
+            result.add(player);
+        }
+        return (LobbyPlayer[])result.toArray();
+    }
+
+    public void setHostIp(String inetAddress)
+    {
+        InetAddress addr = null;
+        try
+        {
+            addr = InetAddress.getByName(inetAddress);
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+        if(addr != null)
+        {
+            this.hostIp = addr;
+        }
+    }
+
     public int getHostPort() {
         return hostPort;
     }
@@ -57,6 +97,14 @@ public class Lobby
     public ArrayList<LobbyPlayer> getPlayers()
     {
         return players;
+    }
+
+    public void addPlayerRange(LobbyPlayer[] players)
+    {
+        for(LobbyPlayer player : players)
+        {
+            addPlayer(player);
+        }
     }
 
     public Boolean addPlayer(LobbyPlayer player)
@@ -71,12 +119,8 @@ public class Lobby
 
     public Boolean playerExistsByName(String name)
     {
-        Iterator<LobbyPlayer> pIt = players.iterator();
-        while(pIt.hasNext())
-        {
-            LobbyPlayer cur = pIt.next();
-            if(cur.getName().equals(name))
-            {
+        for (LobbyPlayer cur : players) {
+            if (cur.getName().equals(name)) {
                 return true;
             }
         }

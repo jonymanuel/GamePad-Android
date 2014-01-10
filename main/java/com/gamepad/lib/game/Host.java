@@ -12,7 +12,7 @@ import org.json.JSONObject;
 /**
  * Created by Fabian on 16.12.13.
  */
-public class Host implements PacketEvent
+public class Host implements PacketEvent, Mode
 {
     private Lobby lobby;
     private CommandParser cmdParser;
@@ -35,8 +35,14 @@ public class Host implements PacketEvent
         registerCommands();
     }
 
+    public void destroyLobby()
+    {
+        lobby = null;
+    }
+
     private void registerCommands()
     {
+        cmdParser.clearCommands();
         cmdParser.RegisterCommand(new PingCommand());
     }
 
@@ -52,10 +58,22 @@ public class Host implements PacketEvent
             obj.put("from", p.getFrom().toString());
             obj.put("lobbyname", lobby.getName());
             ICommand cmd = cmdParser.findCommandByCommandString(obj.getString("cmd"));
+            cmd.runCommand(obj);
         }
         catch(Exception ex)
         {
             ex.printStackTrace();
         }
+    }
+
+    @Override
+    public void initMode() {
+        registerCommands();
+    }
+
+    @Override
+    public void clearMode() {
+        cmdParser.clearCommands();
+        destroyLobby();
     }
 }

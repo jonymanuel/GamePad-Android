@@ -30,6 +30,20 @@ public class GPC
 
     }
 
+    public static void setHostMode()
+    {
+        join.clearMode();
+        host.initMode();
+    }
+
+    public static void setJoinMode()
+    {
+        host.clearMode();
+        join.initMode();
+    }
+
+
+
     public static Host getHost()
     {
         return host;

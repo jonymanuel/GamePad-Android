@@ -1,6 +1,5 @@
 package com.gamepad.lib.net;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
 import java.net.Inet4Address;
@@ -11,7 +10,7 @@ import java.util.Enumeration;
 import java.util.Vector;
 
 /**
- * Created by root on 04.10.13.
+ * Created by oot  on 4.10.13. 12:52 in project ${PROJECT_NAME}.
  */
 public class Network implements PacketEvent
 {
@@ -64,6 +63,15 @@ public class Network implements PacketEvent
                 pe.newPacket(packet);
             }
         }
+    }
+
+    public Boolean removePacketEventListener(PacketEvent event)
+    {
+        if(_listeners == null || _listeners.remove(event))
+        {
+            return true;
+        }
+        return false;
     }
 
     //gets the local ip of the mobile phone

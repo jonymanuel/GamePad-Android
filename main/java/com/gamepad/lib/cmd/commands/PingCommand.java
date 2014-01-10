@@ -1,10 +1,8 @@
 package com.gamepad.lib.cmd.commands;
 
-import com.gamepad.MainActivity;
 import com.gamepad.lib.GPC;
 import com.gamepad.lib.cmd.ICommand;
-import com.gamepad.lib.net.IpAddress;
-import com.gamepad.lib.net.NetworkStation;
+import com.gamepad.lib.game.Lobby;
 import com.gamepad.lib.net.Packet;
 
 import org.json.JSONObject;
@@ -27,11 +25,19 @@ public class PingCommand implements ICommand
     public Boolean runCommand(JSONObject input) throws Exception
     {
         String from = input.getString("from");
-        String lobbyName = input.getString("lobbyname");
+        Lobby lobby = GPC.getHost().getLobby();
+        String lobbyName = lobby.getName();
+        String maxPlayers = String.valueOf(lobby.getMaxPlayers());
+        String curPlayers = String.valueOf(lobby.getPlayers().size());
+        String gameName = lobby.getGameName();
 
         JSONObject res = new JSONObject();
         res.put("cmd", "pong");
-        res.put("lobbyname", lobbyName);
+        res.put("lobbyName", lobbyName);
+        res.put("gameName", gameName);
+        res.put("maxPlayers", maxPlayers);
+        res.put("currentPlayers", curPlayers);
+
 
         Packet packet = new Packet(res.toString());
         packet.setDestination(from);

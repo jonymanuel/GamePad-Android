@@ -7,7 +7,7 @@ import com.gamepad.lib.game.Lobby;
 import org.json.JSONObject;
 
 /**
- * Created by Fabian on 07.01.14.
+ * Created by Fabian on 07.01.14 12:58 in project ${PROJECT_NAME}.
  */
 public class PongCommand implements ICommand {
 
@@ -18,9 +18,17 @@ public class PongCommand implements ICommand {
 
     @Override
     public Boolean runCommand(JSONObject input) throws Exception {
-        String lobbyName = input.getString("lobbyname");
+        String lobbyName = input.getString("lobbyName");
+        String gameName = input.getString("gameName");
+        String maxPlayers = input.getString("maxPlayers");
+        String currentPlayers = input.getString("currentPlayers");
+        String from = input.getString("from");
         Lobby lob = new Lobby();
         lob.setName(lobbyName);
+        lob.setGameName(gameName);
+        lob.setHostIp(from);
+        lob.setMaxPlayers(Integer.parseInt(maxPlayers));
+        lob.addPlayerRange(Lobby.getPlayersFromString(currentPlayers));
         GPC.getJoin().addLobby(lob);
         return true;
     }

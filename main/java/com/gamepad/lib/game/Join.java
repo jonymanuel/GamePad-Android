@@ -6,6 +6,7 @@ import android.util.Log;
 import com.gamepad.lib.GPC;
 import com.gamepad.lib.cmd.CommandParser;
 import com.gamepad.lib.cmd.ICommand;
+import com.gamepad.lib.cmd.commands.JoinAcceptedCommand;
 import com.gamepad.lib.cmd.commands.JoinCommand;
 import com.gamepad.lib.cmd.commands.PongCommand;
 import com.gamepad.lib.net.Packet;
@@ -21,7 +22,7 @@ import java.util.Vector;
 /**
  * Created by Fabian on 16.12.13.
  */
-public class Join implements PacketEvent
+public class Join implements PacketEvent, Mode
 {
     private ArrayList<Lobby> lobbies;
     private Lobby curLobby;
@@ -41,8 +42,9 @@ public class Join implements PacketEvent
 
     private void registerCommands()
     {
+        cmdParser.clearCommands();
         cmdParser.RegisterCommand(new PongCommand());
-        cmdParser.RegisterCommand(new JoinCommand());
+        cmdParser.RegisterCommand(new JoinAcceptedCommand());
     }
 
     private void fireLobbyUpdateEvent()
@@ -71,7 +73,7 @@ public class Join implements PacketEvent
         return lobbies;
     }
 
-    public void UpdateLobby(Lobby lobby)
+    public void updateLobby(Lobby lobby)
     {
         Lobby lob = getLobbyByName(lobby.getName());
         for(LobbyPlayer player : lobby.getPlayers())
@@ -93,7 +95,9 @@ public class Join implements PacketEvent
         }
         else
         {
-
+            updateLobby(lobby);
+            Log.d("Join", "Updated lobby: " + lobby.getName() + " with " + lobby.getPlayers().size() + " players");
+            fireLobbyUpdateEvent();
         }
     }
 
@@ -141,13 +145,13 @@ public class Join implements PacketEvent
         return false;
     }
 
-    public void StopLobbySearcher()
+    public void stopLobbySearcher()
     {
         Log.d("Join", "Stopping LobbySearcher");
         stopLobbySearcher = true;
     }
 
-    public void StartLobbyFinder()
+    public void startLobbyFinder()
     {
         Log.d("Join", "Starting LobbySearcher");
         AsyncTask aTask = new AsyncTask() {
@@ -155,7 +159,7 @@ public class Join implements PacketEvent
             protected Object doInBackground(Object[] objects) {
                 while(!stopLobbySearcher)
                 {
-                    SearchForHosts();
+                    searchForHosts();
                     try { Thread.sleep(500); } catch(Exception ex){ ex.printStackTrace(); }
                 }
                 Log.d("Join", "LobbySearcher stopped");
@@ -165,8 +169,32 @@ public class Join implements PacketEvent
         };
     }
 
-    private void SearchForHosts()
+
+    /* Used if you want to clear this mode and choose a new one (pseudo dispose) */
+    @Override
+    public void clearMode()
     {
+        this.stopLobbySearcher();
+        cmdParser.clearCommands();
+        this._listeners.clear();
+        GPC.getNetwork().removePacketEventListener(this);
+    }
+
+    /* Initializes this mode to work properly */
+    @Override
+    public void initMode()
+    {
+        Log.d("Join", "Initializing join mode");
+        this.registerCommands();
+        this.startLobbyFinder();
+        GPC.getNetwork().addPacketEventListener(this);
+        Log.d("Join", "Join mode initialized");
+    }
+
+    /* Searches for available hosts in the current network */
+    private void searchForHosts()
+    {
+        Log.d("Join", "Sending ping broadcast");
         GPC.getNetwork().sendPingBroadcast();
     }
 
@@ -177,6 +205,7 @@ public class Join implements PacketEvent
             JSONObject obj = cmdParser.parseCommand(p.getMessage());
             obj.put("from", p.getFrom().toString());
             ICommand cmd = cmdParser.findCommandByCommandString(obj.getString("cmd"));
+            cmd.runCommand(obj);
         }
         catch(Exception ex)
         {
