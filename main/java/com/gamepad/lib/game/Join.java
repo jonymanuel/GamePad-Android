@@ -28,23 +28,44 @@ public class Join implements PacketEvent, Mode
     private Lobby curLobby;
     private Boolean stopLobbySearcher;
     private Vector _listeners;
-    private CommandParser cmdParser;
+    private String localPlayerName;
 
 
     public Join()
     {
-        cmdParser = new CommandParser();
         lobbies = new ArrayList<Lobby>();
         stopLobbySearcher = false;
         GPC.getNetwork().addPacketEventListener(this);
-        registerCommands();
+        localPlayerName = "HAMMELMEIER";
     }
 
     private void registerCommands()
     {
-        cmdParser.clearCommands();
-        cmdParser.RegisterCommand(new PongCommand());
-        cmdParser.RegisterCommand(new JoinAcceptedCommand());
+        GPC.getCmdParser().clearCommands();
+        GPC.getCmdParser().RegisterCommand(new PongCommand());
+        GPC.getCmdParser().RegisterCommand(new JoinAcceptedCommand());
+    }
+
+    public void setLocalPlayerName(String name)
+    {
+        localPlayerName = name;
+    }
+
+    public String getLocalPlayerName()
+    {
+        return localPlayerName;
+    }
+
+    public void requestJoin(Lobby lobby) throws Exception
+    {
+        JSONObject res = new JSONObject();
+        res.put("cmd", "joinlobby");
+        res.put("playername", localPlayerName);
+
+
+        Packet packet = new Packet(res.toString());
+        packet.setDestination(lobby.getHostIp());
+        GPC.getNetwork().sendPacket(packet);
     }
 
     private void fireLobbyUpdateEvent()
@@ -135,7 +156,7 @@ public class Join implements PacketEvent, Mode
         while(pIt.hasNext())
         {
             Lobby cur = pIt.next();
-            if(cur.getHostIp().equals(lobby.getHostIp()))
+            if(cur.getName().equals(lobby.getName()))
             {
                 Log.d("Join", "The lobby '" + lobby.getName()  + "' exists");
                 return true;
@@ -151,6 +172,19 @@ public class Join implements PacketEvent, Mode
         stopLobbySearcher = true;
     }
 
+    private void deleteOfflineLobbies()
+    {
+        for(Lobby lobby : lobbies)
+        {
+            if(lobby.isOffline())
+            {
+                Log.d("Join", "Lobby " + lobby.getName() + " is offline. Deleting...");
+                lobbies.remove(lobby);
+                fireLobbyUpdateEvent();
+            }
+        }
+    }
+
     public void startLobbyFinder()
     {
         Log.d("Join", "Starting LobbySearcher");
@@ -159,8 +193,10 @@ public class Join implements PacketEvent, Mode
             protected Object doInBackground(Object[] objects) {
                 while(!stopLobbySearcher)
                 {
-                    searchForHosts();
-                    try { Thread.sleep(500); } catch(Exception ex){ ex.printStackTrace(); }
+                    try{ searchForHosts(); } catch(Exception ex) { ex.printStackTrace(); }
+                    try{ deleteOfflineLobbies(); } catch(Exception ex) { ex.printStackTrace(); }
+                    try { Thread.sleep(500); } catch(Exception ex) { ex.printStackTrace(); }
+
                 }
                 Log.d("Join", "LobbySearcher stopped");
                 stopLobbySearcher = false;
@@ -175,13 +211,16 @@ public class Join implements PacketEvent, Mode
     @Override
     public void clearMode()
     {
+        Log.d("Join", "Clearing join mode");
         this.stopLobbySearcher();
-        cmdParser.clearCommands();
+        GPC.getCmdParser().clearCommands();
+        this.lobbies.clear();
         if(_listeners != null)
         {
             this._listeners.clear();
         }
         GPC.getNetwork().removePacketEventListener(this);
+        Log.d("Join", "Cleared join mode");
     }
 
     /* Initializes this mode to work properly */
@@ -205,10 +244,10 @@ public class Join implements PacketEvent, Mode
     public void newPacket(Packet p) {
         try
         {
-            JSONObject obj = cmdParser.parseCommand(p.getMessage());
+            JSONObject obj = GPC.getCmdParser().parseCommand(p.getMessage());
             obj.put("from", p.getFrom().toString().replace("/", ""));
             String cmdString = obj.getString("cmd");
-            ICommand cmd = cmdParser.findCommandByCommandString(cmdString);
+            ICommand cmd = GPC.getCmdParser().findCommandByCommandString(cmdString);
             if(cmd == null)
             {
                 Log.d("Join", "Received unknown packet: " + cmdString);

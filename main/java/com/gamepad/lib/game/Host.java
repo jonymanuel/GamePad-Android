@@ -1,8 +1,11 @@
 package com.gamepad.lib.game;
 
+import android.util.Log;
+
 import com.gamepad.lib.GPC;
 import com.gamepad.lib.cmd.CommandParser;
 import com.gamepad.lib.cmd.ICommand;
+import com.gamepad.lib.cmd.commands.JoinCommand;
 import com.gamepad.lib.cmd.commands.PingCommand;
 import com.gamepad.lib.net.Packet;
 import com.gamepad.lib.net.PacketEvent;
@@ -15,12 +18,10 @@ import org.json.JSONObject;
 public class Host implements PacketEvent, Mode
 {
     private Lobby lobby;
-    private CommandParser cmdParser;
 
     public Host()
     {
         GPC.getNetwork().addPacketEventListener(this);
-        cmdParser = new CommandParser();
     }
 
     public Lobby getLobby()
@@ -32,7 +33,6 @@ public class Host implements PacketEvent, Mode
     {
         lobby = new Lobby();
         lobby.setName(name);
-        registerCommands();
     }
 
     public void destroyLobby()
@@ -42,8 +42,9 @@ public class Host implements PacketEvent, Mode
 
     private void registerCommands()
     {
-        cmdParser.clearCommands();
-        cmdParser.RegisterCommand(new PingCommand());
+        GPC.getCmdParser().clearCommands();
+        GPC.getCmdParser().RegisterCommand(new PingCommand());
+        GPC.getCmdParser().RegisterCommand(new JoinCommand());
     }
 
     @Override
@@ -54,10 +55,10 @@ public class Host implements PacketEvent, Mode
         }
         try
         {
-            JSONObject obj = cmdParser.parseCommand(p.getMessage());
+            JSONObject obj = GPC.getCmdParser().parseCommand(p.getMessage());
             obj.put("from", p.getFrom().toString().replace("/", ""));
             obj.put("lobbyname", lobby.getName());
-            ICommand cmd = cmdParser.findCommandByCommandString(obj.getString("cmd"));
+            ICommand cmd = GPC.getCmdParser().findCommandByCommandString(obj.getString("cmd"));
             cmd.runCommand(obj);
         }
         catch(Exception ex)
@@ -73,8 +74,9 @@ public class Host implements PacketEvent, Mode
 
     @Override
     public void clearMode() {
-        cmdParser.clearCommands();
+        Log.d("Join", "Clearing host mode");
+        GPC.getCmdParser().clearCommands();
         destroyLobby();
-
+        Log.d("Join", "Cleared host mode");
     }
 }

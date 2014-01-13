@@ -16,6 +16,7 @@ public class HostActivity extends Activity
 {
     private ArrayList<String> games;
     private String texasPoker = "Poker";
+    private String monopoly = "Monopoly";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -26,6 +27,7 @@ public class HostActivity extends Activity
         ListView lv = (ListView)findViewById(R.id.listView);
         games = new ArrayList<String>();
         games.add(texasPoker);
+        games.add(monopoly);
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, games);
         lv.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -38,11 +40,23 @@ public class HostActivity extends Activity
                 {
                     createPokerLobby();
                 }
+                else if (s.equals(monopoly))
+                {
+                    createMonopolyLobby();
+                }
             }
         });
 
         GPC.setHostMode();
 
+    }
+
+    private void createMonopolyLobby()
+    {
+        GPC.getHost().createLobby(monopoly + " by Unknown");
+        GPC.getHost().getLobby().setGameName(monopoly);
+        Intent intent = new Intent(this, LobbyActivity.class);
+        startActivity(intent);
     }
 
     private void createPokerLobby()

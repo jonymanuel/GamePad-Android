@@ -2,6 +2,7 @@ package com.gamepad.lib.game;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 /**
@@ -15,10 +16,12 @@ public class Lobby
     private int hostPort;
     private String gameName;
     private int maxPlayers;
+    private long lastActivity;
 
     public Lobby()
     {
         players = new ArrayList<LobbyPlayer>();
+        signalActivity();
     }
 
     public int getMaxPlayers()
@@ -28,6 +31,7 @@ public class Lobby
 
     public void setMaxPlayers(int maxPlayers) {
         this.maxPlayers = maxPlayers;
+        signalActivity();
     }
 
     public String getGameName()
@@ -45,7 +49,46 @@ public class Lobby
     }
 
     public void setName(String name) {
+        signalActivity();
         this.name = name;
+    }
+
+    public long getLastActivity()
+    {
+        return lastActivity;
+    }
+
+    public String getPlayerString()
+    {
+        String curPlayers = "";
+        for(LobbyPlayer player : players)
+        {
+            if(!player.getName().equals(players.get(players.size() - 1)))
+            {
+                curPlayers += player.getName() + ":";
+            }
+            else
+            {
+                curPlayers += player.getName();
+            }
+        }
+        return curPlayers;
+    }
+
+    public boolean isOffline()
+    {
+        long current = new Date().getTime();
+        long diff = current - lastActivity;
+        if(diff >= 10 * 1000)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void signalActivity()
+    {
+        lastActivity = new Date().getTime();
     }
 
     public InetAddress getHostIp() {
@@ -71,6 +114,7 @@ public class Lobby
 
     public void setHostIp(String inetAddress)
     {
+        signalActivity();
         InetAddress addr = null;
         try
         {
@@ -84,6 +128,7 @@ public class Lobby
         {
             this.hostIp = addr;
         }
+        signalActivity();
     }
 
     public int getHostPort() {
@@ -105,10 +150,12 @@ public class Lobby
         {
             addPlayer(player);
         }
+        signalActivity();
     }
 
     public Boolean addPlayer(LobbyPlayer player)
     {
+        signalActivity();
         if(!playerExistsByName(player.getName()))
         {
             players.add(player);
@@ -129,6 +176,7 @@ public class Lobby
 
     public void deletePlayerByName(String name)
     {
+        signalActivity();
         Iterator<LobbyPlayer> pIt = players.iterator();
         while(pIt.hasNext())
         {

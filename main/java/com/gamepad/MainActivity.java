@@ -75,19 +75,13 @@ public class MainActivity extends Activity
             GameActivity.getGameManager().setCurrentGame(new Poker());
         }
         GPC.InitGamePad();
-    }
-
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
         GPC.InitGameWakeLock();
     }
 
     @Override
-    protected void onPause()
+    protected void onDestroy()
     {
-        super.onPause();
+        super.onDestroy();
         GPC.ReleaseGameWakeLock();
     }
 

@@ -28,11 +28,11 @@ public class PingCommand implements ICommand
         Lobby lobby = GPC.getHost().getLobby();
         String lobbyName = lobby.getName();
         String maxPlayers = String.valueOf(lobby.getMaxPlayers());
-        String curPlayers = String.valueOf(lobby.getPlayers().size());
+        String curPlayers = lobby.getPlayerString();
         String gameName = lobby.getGameName();
 
         JSONObject res = new JSONObject();
-        res.put("cmd", "pong");
+        res.put("cmd", "joinlobby");
         res.put("lobbyName", lobbyName);
         res.put("gameName", gameName);
         res.put("maxPlayers", maxPlayers);

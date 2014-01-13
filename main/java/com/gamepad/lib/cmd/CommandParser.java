@@ -1,5 +1,7 @@
 package com.gamepad.lib.cmd;
 
+import android.util.Log;
+
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ public class CommandParser
     public void RegisterCommand(ICommand cmd)
     {
         commands.add(cmd);
+        Log.d("CommandParser", "Registered new command: " + cmd.getCommandString());
     }
 
     public JSONObject parseCommand(String input) throws Exception

@@ -5,6 +5,7 @@ import android.os.PowerManager;
 import android.util.Log;
 
 import com.gamepad.MainActivity;
+import com.gamepad.lib.cmd.CommandParser;
 import com.gamepad.lib.game.Host;
 import com.gamepad.lib.game.Join;
 import com.gamepad.lib.net.Network;
@@ -19,15 +20,21 @@ public class GPC
     private static Join join;
     private static PowerManager.WakeLock gameWakeLock;
     private static PowerManager powerManager;
+    private static CommandParser commandParser;
 
     public static void InitGamePad()
     {
+        commandParser = new CommandParser();
         powerManager = (PowerManager)MainActivity.getContext().getSystemService(Context.POWER_SERVICE);
         gameWakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "GamePadWakeLock");
         network = new Network();
         host = new Host();
         join = new Join();
+    }
 
+    public static CommandParser getCmdParser()
+    {
+        return commandParser;
     }
 
     public static void setHostMode()
