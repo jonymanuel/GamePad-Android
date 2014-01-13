@@ -32,6 +32,7 @@ public class Host implements PacketEvent, Mode
     public void createLobby(String name)
     {
         lobby = new Lobby();
+        lobby.setMaxPlayers(5);
         lobby.setName(name);
     }
 

@@ -29,6 +29,7 @@ public class Join implements PacketEvent, Mode
     private Boolean stopLobbySearcher;
     private Vector _listeners;
     private String localPlayerName;
+    private Vector _lobbyJoinedListeners;
 
 
     public Join()
@@ -66,6 +67,28 @@ public class Join implements PacketEvent, Mode
         Packet packet = new Packet(res.toString());
         packet.setDestination(lobby.getHostIp());
         GPC.getNetwork().sendPacket(packet);
+    }
+
+    private void fireLobbyJoinedEvent()
+    {
+        if(_lobbyJoinedListeners != null && !_lobbyJoinedListeners.isEmpty())
+        {
+            Enumeration e = _lobbyJoinedListeners.elements();
+            while(e.hasMoreElements())
+            {
+                LobbyJoinedEvent joined = (LobbyJoinedEvent)e.nextElement();
+                joined.lobbyJoined();
+            }
+        }
+    }
+
+    public void addLobbyJoinedEventListener(LobbyJoinedEvent event)
+    {
+        if(_lobbyJoinedListeners == null)
+        {
+            _lobbyJoinedListeners = new Vector();
+        }
+        _lobbyJoinedListeners.addElement(event);
     }
 
     private void fireLobbyUpdateEvent()

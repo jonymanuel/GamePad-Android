@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.gamepad.lib.GPC;
 import com.gamepad.lib.game.Lobby;
+import com.gamepad.lib.game.LobbyJoinedEvent;
 import com.gamepad.lib.game.LobbyUpdateEvent;
 
 import java.util.ArrayList;
@@ -50,16 +51,33 @@ public class JoinActivity extends Activity
         lvLobbies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Lobby toJoin = GPC.getJoin().getLobbies().get(i);
-                try{
-                GPC.getJoin().requestJoin(toJoin);
-                }
-                catch(Exception ex)
-                {
-                    ex.printStackTrace();
-                }
+                clickedOnListView(i);
             }
         });
+        GPC.getJoin().addLobbyJoinedEventListener(new LobbyJoinedEvent() {
+            @Override
+            public void lobbyJoined() {
+                joinedLobby();
+            }
+        });
+    }
+
+    private void clickedOnListView(int i)
+    {
+        Lobby toJoin = GPC.getJoin().getLobbies().get(i);
+        try
+        {
+            GPC.getJoin().requestJoin(toJoin);
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+
+    private void joinedLobby()
+    {
+
     }
 
     private void updateLobbyList()
@@ -71,7 +89,7 @@ public class JoinActivity extends Activity
             String game = lobby.getGameName();
             String max = String.valueOf(lobby.getMaxPlayers());
             String cur = String.valueOf(lobby.getPlayers().size());
-            String text = String.format("Name: %s Game: %s (%s/%s)", name, game, max, cur);
+            String text = String.format("Name: %s Game: %s (%s/%s)", name, game, cur, max);
 
             lvLobbiesAdapter.add(text);
         }
