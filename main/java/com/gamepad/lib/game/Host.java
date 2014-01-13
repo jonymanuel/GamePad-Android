@@ -33,6 +33,9 @@ public class Host implements PacketEvent, Mode
     {
         lobby = new Lobby();
         lobby.setMaxPlayers(5);
+        LobbyPlayer host = new LobbyPlayer();
+        host.setName("Host");
+        lobby.addPlayer(host);
         lobby.setName(name);
     }
 

@@ -105,9 +105,12 @@ public class Lobby
         String[] playerNames = input.split(":");
         for(String playerName : playerNames)
         {
-            LobbyPlayer player = new LobbyPlayer();
-            player.setName(playerName);
-            result.add(player);
+            if(playerName.length() > 0 && !playerName.equals(" "))
+            {
+                LobbyPlayer player = new LobbyPlayer();
+                player.setName(playerName);
+                result.add(player);
+            }
         }
         return result.toArray(new LobbyPlayer[0]);
     }

@@ -5,23 +5,28 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.gamepad.lib.GPC;
 import com.gamepad.lib.game.Lobby;
 import com.gamepad.lib.game.LobbyJoinedEvent;
+import com.gamepad.lib.game.LobbyPlayer;
 import com.gamepad.lib.game.LobbyUpdateEvent;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Created by Fabian on 07.01.14.
  */
 public class JoinActivity extends Activity
 {
-    ArrayList<String> lobbies;
-    ArrayAdapter lvLobbiesAdapter;
-    ListView lvLobbies;
+    ExpandableListAdapter elvLobbiesAdapter;
+    ExpandableListView elvLobbies;
+    LinkedHashMap<String, List<String>> lobbies = new LinkedHashMap<String, List<String>>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -29,11 +34,9 @@ public class JoinActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
         GPC.setJoinMode();
+        elvLobbies = (ExpandableListView)findViewById(R.id.elv_lobbies);
 
-        lvLobbies = (ListView)findViewById(R.id.listViewLobbies);
-        lobbies  = new ArrayList<String>();
-        lvLobbiesAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, lobbies);
-        lvLobbies.setAdapter(lvLobbiesAdapter);
+
         updateLobbyList();
 
         GPC.getJoin().addLobbyUpdateEventListener(new LobbyUpdateEvent() {
@@ -48,18 +51,36 @@ public class JoinActivity extends Activity
             }
         });
 
-        lvLobbies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        elvLobbies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 clickedOnListView(i);
             }
         });
+
+
+
+        elvLobbies.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+                final String selected = (String) elvLobbiesAdapter.getChild(
+                        groupPosition, childPosition);
+                Toast.makeText(getBaseContext(), selected, Toast.LENGTH_LONG)
+                        .show();
+
+                return true;
+            }
+        });
+
         GPC.getJoin().addLobbyJoinedEventListener(new LobbyJoinedEvent() {
             @Override
             public void lobbyJoined() {
                 joinedLobby();
             }
         });
+
+
     }
 
     private void clickedOnListView(int i)
@@ -82,19 +103,20 @@ public class JoinActivity extends Activity
 
     private void updateLobbyList()
     {
-        lvLobbiesAdapter.clear();
+        lobbies.clear();
         for(Lobby lobby : GPC.getJoin().getLobbies())
         {
-            String name = lobby.getName();
-            String game = lobby.getGameName();
-            String max = String.valueOf(lobby.getMaxPlayers());
-            String cur = String.valueOf(lobby.getPlayers().size());
-            String text = String.format("Name: %s Game: %s (%s/%s)", name, game, cur, max);
-
-            lvLobbiesAdapter.add(text);
+            ArrayList<LobbyPlayer> lobbyPlayers = lobby.getPlayers();
+            ArrayList<String> playersNames = new ArrayList<String>();
+            String temp = "";
+            for(int p = 0; p < lobbyPlayers.size();p++)
+            {
+                playersNames.add(lobbyPlayers.get(p).getName());
+            }
+            lobbies.put(lobby.getName() + " " + lobby.getGameName(), playersNames);
         }
-
-        lvLobbiesAdapter.notifyDataSetChanged();
+        elvLobbiesAdapter = new ExpandableListAdapter(this, lobbies);
+        elvLobbies.setAdapter(elvLobbiesAdapter);
     }
 
 
