@@ -36,6 +36,13 @@ public class JoinActivity extends Activity
         GPC.setJoinMode();
         elvLobbies = (ExpandableListView)findViewById(R.id.elv_lobbies);
 
+        Lobby lobbie = new Lobby();
+        lobbie.setName("Tokkier");
+        lobbie.setGameName("Gaypad");
+        LobbyPlayer player1 = new LobbyPlayer();
+        player1.setName("Jeroen");
+        lobbie.addPlayer(player1);
+        GPC.getJoin().addLobby(lobbie);
 
         updateLobbyList();
 
