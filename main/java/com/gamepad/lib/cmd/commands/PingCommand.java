@@ -32,7 +32,7 @@ public class PingCommand implements ICommand
         String gameName = lobby.getGameName();
 
         JSONObject res = new JSONObject();
-        res.put("cmd", "joinlobby");
+        res.put("cmd", "pong");
         res.put("lobbyName", lobbyName);
         res.put("gameName", gameName);
         res.put("maxPlayers", maxPlayers);

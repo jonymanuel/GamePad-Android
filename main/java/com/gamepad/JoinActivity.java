@@ -33,7 +33,7 @@ public class JoinActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
-        GPC.setJoinMode();
+
         elvLobbies = (ExpandableListView)findViewById(R.id.elv_lobbies);
 
 
@@ -79,7 +79,7 @@ public class JoinActivity extends Activity
                 joinedLobby();
             }
         });
-
+        GPC.setJoinMode();
 
     }
 

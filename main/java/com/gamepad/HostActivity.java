@@ -46,9 +46,7 @@ public class HostActivity extends Activity
                 }
             }
         });
-
         GPC.setHostMode();
-
     }
 
     private void createMonopolyLobby()
