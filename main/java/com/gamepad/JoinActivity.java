@@ -2,10 +2,14 @@ package com.gamepad;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -36,17 +40,9 @@ public class JoinActivity extends Activity
 
         elvLobbies = (ExpandableListView)findViewById(R.id.elv_lobbies);
 
-        Lobby lobbie = new Lobby();
-        lobbie.setName("Tokkier");
-        lobbie.setGameName("Gaypad");
-        LobbyPlayer player1 = new LobbyPlayer();
-        player1.setName("Jeroen");
-        lobbie.addPlayer(player1);
-        GPC.getJoin().addLobby(lobbie);
-
         //updateLobbyList();
 
-        GPC.getJoin().addLobbyUpdateEventListener(new LobbyUpdateEvent() {
+        /*GPC.getJoin().addLobbyUpdateEventListener(new LobbyUpdateEvent() {
             @Override
             public void onLobbyUpdate() {
                 runOnUiThread(new Runnable() {
@@ -56,7 +52,7 @@ public class JoinActivity extends Activity
                     }
                 });
             }
-        });
+        });*/
 
         elvLobbies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -64,6 +60,16 @@ public class JoinActivity extends Activity
                 clickedOnListView(i);
             }
         });
+
+        Button btnRefresh = (Button)findViewById(R.id.refresh);
+        btnRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateLobbyList();
+            }
+        });
+
+
 
 
 

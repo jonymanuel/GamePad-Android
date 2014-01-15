@@ -49,27 +49,7 @@ public class LobbyActivity extends Activity {
         */
         //Fake lobby maken
 
-        Lobby lobbyTokkie = new Lobby();
-        LobbyPlayer Tokkie = new LobbyPlayer();
-        LobbyPlayer Tosti = new LobbyPlayer();
-        Tokkie.setName("Tokkie");
-        Tosti.setName("Tosti");
-        lobbyTokkie.setGameName("Gabbertjee!");
-        lobbyTokkie.setName("Is het een tokkie of gewoon een dik wijf");
-        lobbyTokkie.addPlayer(Tokkie);
-        lobbyTokkie.addPlayer(Tosti);
-        GPC.getJoin().addLobby(lobbyTokkie);
 
-        Lobby lobby2 = new Lobby();
-        LobbyPlayer Panchito = new LobbyPlayer();
-        LobbyPlayer Panchito2 = new LobbyPlayer();
-        Panchito.setName("Panpanchito");
-        Panchito2.setName("Beunhaas");
-        lobby2.setGameName("twister");
-        lobby2.setName("Salty dog");
-        lobby2.addPlayer(Panchito);
-        lobby2.addPlayer(Panchito2);
-        GPC.getJoin().addLobby(lobby2);
         /*
         createGroupList();
 

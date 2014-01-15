@@ -179,7 +179,7 @@ public class Join implements PacketEvent, Mode
         while(pIt.hasNext())
         {
             Lobby cur = pIt.next();
-            if(cur.getName().equals(lobby.getName()))
+            if(cur.getID() == lobby.getID())
             {
                 Log.d("Join", "The lobby '" + lobby.getName()  + "' exists");
                 return true;
