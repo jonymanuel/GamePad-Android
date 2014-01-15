@@ -12,6 +12,10 @@ import android.widget.ImageView;
 import com.gamepad.lib.GPC;
 import com.gamepad.lib.update.AutoUpdater;
 
+import java.util.concurrent.FutureTask;
+
+import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
+
 public class MainActivity extends Activity
 {
     static Context appContext;
@@ -27,13 +31,8 @@ public class MainActivity extends Activity
     {
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.activity_main);
         appContext = getApplicationContext();
-
-
-
-
 
         ImageView btnLib = (ImageView)findViewById(R.id.joinGame);
         btnLib.setOnClickListener(new View.OnClickListener() {
@@ -49,10 +48,10 @@ public class MainActivity extends Activity
             @Override
             public void onClick(View v)
             {
+                //turnCard();
                 openHostScreen();
             }
         });
-
 
         AsyncTask task = new AsyncTask() {
             @Override
@@ -75,7 +74,28 @@ public class MainActivity extends Activity
         }
         GPC.InitGamePad();
         GPC.InitGameWakeLock();
+
     }
+
+    /*public void turnCard() {
+        ImageView btnLib = (ImageView) findViewById(R.id.joinGame);
+
+        animate(btnLib).setDuration(1000).rotationYBy(180).x(0).y(0);
+        Runnable theTask = new FutureTask<Object>(new Runnable() {
+            public void run() {
+                try {
+                    ImageView btnLib = (ImageView) findViewById(R.id.joinGame);
+                    Thread.sleep(500);
+                    btnLib.setImageResource(R.drawable.btn_host);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, null);
+
+        // start task in a new thread
+        new Thread(theTask).start();
+    }*/
 
     @Override
     protected void onDestroy()
