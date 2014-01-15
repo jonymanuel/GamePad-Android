@@ -38,6 +38,7 @@
                 android:src="@drawable/btn_join"
                 />
 
+
     </LinearLayout>
 
     <LinearLayout
@@ -53,6 +54,14 @@
                 android:src="@drawable/btn_host"
                 />
         </LinearLayout>
+        <ImageView
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/joinTest"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_launcher"
+            />
 
     </LinearLayout>
 

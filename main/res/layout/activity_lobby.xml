@@ -4,32 +4,119 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     tools:context=".MainActivity" >
 
    <LinearLayout android:id="@+id/linear1"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/background_dark"
-    android:gravity="center" >
+    android:gravity="top" >
 
-       <TextView
-           android:id="@+id/text_intro"
-           android:textSize="20sp"
+
+       <LinearLayout
+           android:orientation="vertical"
+           android:layout_width="fill_parent"
+           android:layout_height="80dp"
+           android:background="#2e869c"
+           android:gravity="center_vertical">
+
+           <TextView
+               android:id="@+id/lobbyName"
+               android:textSize="25sp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:gravity="center_horizontal"
+               android:textColor = "#FFFFFF"
+               android:text="Sander's Poker Lobby"
+               android:layout_gravity="center_horizontal" />
+
+           </LinearLayout>
+
+       <LinearLayout
+           android:orientation="vertical"
+           android:layout_width="fill_parent"
+           android:layout_height="80dp"
+           android:gravity="center_vertical">
+
+           <TextView
+               android:id="@+id/gameName"
+               android:textSize="25sp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:gravity="center_horizontal"
+               android:textColor = "#FFFFFF"
+               android:text="Texas Hold'Em"
+               android:layout_gravity="center_horizontal" />
+
+       </LinearLayout>
+
+
+
+       <LinearLayout
+           android:orientation="vertical"
            android:layout_width="wrap_content"
-           android:layout_height="50dp"
-           android:gravity="center_vertical|center_horizontal"
-           android:textColor = "#FFFFFF"
-           android:text="Kies een lobby" />
+           android:layout_height="wrap_content"
+           android:layout_marginTop="0dp">
 
-    <ExpandableListView
-        android:id="@+id/laptop_list"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent">
+           <TextView
+               android:id="@+id/gameName"
+               android:textSize="25sp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:gravity="left"
+               android:textColor = "#FFFFFF"
+               android:text="Players:"
+               android:layout_gravity="center_horizontal" />
 
-    </ExpandableListView>
+               <ListView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center_horizontal"
+               android:id="@+id/playerListView"
+               android:layout_margin="35dp">
+
+               </ListView>
+
+       </LinearLayout>
 
 
-    </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+           <Button android:text="Leave Lobby"
+               android:id="@+id/leave"
+               android:layout_width="130dp"
+               android:layout_height="60dp"
+               android:textColor="#FFFFFF"
+               android:textSize="25sp"
+               android:layout_alignParentBottom="true"
+               android:layout_alignParentRight="false"
+               android:background="#1b9f18">
+           </Button>
+
+           <Button android:text="Start Game"
+               android:id="@+id/Button"
+               android:layout_width="130dp"
+               android:layout_height="60dp"
+               android:textColor="#FFFFFF"
+               android:textSize="25sp"
+               android:layout_alignParentBottom="true"
+               android:layout_alignParentRight="true"
+               android:background="#1b9f18">
+           </Button>
+
+        </RelativeLayout>
+
+
+
+
+
+
+
+   </LinearLayout>
+
 
 </RelativeLayout>

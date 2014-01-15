@@ -54,6 +54,16 @@ public class MainActivity extends Activity
             }
         });
 
+        ImageView btnTest= (ImageView) findViewById(R.id.joinTest);
+        btnTest.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                openLobbyTest();
+            }
+        });
+
 
         AsyncTask task = new AsyncTask() {
             @Override
@@ -88,6 +98,12 @@ public class MainActivity extends Activity
     private void openGameScreen()
     {
         Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
+    }
+
+    private void openLobbyTest()
+    {
+        Intent intent = new Intent(this, LobbyActivity.class);
         startActivity(intent);
     }
 
