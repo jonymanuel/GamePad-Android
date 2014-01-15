@@ -46,7 +46,7 @@ public class LobbyActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby);
-
+        */
         //Fake lobby maken
 
         Lobby lobbyTokkie = new Lobby();
@@ -70,7 +70,7 @@ public class LobbyActivity extends Activity {
         lobby2.addPlayer(Panchito);
         lobby2.addPlayer(Panchito2);
         GPC.getJoin().addLobby(lobby2);
-
+        /*
         createGroupList();
 
         createCollection();

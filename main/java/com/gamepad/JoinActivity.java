@@ -44,7 +44,7 @@ public class JoinActivity extends Activity
         lobbie.addPlayer(player1);
         GPC.getJoin().addLobby(lobbie);
 
-        updateLobbyList();
+        //updateLobbyList();
 
         GPC.getJoin().addLobbyUpdateEventListener(new LobbyUpdateEvent() {
             @Override
