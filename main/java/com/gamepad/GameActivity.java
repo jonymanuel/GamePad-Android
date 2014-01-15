@@ -2,11 +2,8 @@ package com.gamepad;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.webkit.ConsoleMessage;
 
 import com.gamepad.lib.game.GameManager;
-
-import java.io.Console;
 
 /**
  * Author: root

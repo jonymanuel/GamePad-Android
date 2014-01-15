@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.gamepad.lib.GPC;
-import com.gamepad.lib.poker.Poker;
 import com.gamepad.lib.update.AutoUpdater;
 
 public class MainActivity extends Activity
@@ -72,7 +71,7 @@ public class MainActivity extends Activity
 
         if(GameActivity.getGameManager() != null)
         {
-            GameActivity.getGameManager().setCurrentGame(new Poker());
+            //GameActivity.getGameManager().setCurrentGame(new Poker());
         }
         GPC.InitGamePad();
         GPC.InitGameWakeLock();

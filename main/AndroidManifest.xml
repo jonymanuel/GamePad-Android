@@ -32,31 +32,29 @@
         <activity
             android:name="com.gamepad.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
-            android:label="@string/app_name" >
-
-        </activity>
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:label="@string/app_name" />
         <activity
             android:name="com.gamepad.NetworkDebugActivity"
             android:label="@string/title_activity_network_debug" />
         <activity
-            android:name="com.gamepad.GameActivity">
-        </activity>
+            android:name="com.gamepad.GameActivity" />
         <activity
             android:name="com.gamepad.HostActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
-        </activity>
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name="com.gamepad.LobbyActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
-        </activity>
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name="com.gamepad.JoinActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
-        </activity>
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.gamepad.lib.poker.HostGame"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
     </application>
 
     <!--SCREEN SIZE SUPPORTS-->
