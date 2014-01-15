@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.ListView;
 
 import com.gamepad.lib.GPC;
@@ -24,24 +26,20 @@ public class HostActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host);
 
-        ListView lv = (ListView)findViewById(R.id.listView);
+        final HorizontalScrollView lv = (HorizontalScrollView)findViewById(R.id.horizontalScrollView);
         games = new ArrayList<String>();
         games.add(texasPoker);
         games.add(monopoly);
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, games);
-        lv.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        lv.setClickable(true);
 
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lv.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onClick(View view) {
+                int i = lv.indexOfChild(view);
                 String s = games.get(i);
-                if(s.equals(texasPoker))
-                {
+                if (s.equals(texasPoker)) {
                     createPokerLobby();
-                }
-                else if (s.equals(monopoly))
-                {
+                } else if (s.equals(monopoly)) {
                     createMonopolyLobby();
                 }
             }
