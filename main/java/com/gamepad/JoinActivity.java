@@ -1,11 +1,14 @@
 package com.gamepad;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -27,14 +30,15 @@ public class JoinActivity extends Activity
     ExpandableListAdapter elvLobbiesAdapter;
     ExpandableListView elvLobbies;
     LinkedHashMap<String, List<String>> lobbies = new LinkedHashMap<String, List<String>>();
+    String joinedLobby;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
-
-        elvLobbies = (ExpandableListView)findViewById(R.id.elv_lobbies);
 
         Lobby lobbie = new Lobby();
         lobbie.setName("Tokkier");
@@ -44,7 +48,24 @@ public class JoinActivity extends Activity
         lobbie.addPlayer(player1);
         GPC.getJoin().addLobby(lobbie);
 
-        //updateLobbyList();
+        Button btnJoin = (Button)findViewById(R.id.refresh);
+
+        btnJoin.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                openLobby();
+            }
+        });
+
+        elvLobbies = (ExpandableListView)findViewById(R.id.elv_lobbies);
+
+
+
+
+
+        updateLobbyList();
 
         GPC.getJoin().addLobbyUpdateEventListener(new LobbyUpdateEvent() {
             @Override
@@ -90,12 +111,19 @@ public class JoinActivity extends Activity
 
     }
 
+    private void openLobby()
+    {
+        Intent intent = new Intent(this, LobbyActivity.class);
+        startActivity(intent);
+    }
+
     private void clickedOnListView(int i)
     {
         Lobby toJoin = GPC.getJoin().getLobbies().get(i);
         try
         {
             GPC.getJoin().requestJoin(toJoin);
+
         }
         catch(Exception ex)
         {
@@ -103,9 +131,9 @@ public class JoinActivity extends Activity
         }
     }
 
-    private void joinedLobby()
-    {
 
+    public void joinedLobby()
+    {
     }
 
     private void updateLobbyList()
@@ -124,6 +152,7 @@ public class JoinActivity extends Activity
         }
         elvLobbiesAdapter = new ExpandableListAdapter(this, lobbies);
         elvLobbies.setAdapter(elvLobbiesAdapter);
+
     }
 
 
