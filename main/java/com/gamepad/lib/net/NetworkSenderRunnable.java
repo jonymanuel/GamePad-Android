@@ -59,6 +59,7 @@ public class NetworkSenderRunnable implements Runnable {
 
     private void threadMethod()
     {
+        Log.d("NetworkSenderRunnable", "Starting network sender thread");
         while(true)
         {
             while(packetQueue.size() > 0)

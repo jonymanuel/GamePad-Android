@@ -37,6 +37,7 @@ public class PingCommand implements ICommand
         res.put("gameName", gameName);
         res.put("maxPlayers", maxPlayers);
         res.put("currentPlayers", curPlayers);
+        res.put("lobbyId", lobby.getID());
 
 
         Packet packet = new Packet(res.toString());
