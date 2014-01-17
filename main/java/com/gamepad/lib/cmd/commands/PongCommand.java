@@ -22,8 +22,10 @@ public class PongCommand implements ICommand {
         String gameName = input.getString("gameName");
         String maxPlayers = input.getString("maxPlayers");
         String currentPlayers = input.getString("currentPlayers");
+        int lobbyId = input.getInt("lobbyId");
         String from = input.getString("from");
-        Lobby lob = new Lobby();
+
+        Lobby lob = new Lobby(lobbyId);
         lob.setName(lobbyName);
         lob.setGameName(gameName);
         lob.setHostIp(from);

@@ -1,5 +1,7 @@
 package com.gamepad.lib.game;
 
+import com.gamepad.lib.helpers.BetterRandom;
+
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,12 +18,21 @@ public class Lobby
     private int hostPort;
     private String gameName;
     private int maxPlayers;
+    private int id;
     private long lastActivity;
 
     public Lobby()
     {
         players = new ArrayList<LobbyPlayer>();
         signalActivity();
+        this.id = BetterRandom.nextInt(999999);
+    }
+
+    public Lobby(int id)
+    {
+        players = new ArrayList<LobbyPlayer>();
+        signalActivity();
+        this.id = id;
     }
 
     public int getMaxPlayers()
@@ -51,6 +62,11 @@ public class Lobby
     public void setName(String name) {
         signalActivity();
         this.name = name;
+    }
+
+    public int getID()
+    {
+        return id;
     }
 
     public long getLastActivity()

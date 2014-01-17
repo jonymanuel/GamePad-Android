@@ -9,7 +9,7 @@
 
     <uses-sdk
         android:minSdkVersion="9"
-        android:targetSdkVersion="17" />
+        android:targetSdkVersion="19" />
 
     <application
         android:allowBackup="true"
@@ -41,8 +41,9 @@
             android:name="com.gamepad.GameActivity" />
         <activity
             android:name="com.gamepad.HostActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
         <activity
             android:name="com.gamepad.LobbyActivity"
             android:screenOrientation="portrait"
