@@ -41,14 +41,9 @@
             android:name="com.gamepad.GameActivity" />
         <activity
             android:name="com.gamepad.HostActivity"
-<<<<<<< HEAD
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-=======
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
->>>>>>> update-1
         <activity
             android:name="com.gamepad.LobbyActivity"
             android:screenOrientation="portrait"
