@@ -2,6 +2,7 @@ package com.gamepad.lib.update;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.os.PowerManager;
 
 import com.gamepad.MainActivity;
@@ -116,7 +117,7 @@ public class DownloadManager
 
                 // download the file
                 input = connection.getInputStream();
-                output = new FileOutputStream("/sdcard/" + fileName);
+                output = new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + fileName);
 
                 byte data[] = new byte[4096];
                 long total = 0;

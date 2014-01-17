@@ -21,5 +21,4 @@
     android:text="Join"
     android:id="@+id/join"
     android:layout_gravity="right"/>
-
 </LinearLayout>
