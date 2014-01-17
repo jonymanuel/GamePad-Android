@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.gamepad.lib.GPC;
+import com.gamepad.lib.poker.HostGame;
 
 import java.util.ArrayList;
 
@@ -82,7 +83,8 @@ public class HostActivity extends Activity
     {
         GPC.getHost().createLobby(texasPoker);
         GPC.getHost().getLobby().setGameName(texasPoker);
-        Intent intent = new Intent(this, LobbyActivity.class);
+        //Intent intent = new Intent(this, LobbyActivity.class);
+        Intent intent = new Intent(this, HostGame.class);
         startActivity(intent);
     }
 

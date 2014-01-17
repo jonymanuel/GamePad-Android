@@ -1,25 +1,17 @@
 package com.gamepad;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-/**
- * Created by sande_000 on 10-1-14.
- */
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter
 {
@@ -68,7 +60,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
             convertView = inflater.inflate(R.layout.child_item, null);
         }
 
-       TextView item = (TextView) convertView.findViewById(R.id.laptop);
+        TextView item = (TextView) convertView.findViewById(R.id.laptop);
 
         item.setText(laptop);
         return convertView;
@@ -90,14 +82,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
         return groupPosition;
     }
 
-    public View getGroupView(int groupPosition, boolean isExpanded,
-                             View convertView, ViewGroup parent) {
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         String laptopName = (String) getGroup(groupPosition);
         if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.group_item,
-                    null);
+            LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = infalInflater.inflate(R.layout.group_item, null);
         }
         TextView item = (TextView) convertView.findViewById(R.id.laptop);
         item.setTypeface(null, Typeface.BOLD);

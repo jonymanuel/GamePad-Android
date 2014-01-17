@@ -1,6 +1,5 @@
 package com.gamepad.lib.cmd.commands;
 
-import com.gamepad.LobbyActivity;
 import com.gamepad.lib.GPC;
 import com.gamepad.lib.cmd.ICommand;
 import com.gamepad.lib.game.LobbyPlayer;

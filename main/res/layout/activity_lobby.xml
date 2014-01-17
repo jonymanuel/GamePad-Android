@@ -22,13 +22,10 @@
            android:textColor = "#FFFFFF"
            android:text="Kies een lobby" />
 
-    <ExpandableListView
-        android:id="@+id/laptop_list"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent">
-
-    </ExpandableListView>
-
+       <ExpandableListView
+            android:id="@+id/laptop_list"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent" />
 
     </LinearLayout>
 

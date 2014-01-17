@@ -4,10 +4,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.gamepad.lib.GPC;
-import com.gamepad.lib.cmd.CommandParser;
 import com.gamepad.lib.cmd.ICommand;
 import com.gamepad.lib.cmd.commands.JoinAcceptedCommand;
-import com.gamepad.lib.cmd.commands.JoinCommand;
 import com.gamepad.lib.cmd.commands.PongCommand;
 import com.gamepad.lib.net.Packet;
 import com.gamepad.lib.net.PacketEvent;
