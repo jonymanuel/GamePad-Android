@@ -7,6 +7,7 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,11 @@ public class LobbyAdapter extends BaseExpandableListAdapter {
     public LobbyAdapter(Activity context, Map<String, List<String>> lobbyCollections) {
         this.context = context;
         this.lobbyCollections = lobbyCollections;
+    }
+
+    public void openLobby()
+    {
+
     }
 
 
@@ -105,7 +111,8 @@ public class LobbyAdapter extends BaseExpandableListAdapter {
         joinBtn.setFocusable(false);
         joinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 System.out.println(  Integer.toString(position) );
             }
         });

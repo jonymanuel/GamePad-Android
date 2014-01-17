@@ -37,7 +37,7 @@ public class JoinActivity extends Activity
         lobbie.setName("Test");
         lobbie.setGameName("Poker");
         LobbyPlayer player1 = new LobbyPlayer();
-        player1.setName("Jeroen");
+        player1.setName("Sander");
         lobbie.addPlayer(player1);
         GPC.getJoin().addLobby(lobbie);
 
@@ -47,7 +47,7 @@ public class JoinActivity extends Activity
             @Override
             public void onClick(View view)
             {
-                openLobby();
+                //openLobby();
             }
         });
 
@@ -95,7 +95,7 @@ public class JoinActivity extends Activity
         GPC.setJoinMode();
     }
 
-    private void openLobby()
+    private void openLobby(int id)
     {
         Intent intent = new Intent(this, LobbyActivity.class);
         startActivity(intent);
