@@ -3,8 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/filt"
-    >
+    android:background="@drawable/filt" >
 
     <LinearLayout
         android:layout_width="260dp"

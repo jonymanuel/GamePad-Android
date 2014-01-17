@@ -20,15 +20,16 @@ public class Table {
 
     public void addCard(Card card)
     {
+        card.setTableCard(true);
         this.cards.add(card);
     }
 
     private void clearCards() {
         cards.clear();
-        //resetTableCard();
     }
 
     public void clearTable() {
         clearCards();
     }
 }
+

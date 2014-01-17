@@ -50,10 +50,10 @@ public class HostGame extends Activity {
             }
         });
 
-        players.add(new Player("Fabi", "99CCFF"));
-        players.add(new Player("Boris", "FFABFF56"));
-        players.add(new Player("Kroky", "FFFF171D"));
-        players.add(new Player("Jan", "FF8E20FF"));
+        players.add(new Player("Fabi",  1, "99CCFF"));
+        players.add(new Player("Boris", 2, "FFABFF56"));
+        players.add(new Player("Kroky", 3, "FFFF171D"));
+        players.add(new Player("Jan",   4, "FF8E20FF"));
 
         setPlayerNames();
         showPlayers();
@@ -76,54 +76,81 @@ public class HostGame extends Activity {
                     p.setCard2(deck.getRandomCard());
                 }
 
-                int count = 1;
                 for(Player p : players) {
 
-                    ImageView card1 = (ImageView) findViewById( getResources().getIdentifier("p" + Integer.toString(count) + "_card1", "id", getPackageName()) );
-                    ImageView card2 = (ImageView) findViewById( getResources().getIdentifier("p" + Integer.toString(count) + "_card2", "id", getPackageName()) );
+                    ImageView card1 = (ImageView) findViewById( getResources().getIdentifier("p" + Integer.toString(p.getPlayerID()) + "_card1", "id", getPackageName()) );
+                    ImageView card2 = (ImageView) findViewById( getResources().getIdentifier("p" + Integer.toString(p.getPlayerID()) + "_card2", "id", getPackageName()) );
 
                     imageParser.setSVGImage(card1, getResources().getIdentifier(deck.getCardResource(p.getCard1()), "raw", getPackageName()));
                     imageParser.setSVGImage(card2, getResources().getIdentifier(deck.getCardResource(p.getCard2()), "raw", getPackageName()));
-
-                    count++;
                 }
 
                 break;
             case 1: // Flop
 
-                for(int i = 0; i < 3; i++) {
-                    table.addCard(deck.getRandomCard());
-                }
+                addTableCard(3);
 
                 imageParser.setSVGImage(table_card1, getResources().getIdentifier(deck.getCardResource(table.getCards(0)), "raw", getPackageName()));
                 imageParser.setSVGImage(table_card2, getResources().getIdentifier(deck.getCardResource(table.getCards(1)), "raw", getPackageName()));
                 imageParser.setSVGImage(table_card3, getResources().getIdentifier(deck.getCardResource(table.getCards(2)), "raw", getPackageName()));
                 break;
             case 2: // Turn
-                table.addCard(deck.getRandomCard());
+                addTableCard(1);
                 imageParser.setSVGImage(table_card4, getResources().getIdentifier(deck.getCardResource(table.getCards(3)), "raw", getPackageName()));
                 break;
             case 3: // River
-                table.addCard(deck.getRandomCard());
+                addTableCard(1);
                 imageParser.setSVGImage(table_card5, getResources().getIdentifier(deck.getCardResource(table.getCards(4)), "raw", getPackageName()));
                 break;
         }
     }
 
-    public void rateHands() {
-        for(Player p : players) {
-            ArrayList<Card> cards = new ArrayList<Card>();
-            cards.addAll(table.getCards());
+    /**
+     * Picks the winner and IN THE FUTURE return(s) the winning player(s)
+     * NEEDS ALOT OF REFACTORING
+     */
+    public void pickWinner()
+    {
+        rateHands();
+        Player player = getHighestCombination();
+        for(Player playerIt : players) {
+            if(playerIt.getResult().getCombinationID() == player.getResult().getCombinationID()) {
+                if(!playerIt.getName().equals(player.getName())) {
+                    if(cardCheck.getHighestHandCard(player.getResult().getCards()).getRank() == 1) {
+                        //Ace High
+                        //Do nothing
+                    }
+                    else if(cardCheck.getHighestHandCard(playerIt.getResult().getCards()).getRank() == 1 && cardCheck.getHighestHandCard(player.getResult().getCards()).getRank() != 1) {
+                        //Ace high
+                        player = playerIt;
+                    }
+                    else if(cardCheck.getHighestHandCard(playerIt.getResult().getCards()).getRank() > cardCheck.getHighestHandCard(player.getResult().getCards()).getRank()) {
+                        //Handcard high
+                        player = playerIt;
+                    }
+                    /*else if() {
+                        //Second Handcard High
+                    }*/
+                }
+            }
+        }
+        printWinner(player);
+    }
 
-            cards.add(p.getCard1());
-            cards.add(p.getCard2());
-            p.setResult(cardCheck.check(cards));
-            cards.clear();
+    private void printWinner(Player player)
+    {
+        Toast.makeText(getBaseContext(), player.getName() + " won with a " + player.getResult().getName(), Toast.LENGTH_SHORT).show();
+        for(Card card : player.getResult().getCards()) {
+            Log.e("WinningCombinations", "Suit:" + card.getSuit() + " " + "Rank:" + card.getRank());
         }
     }
 
-    public void pickWinner() {
-        int count = 1;
+    /**
+     * Gets the player with the highest combination
+     * @return
+     */
+    private Player getHighestCombination()
+    {
         Player winningPlayer = null;
         for(Player player : players) {
             if(winningPlayer == null) {
@@ -132,14 +159,24 @@ public class HostGame extends Activity {
             else if(player.getResult().getCombinationID() > winningPlayer.getResult().getCombinationID()) {
                 winningPlayer = player;
             }
-
-            // Show results
-            TextView tmp = (TextView) findViewById( getResources().getIdentifier("p" + Integer.toString(count) + "_result", "id", getPackageName()));
-            tmp.setText(player.getResult().getName().toUpperCase());
-
-            count++;
         }
-        Toast.makeText(getBaseContext(), winningPlayer.getName() + " heeft gewonnen met een " + winningPlayer.getResult().getName(), Toast.LENGTH_SHORT).show();
+        return winningPlayer;
+    }
+
+    private void rateHands()
+    {
+        for(Player p : players) {
+            ArrayList<Card> cards = new ArrayList<Card>();
+            cards.addAll(table.getCards());
+
+            cards.add(p.getCard1());
+            cards.add(p.getCard2());
+            p.setResult(cardCheck.check(cards));
+            cards.clear();
+
+            TextView tmp = (TextView) findViewById( getResources().getIdentifier("p" + Integer.toString(p.getPlayerID()) + "_result", "id", getPackageName()));
+            tmp.setText(p.getResult().getName());
+        }
     }
 
     public void setBtnText(String btnText) {
@@ -159,47 +196,35 @@ public class HostGame extends Activity {
     }
 
     public void setPlayerNames() {
-        int count = 1;
         for(Player p : players) {
-            TextView tmp = (TextView) findViewById( getResources().getIdentifier("p" + Integer.toString(count) + "_name", "id", getPackageName()) );
+            TextView tmp = (TextView) findViewById( getResources().getIdentifier("p" + Integer.toString(p.getPlayerID()) + "_name", "id", getPackageName()) );
             tmp.setText( p.getName() );
-            count++;
         }
     }
 
     public void showPlayers() {
-        int count = 1;
         for(Player p : players) {
-            LinearLayout tmp = (LinearLayout) findViewById( getResources().getIdentifier("p" + Integer.toString(count) + "_block", "id", getPackageName()) );
+            LinearLayout tmp = (LinearLayout) findViewById( getResources().getIdentifier("p" + Integer.toString(p.getPlayerID()) + "_block", "id", getPackageName()) );
             tmp.setVisibility(View.VISIBLE);
-            count++;
         }
     }
 
     public void resetPlayerResults() {
-
-        int count = 1;
         for(Player p : players) {
-
-            TextView tmp = (TextView) findViewById( getResources().getIdentifier("p" + Integer.toString(count) + "_result", "id", getPackageName()));
+            TextView tmp = (TextView) findViewById( getResources().getIdentifier("p" + Integer.toString(p.getPlayerID()) + "_result", "id", getPackageName()));
             tmp.setText("");
-
-            count++;
         }
     }
 
     public void resetPlayerCards() {
 
-        int count = 1;
         for(Player p : players) {
 
-            ImageView card1 = (ImageView) findViewById( getResources().getIdentifier("p" + Integer.toString(count) + "_card1", "id", getPackageName()) );
-            ImageView card2 = (ImageView) findViewById( getResources().getIdentifier("p" + Integer.toString(count) + "_card2", "id", getPackageName()) );
+            ImageView card1 = (ImageView) findViewById( getResources().getIdentifier("p" + Integer.toString(p.getPlayerID()) + "_card1", "id", getPackageName()) );
+            ImageView card2 = (ImageView) findViewById( getResources().getIdentifier("p" + Integer.toString(p.getPlayerID()) + "_card2", "id", getPackageName()) );
 
             imageParser.setSVGImage(card1, getResources().getIdentifier("back", "raw", getPackageName()));
             imageParser.setSVGImage(card2, getResources().getIdentifier("back", "raw", getPackageName()));
-
-            count++;
         }
     }
 
@@ -209,5 +234,12 @@ public class HostGame extends Activity {
         imageParser.setSVGImage(table_card3, getResources().getIdentifier("back", "raw", getPackageName()));
         imageParser.setSVGImage(table_card4, getResources().getIdentifier("back", "raw", getPackageName()));
         imageParser.setSVGImage(table_card5, getResources().getIdentifier("back", "raw", getPackageName()));
+    }
+
+    private void addTableCard(int i)
+    {
+        for(int j = 0; j < i; j++) {
+            table.addCard(deck.getRandomCard());
+        }
     }
 }

@@ -18,29 +18,31 @@ public class CardCheck {
     public Result check(ArrayList<Card> cards)
     {
         sortCards(cards);
-        ArrayList<Card> winningCards = new ArrayList<Card>();
+
         int combinationID;
         String winningCombination;
+        ArrayList<Card> winningCards = new ArrayList<Card>();
+
         if(sequentialCheck(cards) != null) {        //Royal flush, Straight Flush, Straight
             winningCards = sequentialCheck(cards);
             if(suitCheck(winningCards)) {
                 if(getLastCard(winningCards).getRank() == 1) {
-                    combinationID = 8;
+                    combinationID = 9;
                     winningCombination = "Royal Flush";
                 }
                 else {
-                    combinationID = 7;
+                    combinationID = 8;
                     winningCombination = "Straight Flush";
                 }
             }
             else {
-                combinationID = 6;
+                combinationID = 7;
                 winningCombination = "Straight";
             }
         }
         else if(rankCheck(4, cards) != null) {      //Four of a Kind
             winningCards = rankCheck(4,cards);
-            combinationID = 5;
+            combinationID = 6;
             winningCombination = "Four of a Kind";
         }
         else if(rankCheck(3, cards) != null) {      //Full House, Three of a Kind
@@ -76,7 +78,59 @@ public class CardCheck {
             combinationID = 0;
             winningCombination = "High Card";
         }
+        //Temp place for tablecard check
+        if(onlyTableCards(winningCards)) {
+            winningCards.clear();
+            winningCards.add(getHighestHandCard(cards));
+            combinationID = 0;
+            winningCombination = "High Card";
+        }
         return new Result(winningCards, winningCombination, combinationID);
+    }
+
+    /**
+     * Gets the highest NON-tablecard
+     * @param cards
+     * @return
+     */
+    public Card getHighestHandCard(ArrayList<Card> cards)
+    {
+        Card highestCard = null;
+        for(Card card : cards) {
+            if(!card.isTableCard()) {
+                if(highestCard != null) {
+                    if(card.getRank() == 1) {
+                        highestCard = card;
+                        break;
+                    }
+                    else if(highestCard.getRank() < card.getRank()) {
+                        highestCard = card;
+                    }
+                }
+                else {
+                    highestCard = card;
+                }
+            }
+        }
+        return highestCard;
+    }
+
+    /**
+     * Check if there are only table cards
+     * @param cards
+     * @return
+     */
+    private boolean onlyTableCards(ArrayList<Card> cards)
+    {
+        boolean onlyTableCards = true;
+        for(Card card : cards)
+        {
+            if(card.isTableCard() != true)
+            {
+                onlyTableCards = false;
+            }
+        }
+        return onlyTableCards;
     }
 
     /**
@@ -100,11 +154,11 @@ public class CardCheck {
                     winningCards.add(card);
                 }
                 else if(getLastCard(winningCards).getRank() == card.getRank()) {
-                    if(getLastCard(winningCards).getSuit() > card.getSuit())
+                    /*if(getLastCard(winningCards).getSuit() > card.getSuit())
                     {
                         winningCards.remove(winningCards.size() - 1);
                         winningCards.add(card);
-                    }
+                    }*/
                 }
                 else if(winningCards.size() <= 2) {     //Not enough cards left for straight
                     winningCards.clear();
@@ -115,15 +169,16 @@ public class CardCheck {
         if(getLastCard(winningCards).getRank() == 13 && cards.get(0).getRank() == 1) {
             winningCards.add(cards.get(0));
         }
-        if(winningCards.size() > 4) {       //Enough cards to make a straight
-            /*if(winningCards.size() > 5) {
-                while (winningCards.size() != 5) {
-                    winningCards.remove(0);
-                }
-            }*/
+
+        if(winningCards.size() > 4) {
+            while(winningCards.size() > 5) {
+                winningCards.remove(0);
+            }
             return winningCards;
         }
-        return null;
+        else {
+            return null;
+        }
     }
 
     /**

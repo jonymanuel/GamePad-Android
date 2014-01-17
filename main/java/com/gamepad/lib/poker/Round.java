@@ -48,7 +48,7 @@ public class Round  {
                 // Show players cards
 
                 // Rate them
-                hostGame.rateHands();
+                hostGame.pickWinner();
 
                 // Pick winner
                 hostGame.pickWinner();

@@ -123,6 +123,4 @@ public class JoinActivity extends Activity
         elvLobbiesAdapter = new ExpandableListAdapter(this, lobbies);
         elvLobbies.setAdapter(elvLobbiesAdapter);
     }
-
-
 }

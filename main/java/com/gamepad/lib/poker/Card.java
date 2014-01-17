@@ -23,4 +23,13 @@ public class Card {
     public int getRank() {
         return rank;
     }
+
+    public boolean isTableCard() {
+        return tableCard;
+    }
+
+    public Card setTableCard(boolean tableCard) {
+        this.tableCard = tableCard;
+        return this;
+    }
 }

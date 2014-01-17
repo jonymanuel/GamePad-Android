@@ -92,6 +92,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
         item.setTypeface(null, Typeface.BOLD);
         item.setText(laptopName);
         return convertView;
+
     }
 
     public boolean hasStableIds() {

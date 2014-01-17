@@ -2,14 +2,14 @@ package com.gamepad.lib.poker;
 
 public class Player {
 
-    String name;
+    String name, color;
+    int playerID;
     Card card1, card2;
     Result result;
 
-    public Player(String name, String color) {
+    public Player(String name, int playerID, String color) {
         this.name = name;
-
-        
+        this.playerID = playerID;
     }
 
     public Card getCard1() {
@@ -45,4 +45,9 @@ public class Player {
     public String getName() {
         return name;
     }
+
+    public int getPlayerID() {
+        return playerID;
+    }
 }
+
