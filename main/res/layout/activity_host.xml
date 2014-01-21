@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal">
 <HorizontalScrollView
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -17,20 +13,19 @@
         <ImageButton
             android:layout_width="300dp"
             android:layout_height="fill_parent"
-            android:background="@drawable/chflat"
-            android:id="@+id/game_2"/>
+            android:background="@drawable/thflat"
+            android:id="@+id/game_1"/>
 
         <ImageButton
             android:layout_width="300dp"
             android:layout_height="fill_parent"
-            android:background="@drawable/thflat"
-            android:id="@+id/game_0"/>
+            android:background="@drawable/chflat"
+            android:id="@+id/game_2" />
 
         <ImageButton
             android:layout_width="300dp"
             android:layout_height="fill_parent"
             android:background="@drawable/mpflat"
-            android:id="@+id/game_1"/>
+            android:id="@+id/game_3" />
     </LinearLayout>
 </HorizontalScrollView>
-</LinearLayout>

@@ -12,6 +12,7 @@ import com.gamepad.lib.GPC;
 import com.gamepad.lib.game.Lobby;
 import com.gamepad.lib.game.LobbyJoinedEvent;
 import com.gamepad.lib.game.LobbyPlayer;
+import com.gamepad.lib.game.LobbyUpdateEvent;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -34,9 +35,9 @@ public class JoinActivity extends Activity
 
         elvLobbies = (ExpandableListView)findViewById(R.id.elv_lobbies);
 
-        //updateLobbyList();
+        /*updateLobbyList();
 
-        /*GPC.getJoin().addLobbyUpdateEventListener(new LobbyUpdateEvent() {
+        GPC.getJoin().addLobbyUpdateEventListener(new LobbyUpdateEvent() {
             @Override
             public void onLobbyUpdate() {
                 runOnUiThread(new Runnable() {
@@ -62,10 +63,6 @@ public class JoinActivity extends Activity
                 updateLobbyList();
             }
         });
-
-
-
-
 
         elvLobbies.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 

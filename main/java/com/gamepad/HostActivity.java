@@ -23,6 +23,7 @@ public class HostActivity extends Activity
     private ArrayList<String> games;
     private String texasPoker = "Poker";
     private String monopoly = "Monopoly";
+    private String chess = "Chess";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -34,6 +35,7 @@ public class HostActivity extends Activity
         games = new ArrayList<String>();
         games.add(texasPoker);
         games.add(monopoly);
+        games.add(chess);
         initializeSliderButtons();
         GPC.setHostMode();
     }
@@ -51,13 +53,13 @@ public class HostActivity extends Activity
             ImageButton tmpGameBtn = (ImageButton) findViewById( getResources().getIdentifier("game_" + Integer.toString(i), "id", getPackageName()) );
 
             ViewGroup.LayoutParams params = tmpGameBtn.getLayoutParams();
-            params.width =  buttonHeight;
+            params.width = buttonHeight;
             tmpGameBtn.setLayoutParams(params);
 
             tmpGameBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(games.size() > j)
+                    /*if(games.size() > j)
                     {
                         String s = games.get(j);
                         if (s.equals(texasPoker)) {
@@ -65,7 +67,8 @@ public class HostActivity extends Activity
                         } else if (s.equals(monopoly)) {
                             createMonopolyLobby();
                         }
-                    }
+                    }*/
+                    createPokerLobby();
                 }
             });
         }
