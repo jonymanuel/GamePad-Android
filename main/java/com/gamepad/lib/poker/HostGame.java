@@ -68,7 +68,7 @@ public class HostGame extends Activity {
         // }
     }
 
-    public void playCards(int action) {
+    public void playPoker(int action) {
         switch(action) {
             case 0: // Deal poker_client cards
                 for(Player p : players) {
@@ -90,17 +90,17 @@ public class HostGame extends Activity {
 
                 addTableCard(3);
 
-                imageParser.setSVGImage(table_card1, getResources().getIdentifier(deck.getCardResource(table.getCards(0)), "raw", getPackageName()));
-                imageParser.setSVGImage(table_card2, getResources().getIdentifier(deck.getCardResource(table.getCards(1)), "raw", getPackageName()));
-                imageParser.setSVGImage(table_card3, getResources().getIdentifier(deck.getCardResource(table.getCards(2)), "raw", getPackageName()));
+                imageParser.setSVGImage(table_card1, getResources().getIdentifier(deck.getCardResource(table.getCard(0)), "raw", getPackageName()));
+                imageParser.setSVGImage(table_card2, getResources().getIdentifier(deck.getCardResource(table.getCard(1)), "raw", getPackageName()));
+                imageParser.setSVGImage(table_card3, getResources().getIdentifier(deck.getCardResource(table.getCard(2)), "raw", getPackageName()));
                 break;
             case 2: // Turn
                 addTableCard(1);
-                imageParser.setSVGImage(table_card4, getResources().getIdentifier(deck.getCardResource(table.getCards(3)), "raw", getPackageName()));
+                imageParser.setSVGImage(table_card4, getResources().getIdentifier(deck.getCardResource(table.getCard(3)), "raw", getPackageName()));
                 break;
             case 3: // River
                 addTableCard(1);
-                imageParser.setSVGImage(table_card5, getResources().getIdentifier(deck.getCardResource(table.getCards(4)), "raw", getPackageName()));
+                imageParser.setSVGImage(table_card5, getResources().getIdentifier(deck.getCardResource(table.getCard(4)), "raw", getPackageName()));
                 break;
         }
     }

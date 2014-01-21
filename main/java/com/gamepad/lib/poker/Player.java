@@ -36,8 +36,7 @@ public class Player {
         return result;
     }
 
-    public void clear()
-    {
+    public void clear() {
         card1 = null;
         card2 = null;
     }

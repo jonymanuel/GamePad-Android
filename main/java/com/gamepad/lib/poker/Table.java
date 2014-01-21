@@ -14,7 +14,7 @@ public class Table {
         return cards;
     }
 
-    public Card getCards(int index) {
+    public Card getCard(int index) {
         return cards.get(index);
     }
 
