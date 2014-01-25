@@ -8,8 +8,6 @@ public class Player {
 
     public Player(String name, String color) {
         this.name = name;
-
-        
     }
 
     public Card getCard1() {

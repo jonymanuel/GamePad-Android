@@ -29,11 +29,23 @@ public class JoinActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
-
         initRefreshButton();
         initLobbyListView();
         initLobbyJoinEventListener();
         GPC.setJoinMode();
+    }
+
+    private void initJoinButton() {
+
+        Button btnJoin = (Button) findViewById(R.id.joinBn);
+        if (btnJoin != null) {
+            btnJoin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    View view2 = view;
+                }
+            });
+        }
     }
 
     private void initRefreshButton() {
@@ -86,9 +98,10 @@ public class JoinActivity extends Activity {
     }
 
     /*
-    * Get called when the client received a successfull client join accepted packet
+    * Get called when the client received a successful client join accepted packet
     * */
     public void joinedLobby() {
+
     }
 
     private void updateLobbyList() {
@@ -100,10 +113,12 @@ public class JoinActivity extends Activity {
             for (int p = 0; p < lobbyPlayers.size(); p++) {
                 playersNames.add(lobbyPlayers.get(p).getName());
             }
-            lobbies.put(lobby.getName() + " " + lobby.getGameName(), playersNames);
+            lobbies.put(lobby.getName(), playersNames);
 
         }
+
         elvLobbiesAdapter = new LobbyAdapter(this, lobbies);
         elvLobbies.setAdapter(elvLobbiesAdapter);
+        initJoinButton();
     }
 }

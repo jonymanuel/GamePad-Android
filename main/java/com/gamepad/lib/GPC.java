@@ -21,6 +21,7 @@ public class GPC
     private static PowerManager.WakeLock gameWakeLock;
     private static PowerManager powerManager;
     private static CommandParser commandParser;
+    private static boolean isHost;
 
     public static void InitGamePad()
     {
@@ -41,15 +42,20 @@ public class GPC
     {
         join.clearMode();
         host.initMode();
+        isHost = true;
     }
 
     public static void setJoinMode()
     {
         host.clearMode();
         join.initMode();
+        isHost = false;
     }
 
-
+    public static boolean getIsHost()
+    {
+        return isHost;
+    }
 
     public static Host getHost()
     {

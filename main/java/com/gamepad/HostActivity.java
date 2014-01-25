@@ -84,7 +84,7 @@ public class HostActivity extends Activity
         GPC.getHost().createLobby(texasPoker);
         GPC.getHost().getLobby().setGameName(texasPoker);
         //Intent intent = new Intent(this, LobbyActivity.class);
-        Intent intent = new Intent(this, HostGame.class);
+        Intent intent = new Intent(this, LobbyActivity.class);
         startActivity(intent);
     }
 
