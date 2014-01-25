@@ -26,41 +26,14 @@ import java.util.Map;
  */
 
 
-public class LobbyActivity extends Activity
-{
+public class LobbyActivity extends Activity {
 
-    ListView listView ;
+    ListView listView;
     String joinedLobby;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby);
-
-        // Get ListView object from xml
-        listView = (ListView) findViewById(R.id.playerListView);
-
-        //GPC.getJoin().getCurrentLobby();
-
-        /*
-        createGroupList();
-
-        // Defined Array values to show in ListView
-        String[] values = new String[] { "Android List View",
-                "Kroki",
-                "Fabi",
-                "Sander",
-                "Jordi fag"
-        };
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, values);
-
-
-        // Assign adapter to ListView
-        listView.setAdapter(adapter);
-
-
-   }
+    }
 }
