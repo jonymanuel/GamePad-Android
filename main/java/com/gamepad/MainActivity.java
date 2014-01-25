@@ -12,10 +12,6 @@ import android.widget.ImageView;
 import com.gamepad.lib.GPC;
 import com.gamepad.lib.update.AutoUpdater;
 
-import java.util.concurrent.FutureTask;
-
-import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
-
 public class MainActivity extends Activity
 {
     static Context appContext;
@@ -52,7 +48,6 @@ public class MainActivity extends Activity
                 openHostScreen();
             }
         });
-
         AsyncTask task = new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] objects) {
@@ -107,6 +102,12 @@ public class MainActivity extends Activity
     private void openGameScreen()
     {
         Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
+    }
+
+    private void openLobbyTest()
+    {
+        Intent intent = new Intent(this, LobbyActivity.class);
         startActivity(intent);
     }
 

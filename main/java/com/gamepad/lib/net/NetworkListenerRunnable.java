@@ -7,6 +7,8 @@ import com.gamepad.lib.GPC;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Vector;
 
@@ -81,13 +83,14 @@ public class NetworkListenerRunnable implements Runnable
         {
             try
             {
+                GPC.getNetwork().getLocalIps();
                 byte[] receiveData = new byte[4096];
                 DatagramPacket result = new DatagramPacket(receiveData,receiveData.length);
 
                 server.receive(result);
-                String localIp = GPC.getNetwork().getLocalIp().toString();
+                ArrayList<String> localIps = GPC.getNetwork().getLocalIps();
                 String resultIp = result.getAddress().toString();
-                if(localIp.equals(resultIp))
+                if(localIps.contains(resultIp))
                 {
                     continue;
                 }
