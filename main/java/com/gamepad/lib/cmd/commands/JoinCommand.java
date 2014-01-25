@@ -23,7 +23,7 @@ public class JoinCommand implements ICommand
         LobbyPlayer player = new LobbyPlayer();
         player.setName(input.getString("playername"));
         player.setIp(input.getString("from"));
-        GPC.getHost().getLobby().addPlayer(player);
+        GPC.getHost().joinPlayer(player);
         String from = input.getString("from");
 
         JSONObject res = new JSONObject();

@@ -11,12 +11,16 @@ import com.gamepad.lib.net.PacketEvent;
 
 import org.json.JSONObject;
 
+import java.util.Enumeration;
+import java.util.Vector;
+
 /**
  * Created by Fabian on 16.12.13.
  */
 public class Host implements PacketEvent, Mode
 {
     private Lobby lobby;
+    private Vector _listeners;
 
     public Host()
     {
@@ -38,6 +42,28 @@ public class Host implements PacketEvent, Mode
         lobby.setName(name);
     }
 
+    private void fireLobbyUpdateEvent()
+    {
+        if (_listeners != null && !_listeners.isEmpty())
+        {
+            Enumeration e = _listeners.elements();
+            while (e.hasMoreElements())
+            {
+                LobbyUpdateEvent lue = (LobbyUpdateEvent) e.nextElement();
+                lue.onLobbyUpdate();
+            }
+        }
+    }
+
+    public void addLobbyUpdateEventListener(LobbyUpdateEvent listener)
+    {
+        if (_listeners == null)
+        {
+            _listeners = new Vector();
+        }
+        _listeners.addElement(listener);
+    }
+
     public void destroyLobby()
     {
         lobby = null;
@@ -48,6 +74,12 @@ public class Host implements PacketEvent, Mode
         GPC.getCmdParser().clearCommands();
         GPC.getCmdParser().RegisterCommand(new PingCommand());
         GPC.getCmdParser().RegisterCommand(new JoinCommand());
+    }
+
+    public void joinPlayer(LobbyPlayer player)
+    {
+        getLobby().addPlayer(player);
+        fireLobbyUpdateEvent();
     }
 
     @Override
