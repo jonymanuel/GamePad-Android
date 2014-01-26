@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gamepad.R;
+import com.gamepad.lib.GPC;
+import com.gamepad.lib.game.LobbyPlayer;
 
 import java.util.ArrayList;
 
@@ -24,12 +26,15 @@ public class HostGame extends Activity {
     public Round round;
     public Table table;
     public ArrayList<Player> players = new ArrayList<Player>();
+    private String[] defaultColors;
+    int nextColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.poker_host);
-
+        defaultColors = new String[] { "99CCFF",  "FFABFF56", "FFFF171D", "FF8E20FF" };
+        nextColor = 0;
         deck = new Deck();
         cardCheck = new CardCheck();
         imageParser = new ImageParser(this);
@@ -49,11 +54,17 @@ public class HostGame extends Activity {
                 round.nextStep();
             }
         });
-
-        players.add(new Player("Fabi", "99CCFF"));
-        players.add(new Player("Boris", "FFABFF56"));
-        players.add(new Player("Kroky", "FFFF171D"));
-        players.add(new Player("Jan", "FF8E20FF"));
+        synchronized (GPC.getHost().getLobby().getPlayers())
+        {
+            for(LobbyPlayer lp : GPC.getHost().getLobby().getPlayers())
+            {
+                if(lp.getName().equals(GPC.getJoin().getLocalPlayerName()))
+                {
+                    continue;
+                }
+                players.add(new Player(lp.getName(), defaultColors[nextColor++]));
+            }
+        }
 
         setPlayerNames();
         showPlayers();
@@ -66,6 +77,10 @@ public class HostGame extends Activity {
             deck = new Deck();
             Log.e("Deck", "NEW DECK");
         // }
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 
     public void playCards(int action) {

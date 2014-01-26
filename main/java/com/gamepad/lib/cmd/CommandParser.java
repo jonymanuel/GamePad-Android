@@ -40,7 +40,7 @@ public class CommandParser
     {
         for(ICommand command : commands)
         {
-            if(command.getCommandString().equals(commandString.trim().toLowerCase()))
+            if(command.getCommandString().toLowerCase().equals(commandString.toLowerCase()))
             {
                 return command;
             }

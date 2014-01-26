@@ -4,6 +4,7 @@ import com.gamepad.lib.net.Packet;
 import com.gamepad.lib.net.PacketEvent;
 
 import java.net.InetAddress;
+import java.util.Date;
 
 /**
  * Created by Fabian on 16.12.13.
@@ -13,10 +14,11 @@ public class LobbyPlayer implements PacketEvent
     private InetAddress ip;
     private int port;
     private String name;
+    private long lastActivity;
 
     public LobbyPlayer()
     {
-
+        signalActivity();
     }
 
     public void setName(String name) {
@@ -34,6 +36,22 @@ public class LobbyPlayer implements PacketEvent
 
     public void setPort(int port) {
         this.port = port;
+    }
+
+    public boolean isOffline()
+    {
+        long current = new Date().getTime();
+        long diff = current - lastActivity;
+        if(diff >= 10 * 1000)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void signalActivity()
+    {
+        lastActivity = new Date().getTime();
     }
 
     public String getName() {

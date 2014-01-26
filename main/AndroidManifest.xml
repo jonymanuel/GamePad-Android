@@ -56,6 +56,10 @@
             android:name="com.gamepad.lib.poker.HostGame"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.gamepad.lib.poker.PokerClientActivity"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
     </application>
 
     <!--SCREEN SIZE SUPPORTS-->

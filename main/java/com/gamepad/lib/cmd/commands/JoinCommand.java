@@ -23,6 +23,7 @@ public class JoinCommand implements ICommand
         LobbyPlayer player = new LobbyPlayer();
         player.setName(input.getString("playername"));
         player.setIp(input.getString("from"));
+
         GPC.getHost().joinPlayer(player);
         String from = input.getString("from");
 
@@ -33,6 +34,7 @@ public class JoinCommand implements ICommand
         Packet packet = new Packet(res.toString());
         packet.setDestination(from);
         GPC.getNetwork().sendPacket(packet);
+        player.signalActivity();
         return true;
     }
 }

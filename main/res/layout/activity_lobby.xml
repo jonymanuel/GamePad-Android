@@ -87,7 +87,7 @@
             android:layout_height="match_parent">
 
            <Button android:text="Leave Lobby"
-               android:id="@+id/leave"
+               android:id="@+id/btnLeaveLobby"
                android:layout_width="130dp"
                android:layout_height="60dp"
                android:textColor="#FFFFFF"
@@ -98,7 +98,7 @@
            </Button>
 
            <Button android:text="Start Game"
-               android:id="@+id/Button"
+               android:id="@+id/btnStartGame"
                android:layout_width="130dp"
                android:layout_height="60dp"
                android:textColor="#FFFFFF"

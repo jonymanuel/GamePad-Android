@@ -20,6 +20,10 @@ public class JoinAcceptedCommand implements ICommand {
 
     @Override
     public Boolean runCommand(JSONObject input) throws Exception {
+        if(GPC.getJoin().isInLobby())
+        {
+            return false;
+        }
         String joinedLobby = input.getString("joinedlobby");
         Lobby theLobby = GPC.getJoin().getLobbyByName(joinedLobby);
         GPC.getJoin().setCurrentLobby(theLobby);

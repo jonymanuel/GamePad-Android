@@ -18,6 +18,7 @@ import com.gamepad.lib.game.LobbyPlayer;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Vector;
 
 public class JoinActivity extends Activity {
     LobbyAdapter elvLobbiesAdapter;
@@ -62,13 +63,26 @@ public class JoinActivity extends Activity {
         GPC.getJoin().addLobbyJoinedEventListener(new LobbyJoinedEvent() {
             @Override
             public void lobbyJoined() {
-                joinedLobby();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        joinedLobby();
+                    }
+                });
             }
         });
     }
 
     private void initLobbyListView() {
         elvLobbies = (ExpandableListView) findViewById(R.id.elv_lobbies);
+        elvLobbies.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                Lobby lob = GPC.getJoin().getLobbies().get(groupPosition);
+                GPC.getJoin().requestJoin(lob);
+                return true;
+            }
+        });
         elvLobbies.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 
             @Override
@@ -82,41 +96,25 @@ public class JoinActivity extends Activity {
         });
     }
 
-    private void openLobby(int id) {
-        Intent intent = new Intent(this, LobbyActivity.class);
-        startActivity(intent);
-    }
-
-    private void clickedOnListView(int i) {
-        Lobby toJoin = GPC.getJoin().getLobbies().get(i);
-        try {
-            GPC.getJoin().requestJoin(toJoin);
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
     /*
-    * Get called when the client received a successful client join accepted packet
+    * Get called when the client received a successful client join accepted packet. Already called from ui thread!!!
     * */
     public void joinedLobby() {
-
+        Intent intent = new Intent(this, LobbyActivity.class);
+        startActivity(intent);
     }
 
     private void updateLobbyList() {
         lobbies.clear();
         for (Lobby lobby : GPC.getJoin().getLobbies()) {
-            ArrayList<LobbyPlayer> lobbyPlayers = lobby.getPlayers();
+            Vector<LobbyPlayer> lobbyPlayers = lobby.getPlayers();
             ArrayList<String> playersNames = new ArrayList<String>();
             String temp = "";
             for (int p = 0; p < lobbyPlayers.size(); p++) {
                 playersNames.add(lobbyPlayers.get(p).getName());
             }
             lobbies.put(lobby.getName(), playersNames);
-
         }
-
         elvLobbiesAdapter = new LobbyAdapter(this, lobbies);
         elvLobbies.setAdapter(elvLobbiesAdapter);
         initJoinButton();

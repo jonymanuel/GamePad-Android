@@ -20,14 +20,12 @@
             android:background="#FFF"
             android:layout_marginRight="25dp"
             android:layout_marginLeft="25dp" />
-
         <ImageView
             android:layout_width="167dp"
             android:layout_height="236dp"
             android:id="@+id/player_card2"
             android:layout_gravity="center_vertical"
             android:background="#FFF" />
-
     </LinearLayout>
 
     <Button
@@ -56,5 +54,4 @@
         android:layout_below="@+id/raise_btn"
         android:layout_alignParentRight="true"
         android:layout_marginRight="25dp" />
-
 </RelativeLayout>

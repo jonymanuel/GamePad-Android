@@ -2,6 +2,8 @@ package com.gamepad.lib.net;
 
 import android.util.Log;
 
+import com.gamepad.lib.GPC;
+
 import org.json.JSONObject;
 
 import java.net.Inet4Address;
@@ -123,6 +125,7 @@ public class Network implements PacketEvent {
         JSONObject obj = new JSONObject();
         try {
             obj.put("cmd", "ping");
+            obj.put("playerName", GPC.getJoin().getLocalPlayerName());
         } catch (Exception ex) {
         }
 

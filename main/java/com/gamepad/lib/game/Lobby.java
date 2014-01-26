@@ -4,15 +4,17 @@ import com.gamepad.lib.helpers.BetterRandom;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Vector;
 
 /**
  * Created by Fabian on 16.12.13 12:56 in project ${PROJECT_NAME}.
  */
 public class Lobby
 {
-    private ArrayList<LobbyPlayer> players;
+    private Vector<LobbyPlayer> players;
     private String name;
     private InetAddress hostIp;
     private int hostPort;
@@ -23,14 +25,14 @@ public class Lobby
 
     public Lobby()
     {
-        players = new ArrayList<LobbyPlayer>();
+        players = new Vector<LobbyPlayer>();
         signalActivity();
         this.id = BetterRandom.nextInt(999999);
     }
 
     public Lobby(int id)
     {
-        players = new ArrayList<LobbyPlayer>();
+        players = new Vector<LobbyPlayer>();
         signalActivity();
         this.id = id;
     }
@@ -158,7 +160,7 @@ public class Lobby
         this.hostPort = hostPort;
     }
 
-    public ArrayList<LobbyPlayer> getPlayers()
+    public Vector<LobbyPlayer> getPlayers()
     {
         return players;
     }
