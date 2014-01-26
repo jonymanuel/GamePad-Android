@@ -14,6 +14,8 @@ import com.gamepad.R;
 import com.gamepad.lib.GPC;
 import com.gamepad.lib.game.LobbyPlayer;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class HostGame extends Activity {
@@ -62,7 +64,7 @@ public class HostGame extends Activity {
                 {
                     continue;
                 }
-                players.add(new Player(lp.getName(), defaultColors[nextColor++]));
+                players.add(Player.FromLobbyPlayer(lp, defaultColors[nextColor++]));
             }
         }
 
@@ -83,12 +85,27 @@ public class HostGame extends Activity {
     public void onBackPressed() {
     }
 
+    private void sendCardUpdate(Player player)
+    {
+        JSONObject obj = new JSONObject();
+        try
+        {
+            obj.put("cmd", "cardUpdate");
+            obj.put("card1Suit", player.getCard1().getSuit());
+            obj.put("card1Rank", player.getCard1().getRank());
+            obj.put("card2Suit", player.getCard2().getSuit());
+            obj.put("card2Rank", player.getCard2().getRank());
+        }catch(Exception ex){}
+        GPC.getHost().sendPacketToPlayer(player, obj);
+    }
+
     public void playCards(int action) {
         switch(action) {
             case 0: // Deal poker_client cards
                 for(Player p : players) {
                     p.setCard1(deck.getRandomCard());
                     p.setCard2(deck.getRandomCard());
+                    sendCardUpdate(p);
                 }
 
                 int count = 1;

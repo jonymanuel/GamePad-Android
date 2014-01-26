@@ -34,6 +34,13 @@ public class LobbyPlayer implements PacketEvent
         }
     }
 
+    public void setIp(InetAddress addr) {
+        if(addr != null)
+        {
+            this.ip = addr;
+        }
+    }
+
     public void setPort(int port) {
         this.port = port;
     }

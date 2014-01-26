@@ -49,6 +49,7 @@ public class NetworkSenderRunnable implements Runnable {
             byte[] message = messageStr.getBytes();
             DatagramPacket p = new DatagramPacket(message, msg_length, local, server_port);
             s.send(p);
+            Log.d("NetworkSender", "Sent " + messageStr + " to " + packet.getDestination().toString());
         }
         catch(Exception ex)
         {

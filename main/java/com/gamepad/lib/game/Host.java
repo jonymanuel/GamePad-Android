@@ -21,25 +21,21 @@ import java.util.Vector;
 /**
  * Created by Fabian on 16.12.13.
  */
-public class Host implements PacketEvent, Mode
-{
+public class Host implements PacketEvent, Mode {
     private Lobby lobby;
     private Vector _listeners;
     private boolean lobbyDestroyed;
 
-    public Host()
-    {
+    public Host() {
         GPC.getNetwork().addPacketEventListener(this);
         lobbyDestroyed = false;
     }
 
-    public Lobby getLobby()
-    {
+    public Lobby getLobby() {
         return lobby;
     }
 
-    public void createLobby(String name)
-    {
+    public void createLobby(String name) {
         lobbyDestroyed = false;
         lobby = new Lobby();
         lobby.setMaxPlayers(5);
@@ -50,74 +46,62 @@ public class Host implements PacketEvent, Mode
         new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] objects) {
-                while(!lobbyDestroyed)
-                {
-                    try
-                    {
+                while (!lobbyDestroyed) {
+                    try {
                         cleanOfflinePlayers();
+                    } catch (Exception ex) {
                     }
-                    catch(Exception ex){}
                 }
                 return null;
             }
         }.execute();
     }
 
-    private void cleanOfflinePlayers()
-    {
+    private void cleanOfflinePlayers() {
         Iterator<LobbyPlayer> it = lobby.getPlayers().iterator();
         boolean removed = false;
-        while(it.hasNext())
-        {
+        while (it.hasNext()) {
             LobbyPlayer lp = it.next();
-            if(lp.isOffline() && !lp.getName().equals(GPC.getJoin().getLocalPlayerName()))
-            {
+            if (lp.isOffline() && !lp.getName().equals(GPC.getJoin().getLocalPlayerName())) {
                 it.remove();
                 removed = true;
             }
         }
-        if(removed)
-        {
+        if (removed) {
             fireLobbyUpdateEvent();
         }
     }
 
-    private void fireLobbyUpdateEvent()
-    {
-        if (_listeners != null && !_listeners.isEmpty())
-        {
+    private void fireLobbyUpdateEvent() {
+        if (_listeners != null && !_listeners.isEmpty()) {
             Enumeration e = _listeners.elements();
-            while (e.hasMoreElements())
-            {
+            while (e.hasMoreElements()) {
                 LobbyUpdateEvent lue = (LobbyUpdateEvent) e.nextElement();
                 lue.onLobbyUpdate();
             }
         }
     }
 
-    public void addLobbyUpdateEventListener(LobbyUpdateEvent listener)
-    {
-        if (_listeners == null)
-        {
+    public void addLobbyUpdateEventListener(LobbyUpdateEvent listener) {
+        if (_listeners == null) {
             _listeners = new Vector();
         }
         _listeners.addElement(listener);
     }
 
-    public void startGame()
-    {
-        synchronized (lobby.getPlayers())
-        {
+    public void startGame() {
+        synchronized (lobby.getPlayers()) {
 
-            for(LobbyPlayer player : lobby.getPlayers())
-            {
+            for (LobbyPlayer player : lobby.getPlayers()) {
+                if (player.getName().equals(GPC.getJoin().getLocalPlayerName())) {
+                    continue;
+                }
                 sendGameStarted(player.getIp());
             }
         }
     }
 
-    private void sendGameStarted(InetAddress addr)
-    {
+    private void sendGameStarted(InetAddress addr) {
         JSONObject res = new JSONObject();
         try {
             res.put("cmd", "gameStarted");
@@ -125,55 +109,46 @@ public class Host implements PacketEvent, Mode
         }
 
         Packet packet = new Packet(res.toString());
-        packet.setDestination(lobby.getHostIp());
+        packet.setDestination(addr);
         GPC.getNetwork().sendPacket(packet);
     }
 
-    public void removeLobbyUpdateEventListener(LobbyUpdateEvent listener)
-    {
-        if (_listeners == null)
-        {
+    public void removeLobbyUpdateEventListener(LobbyUpdateEvent listener) {
+        if (_listeners == null) {
             _listeners = new Vector();
         }
         _listeners.removeElement(listener);
     }
 
-    public void destroyLobby()
-    {
+    public void destroyLobby() {
         lobbyDestroyed = true;
         lobby = null;
     }
 
-    private void registerCommands()
-    {
+    private void registerCommands() {
         GPC.getCmdParser().clearCommands();
         GPC.getCmdParser().RegisterCommand(new PingCommand());
         GPC.getCmdParser().RegisterCommand(new JoinCommand());
         GPC.getCmdParser().RegisterCommand(new LeaveLobbyCommand());
     }
 
-    public void joinPlayer(LobbyPlayer player)
-    {
+    public void joinPlayer(LobbyPlayer player) {
         getLobby().addPlayer(player);
         fireLobbyUpdateEvent();
     }
 
     @Override
     public void newPacket(Packet p) {
-        if(lobby == null)
-        {
+        if (lobby == null) {
             return;
         }
-        try
-        {
+        try {
             JSONObject obj = GPC.getCmdParser().parseCommand(p.getMessage());
             obj.put("from", p.getFrom().toString().replace("/", ""));
             obj.put("lobbyname", lobby.getName());
             ICommand cmd = GPC.getCmdParser().findCommandByCommandString(obj.getString("cmd"));
             cmd.runCommand(obj);
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -183,20 +158,24 @@ public class Host implements PacketEvent, Mode
         registerCommands();
     }
 
-    public void playerLeft(String playerName)
-    {
+    public void playerLeft(String playerName) {
         Iterator it = lobby.getPlayers().iterator();
-        while(it.hasNext())
-        {
-            LobbyPlayer player = (LobbyPlayer)it.next();
-            if(player.getName().equals(playerName))
-            {
+        while (it.hasNext()) {
+            LobbyPlayer player = (LobbyPlayer) it.next();
+            if (player.getName().equals(playerName)) {
                 it.remove();
                 break;
 
             }
         }
         fireLobbyUpdateEvent();
+    }
+
+    public void sendPacketToPlayer(LobbyPlayer player, JSONObject obj)
+    {
+        Packet packet = new Packet(obj.toString());
+        packet.setDestination(player.getIp());
+        GPC.getNetwork().sendPacket(packet);
     }
 
     @Override
