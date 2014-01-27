@@ -14,6 +14,8 @@ public class BetterRandom {
         {
             rnd = new Random();
         }
+        if(n == 0)
+            return 0;
         return rnd.nextInt(n);
     }
 }

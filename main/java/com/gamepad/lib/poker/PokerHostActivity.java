@@ -18,7 +18,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class HostGame extends Activity {
+public class PokerHostActivity extends Activity {
 
     public ImageView table_card1, table_card2, table_card3, table_card4, table_card5;
     static Button control;

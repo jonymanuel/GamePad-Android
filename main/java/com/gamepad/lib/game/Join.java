@@ -239,7 +239,7 @@ public class Join implements PacketEvent, Mode {
     private void deleteOfflineLobbies() {
         for (Lobby lobby : lobbies) {
             if (lobby.isOffline()) {
-                if (lobby.getID() == curLobby.getID()) {
+                if (curLobby != null && lobby.getID() == curLobby.getID()) {
                     leaveCurrentLobby();
                 }
                 Log.d("Join", "Lobby " + lobby.getName() + " is offline. Deleting...");
@@ -309,6 +309,13 @@ public class Join implements PacketEvent, Mode {
     /* Searches for available hosts in the current network */
     private void searchForHosts() {
         GPC.getNetwork().sendPingBroadcast();
+    }
+
+    public void sendToHost(JSONObject data)
+    {
+        Packet p = new Packet(data.toString());
+        p.setDestination(curLobby.getHostIp());
+        GPC.getNetwork().sendPacket(p);
     }
 
     @Override

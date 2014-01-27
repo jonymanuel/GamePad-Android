@@ -6,15 +6,10 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
-import android.widget.ListView;
 
 import com.gamepad.lib.GPC;
-import com.gamepad.lib.poker.HostGame;
 
 import java.util.ArrayList;
 
@@ -23,6 +18,7 @@ public class HostActivity extends Activity
     private ArrayList<String> games;
     private String texasPoker = "Poker";
     private String monopoly = "Monopoly";
+    private String quiz = "Quiz";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -32,8 +28,8 @@ public class HostActivity extends Activity
 
         final HorizontalScrollView lv = (HorizontalScrollView)findViewById(R.id.horizontalScrollView);
         games = new ArrayList<String>();
+        games.add(quiz);
         games.add(texasPoker);
-        games.add(monopoly);
         initializeSliderButtons();
         GPC.setHostMode();
     }
@@ -44,7 +40,7 @@ public class HostActivity extends Activity
         int buttonHeight = (int) (metrics.heightPixels * 0.9);
 
         int gameCount = games.size();
-        for(int i = 1; i <= gameCount; i++) {
+        for(int i = 0; i < gameCount; i++) {
 
             final int j = i;
 
@@ -62,13 +58,21 @@ public class HostActivity extends Activity
                         String s = games.get(j);
                         if (s.equals(texasPoker)) {
                             createPokerLobby();
-                        } else if (s.equals(monopoly)) {
-                            createMonopolyLobby();
+                        } else if (s.equals(quiz)) {
+                            createQuizLobby();
                         }
                     }
                 }
             });
         }
+    }
+
+    private void createQuizLobby()
+    {
+        GPC.getHost().createLobby(quiz);
+        GPC.getHost().getLobby().setGameName(quiz);
+        Intent intent = new Intent(this, LobbyActivity.class);
+        startActivity(intent);
     }
 
     private void createMonopolyLobby()

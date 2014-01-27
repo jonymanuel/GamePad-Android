@@ -14,8 +14,10 @@ import com.gamepad.lib.game.GameStartedEvent;
 import com.gamepad.lib.game.Lobby;
 import com.gamepad.lib.game.LobbyPlayer;
 import com.gamepad.lib.game.LobbyUpdateEvent;
-import com.gamepad.lib.poker.HostGame;
+import com.gamepad.lib.poker.PokerHostActivity;
 import com.gamepad.lib.poker.PokerClientActivity;
+import com.gamepad.lib.quiz.QuizClientActivity;
+import com.gamepad.lib.quiz.QuizHostActivity;
 
 import java.util.ArrayList;
 
@@ -44,10 +46,8 @@ public class LobbyActivity extends Activity {
         hookEvents();
     }
 
-    private GameStartedEvent createGameStartEvent()
-    {
-        if(gameStartedEvent == null)
-        {
+    private GameStartedEvent createGameStartEvent() {
+        if (gameStartedEvent == null) {
             gameStartedEvent = new GameStartedEvent() {
                 @Override
                 public void gameStarted() {
@@ -63,10 +63,14 @@ public class LobbyActivity extends Activity {
         return gameStartedEvent;
     }
 
-    private void gameStartedEvent()
-    {
-        Intent intent = new Intent(this, PokerClientActivity.class);
-        startActivity(intent);
+    private void gameStartedEvent() {
+        if (GPC.getJoin().getCurrentLobby().getGameName().equals("Quiz")) {
+            Intent intent = new Intent(this, QuizClientActivity.class);
+            startActivity(intent);
+        } else if (GPC.getJoin().getCurrentLobby().getGameName().equals("Poker")) {
+            Intent intent = new Intent(this, PokerClientActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -136,8 +140,13 @@ public class LobbyActivity extends Activity {
     private void startGame() {
         if (GPC.getIsHost()) {
             GPC.getHost().startGame();
-            Intent intent = new Intent(this, HostGame.class);
-            startActivity(intent);
+            if (GPC.getHost().getLobby().getGameName().equals("Quiz")) {
+                Intent intent = new Intent(this, QuizHostActivity.class);
+                startActivity(intent);
+            } else if (GPC.getHost().getLobby().getGameName().equals("Poker")) {
+                Intent intent = new Intent(this, PokerHostActivity.class);
+                startActivity(intent);
+            }
         }
     }
 

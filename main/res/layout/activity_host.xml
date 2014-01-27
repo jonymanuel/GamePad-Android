@@ -18,19 +18,19 @@
             android:layout_width="300dp"
             android:layout_height="fill_parent"
             android:background="@drawable/chflat_small"
-            android:id="@+id/game_2"/>
-
-        <ImageButton
-            android:layout_width="300dp"
-            android:layout_height="fill_parent"
-            android:background="@drawable/thflat_small"
             android:id="@+id/game_0"/>
 
         <ImageButton
             android:layout_width="300dp"
             android:layout_height="fill_parent"
-            android:background="@drawable/mpflat_small"
+            android:background="@drawable/thflat_small"
             android:id="@+id/game_1"/>
+
+        <ImageButton
+            android:layout_width="300dp"
+            android:layout_height="fill_parent"
+            android:background="@drawable/mpflat_small"
+            android:id="@+id/game_2"/>
     </LinearLayout>
 </HorizontalScrollView>
 </LinearLayout>

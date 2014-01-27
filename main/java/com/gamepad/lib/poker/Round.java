@@ -3,9 +3,9 @@ package com.gamepad.lib.poker;
 public class Round  {
 
     private int step = 0;
-    private HostGame hostGame;
+    private PokerHostActivity hostGame;
 
-    public Round(HostGame tg) {
+    public Round(PokerHostActivity tg) {
         this.hostGame = tg;
     }
 
