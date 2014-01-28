@@ -154,12 +154,12 @@ public class Quiz {
     public void buildQuestionsAndAnswers() {
         Answer a1 = new Answer(0, "Barrack Obama");
         Answer a2 = new Answer(1, "Amsterdam");
-        Answer a3 = new Answer(2, "Elzinga");
+        Answer a3 = new Answer(2, "Jackson");
         Answer a4 = new Answer(3, "Peter griffin");
         Question q1 = new Question(0, "Who is the president of the united states?", 0);
         Question q2 = new Question(1, "Who is the main character in Family Guy?", 3);
         Question q3 = new Question(2, "What is the capital city of the Netherlands?", 1);
-        Question q4 = new Question(3, "What is the lastname of Johannes?", 2);
+        Question q4 = new Question(3, "What is the last name of Micheal Jackson?", 2);
         answers.add(a1);
         answers.add(a2);
         answers.add(a3);

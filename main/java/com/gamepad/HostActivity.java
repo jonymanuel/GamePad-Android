@@ -69,7 +69,7 @@ public class HostActivity extends Activity
 
     private void createQuizLobby()
     {
-        GPC.getHost().createLobby(quiz);
+        GPC.getHost().createLobby(quiz + " Demo");
         GPC.getHost().getLobby().setGameName(quiz);
         Intent intent = new Intent(this, LobbyActivity.class);
         startActivity(intent);
@@ -85,7 +85,7 @@ public class HostActivity extends Activity
 
     private void createPokerLobby()
     {
-        GPC.getHost().createLobby(texasPoker);
+        GPC.getHost().createLobby(texasPoker + " Demo");
         GPC.getHost().getLobby().setGameName(texasPoker);
         //Intent intent = new Intent(this, LobbyActivity.class);
         Intent intent = new Intent(this, LobbyActivity.class);
